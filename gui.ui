@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>905</width>
+    <height>697</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTabWidget" name="Camera">
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <widget class="QWidget" name="test">
+       <attribute name="title">
+        <string>Camera</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string>Circle</string>
+       </attribute>
+       <layout class="QFormLayout" name="formLayout">
+        <property name="fieldGrowthPolicy">
+         <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+        </property>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Center : </string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="lineEdit">
+          <property name="text">
+           <string>(0, 0, 0)</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Radius : </string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>Color : </string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>#</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="lineEdit_2">
+            <property name="text">
+             <string>DEADBEEF</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="3" column="1">
+         <widget class="QPushButton" name="pushButton_2">
+          <property name="text">
+           <string>Ajouter</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Cube</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>Plane</string>
+       </attribute>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QListWidget" name="listWidget">
+      <item>
+       <property name="text">
+        <string>Camera(eye=(0, 0, 0), origin=(5,5,5), abscissa=(0,0,1), ordinate=(1,0,0), widthPixels=500, heightPixels=500)</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Circle(centre=(1, 2, 3), radius=5, color=#00CAFE)</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Plane(p1=(0, 0, 0), p2=(1, 1, 1,), p3=(2, 2, 2), color=#11111)</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Cube(p1=(4, 5, 6), p2=(7, 8, 9), p3=(10, 11, 12), p4=(13, 14, 15), color=#C0CACA)</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string/>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton">
+      <property name="text">
+       <string>Enregistrer</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
