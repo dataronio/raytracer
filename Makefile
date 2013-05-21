@@ -1,8 +1,8 @@
-rapportdanalyse: uml.pdf livrables/rapportdanalyse.pdf
+rapportdanalyse: gui.png uml.pdf livrables/rapportdanalyse.pdf
 
 livrables/rapportdanalyse.pdf: rapportdanalyse.tex
-	pdflatex -output-directory livrables rapportdanalyse.tex
-	pdflatex -output-directory livrables rapportdanalyse.tex
+	pdflatex -interaction nonstopmode -output-directory livrables rapportdanalyse.tex
+	pdflatex -interaction nonstopmode -output-directory livrables rapportdanalyse.tex
 
 uml.pdf: livrables/Uml.xmi
 	# l'export depuis umbrello est foireux, seul l'export en svg marche,
@@ -13,6 +13,9 @@ uml.pdf: livrables/Uml.xmi
 	umbrello --export svg livrables/Uml.xmi
 	inkscape -A uml.pdf livrables/class\ diagram.svg
 	rm livrables/class\ diagram.svg
+
+gui.png: gui.ui
+	$(warning "gui.ui modifié, impossible de générer gui.png automatiquement !")
 
 clean:
 	rm -f livrables/rapportdanalyse.aux
