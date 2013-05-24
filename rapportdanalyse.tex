@@ -14,65 +14,96 @@
 \begin{document}
 \maketitle
 
-\section{Scénarios d'utilisation}
-  Notre raytracer sera utilisé pour créer des images à partir de scènes 3D décrites
-  dans des fichiers.
-  Nous fournirons aussi un petit utilitaire pour créer ces fichiers décrivant des scènes.
+\section{Introduction}
+  Ce projet consiste en la création d'une interface utilisateur permettant de
+  gérer une scène 3D et à la réalisation d'un moteur de rendu par lancé de
+  rayons.
 
 \section{Démarche}
-  Nous avons commencé par faire la liste des choses à faire. Nous avons décidé
-  de séparer l'interface graphique de la partie génération d'image. L'interface
+  Nous avons commencé par la liste des choses à faire. Nous avons décidé
+  de séparer l'interface graphique du moteur de rendu. L'interface
   graphique permettra de générer un fichier contenant toutes les informations
-  nécessaires à la génération de l'image qui sera faite par un second programme
-  utilisable en ligne de commande, ce fichier sera simple et pourra être écrit
-  à la main.
+  de la scène nécessaires à la génération de l'image, qui sera faite par un
+  second programme utilisable en ligne de commande, ce fichier sera simple et
+  pourra être écrit à la main.
 
 \section{Tâches effectuées}
   Nous avons commencé à réfléchir à l'organisation des classes, à l'interface
   utilisateur et au format de fichier.
 
-  \subsection{Diagramme d'analyse}
-
-    Nous avons décidé de structurer notre programme de la manière suivante :
-    Tout d'abord, une classe va se charger de lire le fichier décrivant la scène,
-    pour construire un objet scène en conséquence.
-
-    Les objets que contiendra la scène devront tous contenir une méthode
-    \verb+computeColor+, qui sera chargée de donner la couleur d'un rayon
-    arrivant sur l'objet (et appellera récursivement cette même méthode pour
-    d'autres objets, dans la plupart des cas).
-    Une seconde méthode, \verb+distance+, est chargée de donner la distance parcourue
-    le long du rayon passé en paramètre pour arriver jusqu'à l'objet. Elle renvoie « NaN »
-    si le rayon n'intersecte pas l'objet.
-
-    Un objet pourra soit être un « Mesh », composé de plusieurs triangles (ce sera le cas
-    d'un cube), soit être un objet possédant tous les caractéristiques optiques nécessaires.
-
-    Il sera donc très facile de générer notre image : Il suffira, pour chaque rayon commençant par
-    le point de vue de l'observateur et passant par un pixel de l'écran, de trouver quel est le premier
-    object qu'il intersecte grâce à la méthode \verb+distance+, et d'utiliser la méthode \verb+computeColor+
-    pour calculer la couleur de ce point de l'objet.
-
-    La figure \ref{fig:uml} présente les relations entre les différentes classes
-    que nous envisageons d'utiliser.
-
   \subsection{Interface utilisateur}
     La figure \ref{fig:gui} présente l'interface graphique telle que nous
     envisageons de la faire.
 
-    Les différents objets (caméra (c'est à dire point de vue et écran),
+    Les différents objets (caméra,
     sphères, cubes et plans) peuvent être y ajoutés selon leurs différentes
     propriétés optiques et supprimés. Un résumé des objets créés est affiché, on
     peut directement lancer la génération de l'image, ou enregistrer le fichier.
 
-  %\subsection{Diagramme de séquence}
   \subsection{Format de fichier}
     Le fichier sera un fichier texte où chaque objet sera représenté sur une
     ligne. Chaque ligne sera de la forme
-    \verb+Nom(nom1=valeur1, nom2=valeur2, .., nomN=valeurN)+ où \verb+Nom+ est
-    le nom de l'objet à créer (Camera, Sphere, Cube ou Plane), et les noms et
+    \verb+Nom(param1=valeur1, param2=valeur2, .., paramN=valeurN)+
+    où \verb+Nom+ est le nom de l'objet à créer (Camera, Sphere, Cube ou
+    Plane), et les paramètres et
     valeurs sont les données qui caractérisent l'objet, par exemple le rayon
     et le centre pour la Sphere, ou encore la réflectance.
+
+    Pour simplifier l'écriture manuelle du fichier,
+    certains paramètres ont une valeur par défaut, comme l'indice de réfraction.
+
+  \subsection{Moteur de rendu}
+    Nous avons décidé de structurer notre programme de la manière suivante:
+    tout d'abord, la classe \verb+FileReader+ va se charger de parseur le
+    fichier décrivant la scène.
+
+    La méthode \verb+computeColor+ sera chargée de donner la couleur d'un rayon
+    arrivant sur l'objet (et appellera récursivement cette même méthode pour
+    d'autres objets, dans la plupart des cas).
+    Une seconde méthode, \verb+distance+, est chargée de donner la distance
+    parcourue le long du rayon passé en paramètre pour arriver jusqu'à l'objet.
+
+    Un objet pourra soit être un \verb+Mesh+, composé de plusieurs triangles
+    (ce sera le cas d'un cube), soit être un objet possédant tous les
+    caractéristiques optiques nécessaires.
+
+    Il sera donc très facile de générer notre image: il suffira, pour chaque
+    rayon commençant par le point de vue de l'observateur et passant par un
+    pixel de l'écran, de trouver quel est le premier objet qu'il intersecte
+    grâce à la méthode \verb+distance+, et d'utiliser la méthode
+    \verb+computeColor+ pour calculer la couleur de ce point de l'objet.
+
+    Les classes \verb+javax.imageio.spi.ImageWriterSpi+ et 
+    \verb+javax.imageio.ImageWriter+ permettent de gérer les images au format
+    PPM en utilisant les interfaces standards de java, ce qui nous permettra
+    de pouvoir exporter aussi bien en PPM qu'en PNG, format supporté par défaut
+    par java.
+
+    La figure \ref{fig:uml} présente les relations entre les différentes classes
+    que nous envisageons d'utiliser.
+
+\section{Démarche et répartition des tâches} 
+  Nous avons décidé de développer l'interface graphique en dernier. Nous 
+  comptons faire des tests unitaires pour les classes
+  \verb+FileReader+ et \verb+PPMWriter+. Nous ferons des tests d'intégrations
+  en maintenant un ensemble de fichiers de scène qui couvrent l'ensemble des
+  fonctionnalités du programme.
+
+  Nous avons déjà répartis quelques tâches:
+  \begin{itemize}
+    \item Maxime: travaillera sur la GUI;
+    \item Martin: travaillera sur le parseur et l'enregistrement d'image;
+    \item Korantin: rédaction des rapports et comptes rendus, et travail
+      sur le moteur de rendu.
+  \end{itemize}
+
+  Nous allons tous participer à l'implémentation du moteur de rendu.
+
+  %\subsection{Diagramme de séquence}
+    \begin{figure}[p]
+      \centerline{\includegraphics[width=1.2\textwidth]{gui.png}}
+    \caption{Interface graphique\label{fig:gui}}
+    \end{figure}
 
     \newgeometry{width=1.3\linewidth}
     \begin{landscape}
@@ -83,11 +114,5 @@
       \end{figure}
     \end{landscape}
     \restoregeometry
-
-    \begin{figure}[p]
-      \centerline{\includegraphics[width=1.2\textwidth]{gui.png}}
-    \caption{Interface graphique\label{fig:gui}}
-    \end{figure}
-
 \end{document}
 

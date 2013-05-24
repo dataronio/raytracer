@@ -76,7 +76,7 @@
           <item>
            <widget class="QLineEdit" name="lineEdit_2">
             <property name="text">
-             <string>DEADBEEF</string>
+             <string>c0ffee</string>
             </property>
            </widget>
           </item>
@@ -157,7 +157,7 @@
       </item>
       <item>
        <property name="text">
-        <string>Circle(centre=(1, 2, 3), radius=5, color=#c0ffee, reflectance=3)</string>
+        <string>Sphere(centre=(1, 2, 3), radius=5, color=#c0ffee, reflectance=3)</string>
        </property>
       </item>
       <item>
