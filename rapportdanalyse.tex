@@ -30,6 +30,22 @@
   utilisateur et au format de fichier.
 
   \subsection{Diagramme d'analyse}
+
+    Nous avons décidé de structurer notre programme de la manière suivante :
+    Tout d'abord, une classe va se charger de lire le fichier décrivant la scène,
+    pour construire un objet scène en conséquence.
+
+    Les objets que contiendra la scène devront tous contenir une méthode
+    \verb+computeColor+, qui sera chargée de donner la couleur d'un rayon
+    arrivant sur l'objet (et appellera récursivement cette même méthode pour
+    d'autres objets, dans la plupart des cas).
+    Une seconde méthode, \verb+distance+, est chargée de donner la distance parcourue
+    le long du rayon passé en paramètre pour arriver jusqu'à l'objet. Elle renvoie « NaN »
+    si le rayon n'intersecte pas l'objet.
+
+    Un objet pourra soit être un « Mesh », composé de plusieurs triangles (ce sera le cas
+    d'un cube), soit être un objet possédant tous les caractéristiques optiques nécessaires.
+
     La figure \ref{fig:uml} présente les relations entre les différentes classes
     que nous envisageons d'utiliser.
 
