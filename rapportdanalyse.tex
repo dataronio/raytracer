@@ -15,7 +15,9 @@
 \maketitle
 
 \section{Scénarios d'utilisation}
-  Génération d'image à partir d'une scène 3D comportant des objets simples.
+  Notre raytracer sera utilisé pour créer des images à partir de scènes 3D décrites
+  dans des fichiers.
+  Nous fournirons aussi un petit utilitaire pour créer ces fichiers décrivant des scènes.
 
 \section{Démarche}
   Nous avons commencé par faire la liste des choses à faire. Nous avons décidé
@@ -45,6 +47,11 @@
 
     Un objet pourra soit être un « Mesh », composé de plusieurs triangles (ce sera le cas
     d'un cube), soit être un objet possédant tous les caractéristiques optiques nécessaires.
+
+    Il sera donc très facile de générer notre image : Il suffira, pour chaque rayon commençant par
+    le point de vue de l'observateur et passant par un pixel de l'écran, de trouver quel est le premier
+    object qu'il intersecte grâce à la méthode \verb+distance+, et d'utiliser la méthode \verb+computeColor+
+    pour calculer la couleur de ce point de l'objet.
 
     La figure \ref{fig:uml} présente les relations entre les différentes classes
     que nous envisageons d'utiliser.
