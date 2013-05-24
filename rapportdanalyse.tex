@@ -36,14 +36,14 @@
     envisageons de la faire.
 
     Les différents objets (caméra,
-    sphères, cubes et plans) peuvent être y ajoutés selon leurs différentes
+    sphères, cubes et plans) peuvent y être ajoutés selon leurs différentes
     propriétés optiques et supprimés. Un résumé des objets créés est affiché, on
     peut directement lancer la génération de l'image, ou enregistrer le fichier.
 
   \subsection{Format de fichier}
     Le fichier sera un fichier texte où chaque objet sera représenté sur une
     ligne. Chaque ligne sera de la forme
-    \verb+Nom(param1=valeur1, param2=valeur2, .., paramN=valeurN)+
+    \verb+Nom(param1=valeur1, param2=valeur2, ..., paramN=valeurN)+
     où \verb+Nom+ est le nom de l'objet à créer (Camera, Sphere, Cube ou
     Plane), et les paramètres et
     valeurs sont les données qui caractérisent l'objet, par exemple le rayon
@@ -54,7 +54,7 @@
 
   \subsection{Moteur de rendu}
     Nous avons décidé de structurer notre programme de la manière suivante:
-    tout d'abord, la classe \verb+FileReader+ va se charger de parseur le
+    tout d'abord, la classe \verb+FileReader+ va se charger de parser le
     fichier décrivant la scène.
 
     La méthode \verb+computeColor+ sera chargée de donner la couleur d'un rayon
@@ -64,7 +64,7 @@
     parcourue le long du rayon passé en paramètre pour arriver jusqu'à l'objet.
 
     Un objet pourra soit être un \verb+Mesh+, composé de plusieurs triangles
-    (ce sera le cas d'un cube), soit être un objet possédant tous les
+    (ce sera le cas d'un \verb+Cube+), soit être un objet possédant toutes les
     caractéristiques optiques nécessaires.
 
     Il sera donc très facile de générer notre image: il suffira, pour chaque
@@ -73,8 +73,8 @@
     grâce à la méthode \verb+distance+, et d'utiliser la méthode
     \verb+computeColor+ pour calculer la couleur de ce point de l'objet.
 
-    Les classes \verb+javax.imageio.spi.ImageWriterSpi+ et 
-    \verb+javax.imageio.ImageWriter+ permettent de gérer les images au format
+    Les classes \verb+PPMImageWriterSpi+ et 
+    \verb+PPMWriter+ permettent de gérer les images au format
     PPM en utilisant les interfaces standards de java, ce qui nous permettra
     de pouvoir exporter aussi bien en PPM qu'en PNG, format supporté par défaut
     par java.
