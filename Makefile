@@ -1,8 +1,8 @@
-rapportdanalyse: gui.png uml.pdf livrables/rapportdanalyse.pdf
+analyse: gui.png uml.pdf livrables/analyse.pdf
 
-livrables/rapportdanalyse.pdf: rapportdanalyse.tex
-	pdflatex -interaction nonstopmode -output-directory livrables rapportdanalyse.tex
-	pdflatex -interaction nonstopmode -output-directory livrables rapportdanalyse.tex
+livrables/analyse.pdf: analyse.tex
+	pdflatex -interaction nonstopmode -output-directory livrables analyse.tex
+	pdflatex -interaction nonstopmode -output-directory livrables analyse.tex
 
 uml.pdf: livrables/Uml.xmi
 	# l'export depuis umbrello est foireux, seul l'export en svg marche,
@@ -18,10 +18,10 @@ gui.png: gui.ui
 	$(warning "gui.ui modifié, impossible de générer gui.png automatiquement !")
 
 clean:
-	rm -f livrables/rapportdanalyse.aux
-	rm -f livrables/rapportdanalyse.log
-	rm -f livrables/rapportdanalyse.out
+	rm -f livrables/analyse.aux
+	rm -f livrables/analyse.log
+	rm -f livrables/analyse.out
 
 cleanall: clean
-	rm -f livrables/rapportdanalyse.pdf
+	rm -f livrables/analyse.pdf
 	rm -f uml.pdf
