@@ -1,3 +1,11 @@
+all: analyse livrables
+
+livrables:
+	cd livrables; make
+
+tests:
+	cd livrables; make tests
+
 analyse: gui.png uml.pdf livrables/analyse.pdf
 
 livrables/analyse.pdf: analyse.tex
@@ -17,11 +25,19 @@ uml.pdf: livrables/Uml.xmi
 gui.png: gui.ui
 	$(warning "gui.ui modifié, impossible de générer gui.png automatiquement !")
 
-clean:
+doc: force
+	cd livrables; make doc
+
+clean: force
 	rm -f livrables/analyse.aux
 	rm -f livrables/analyse.log
 	rm -f livrables/analyse.out
+	cd livrables; make clean
 
 cleanall: clean
 	rm -f livrables/analyse.pdf
 	rm -f uml.pdf
+	rm -rf livrables/doc
+
+force:
+
