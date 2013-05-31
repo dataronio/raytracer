@@ -1,6 +1,6 @@
 all: analyse livrables
 
-livrables:
+livrables: force
 	cd livrables; make
 
 tests:

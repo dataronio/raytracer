@@ -1,7 +1,5 @@
 package imageio;
 
-import imageio.PPMWriter;
-
 import java.util.Locale;
 import javax.imageio.ImageWriter;
 import javax.imageio.ImageTypeSpecifier;
