@@ -50,6 +50,7 @@ public class Scene
         // on trouve l'objet pour lequel la méthode distance() est la plus faible
         // on appelle la méthode computeColor dessus.
         // voilà :)
+        return null;
     }
 
 
@@ -59,7 +60,7 @@ public class Scene
         {
             for(int y = 0; y < camera.getHeightPixels(); y++)
             {
-                image[x][y] = rayColor(camera.getRay(x, y), 0);
+                //image[x][y] = rayColor(camera.getRay(x, y), 0);
             }
         }
     }

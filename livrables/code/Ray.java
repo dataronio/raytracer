@@ -1,6 +1,6 @@
 
 import java.util.*;
-import javax.vecmath.*;
+
 
 /**
  * Class Ray
@@ -17,18 +17,18 @@ public class Ray {
      */
     public Ray(Point3d origin_, Vector3d direction_)
     {
-        origin = origin_.clone();
-        direction = direction_.clone();
+        origin = new Point3d(origin_);
+        direction = new Vector3d(direction_);
     };
 
     public Point3d getOrigin()
     {
-      return origin.clone();
+      return new Point3d(origin);
     }
 
     public Vector3d getDirection()
     {
-        return direction.clone();
+        return new Vector3d(direction);
     }
 
 }
