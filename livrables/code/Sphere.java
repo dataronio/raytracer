@@ -42,7 +42,7 @@ public class Sphere extends Object {
 
         Point3d P = new Point3d(ray.getOrigin().add(td));
 
-        return new Vector3d(P, center).normalize();
+        return new Vector3d(center, P).normalize();
     }
 }
 
