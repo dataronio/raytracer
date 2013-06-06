@@ -1,4 +1,6 @@
 package gui;
+import java.awt.EventQueue;
+import java.io.File;
 
 /** Classe principale qui interprète les arguments et lance l'interface graphique
  *
@@ -8,9 +10,9 @@ public class SceneManager
 {
     public static void main(String[] args)
     {
-        if(args.length == 0)
+        if(args.length == 0 || (args.length == 1 && args[0].equals("-h")))
         {
-            System.out.println("usage: java gui.SceneManager file");
+            System.out.println("usage: java gui.SceneManager [-h] file");
             System.out.println("");
             System.out.println("Gère un fichier de scène.");
             System.out.println("");
@@ -19,7 +21,12 @@ public class SceneManager
         }
         else
         {
-            String file = args[0];
+            final String filePath = args[0];
+            EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new Gui(new File(filePath));
+                }
+            });
         }
     }
 }

@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.event.*;
 import java.awt.event.*;
 import java.util.*;
+import java.io.*;
 
 /** Interface Graphique pour la gestion de scène.
  * 
@@ -14,16 +15,22 @@ public class Gui
     /** Fenêtre principale */
     private JFrame window;
 
-    /** Scène à gérer */
-    private Scene scene;
+    /** Le widget contenant les onglets */
+    private JTabbedPane tabbedPane;
+
+    /** Fichier scène à gérer */
+    private File file;
+
+    /** La zone de texte */
+    private JTextArea text;
 
     /** Construire une interface de gestion de scène
-     * @param scene la scène à gérer
+     * @param file le fichier scène à gérer
      * @param windowTitle le titre de la scène
      */
-    public Gui(Scene scene, String windowTitle)
+    public Gui(File file, String windowTitle)
     {
-        this.scene = scene;
+        this.file = file;
 
         // Création de la fenêtre
         this.window = new JFrame(windowTitle);
@@ -35,17 +42,38 @@ public class Gui
         JMenu fileMenu = new JMenu("Fichier");
         fileMenu.add(new QuitAction());
 
+        // Mise en place des widgets
+        tabbedPane = new JTabbedPane();
+        JButton addButton = new JButton("Ajouter");
+        addButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        text = new JTextArea();
+        JScrollPane scrollText = new JScrollPane(text);
+
+        Container container = this.window.getContentPane();
+        container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
+        container.add(tabbedPane);
+        container.add(addButton);
+        container.add(scrollText);
+
+        // Ajout des onglets
+        tabbedPane.addTab("Test", new ObjectTab("Test"));
+
+        // Ajout des actions
+        addButton.addActionListener(new AddAction());
+
         // Affichage
+        this.window.setPreferredSize(new Dimension(600, 400));
+        this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.window.pack();
         this.window.setVisible(true);
     }
 
     /** Construire une interface de gestion de scène
-     * @param scene la scène à gérer
+     * @param file le fichier scène à gérer
      */
-    public Gui(Scene scene)
+    public Gui(File file)
     {
-        this(scene, "Gestionnaire de Scène");
+        this(file, "Gestionnaire de Scène");
     }
 
 
@@ -60,6 +88,20 @@ public class Gui
         public void actionPerformed(ActionEvent a)
         {
             window.dispose();
+        }
+    }
+
+    /** Action qui permet d'ajouter un objet dans la scène */
+    class AddAction extends AbstractAction
+    {
+        public void actionPerformed(ActionEvent a)
+        {
+            String line = tabbedPane.getSelectedComponent().toString();
+            
+            if(!text.getText().isEmpty())
+                line = "\n" + line;
+
+            text.append(line);
         }
     }
 }
