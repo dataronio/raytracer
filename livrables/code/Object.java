@@ -45,25 +45,25 @@ abstract public class Object extends BasicObject {
         Ray normal_ray = normal(ray);
 
         double[] E = {0, 0, 0};
-        for(int i = 0; i < 3; i++)
+
+        E[i] = scene.ambientLight[i]*texture.absorbance[i];
+
+        // réflection
+        // TODO
+
+        // réfraction
+        // TODO
+
+        for(Light light : scene.getLights())
         {
-            E[i] = scene.ambientLight[i]*texture.absorbance[i];
+            // composante diffuse
+            double angle_normal_light = normal_ray.getDirection().angle(light.getPosition().sub(normal_ray.getOrigin()));
 
-            // réflection
+            for(int i = 0; i < 3; i++)
+                E[i] = logAdd(E[i], light.getIntensity(i) * (Math.cos(angle_normal_light) ));
+
+            // composante spéculaire
             // TODO
-
-            // réfraction
-            // TODO
-
-            for(Light light : scene.getLights())
-            {
-                // composante diffuse
-                double angle_normal_light = normal_ray.getDirection().angle(ray.getDirection().scale(-1));
-                E[i] = logAdd(E[i], light.intensity[i] * (Math.cos(angle_normal_light) ));
-
-                // composante spéculaire
-                // TODO
-            }
         }
     }
 
