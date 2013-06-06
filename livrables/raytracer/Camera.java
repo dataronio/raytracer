@@ -13,12 +13,26 @@ public class Camera {
      * @param eye_ le point où doit être placé l'œil.
      * @param origin_ l'origine du plan de l'écran.
      * @param abscissa_ le vecteur de l'abscisse, qui va jusqu'au bout de l'écran (origin_ + abscissa_ donne le bout de l'écran).
-     * @param ordonite_ le vecteur de l'ordonnée, qui va jusqu'au bout de l'écran.
+     * @param ordinate_ le vecteur de l'ordonnée, qui va jusqu'au bout de l'écran.
      * @param widthPixels_ la largeur de l'image en pixels.
      * @param heightPixels_ la hauteur de l'image en pixels.
+     * @throws IllegalArgumentException si l'une des référence passée est nulle
+     * ou si les tailles données sont négatives.
      */
-    public Camera(Point3d eye_, Point3d origin_, Vector3d abscissa_, Vector3d ordinate_, int widthPixels_, int heightPixels_)
-    {
+    public Camera(
+        Point3d eye_, Point3d origin_,
+        Vector3d abscissa_, Vector3d ordinate_,
+        int widthPixels_, int heightPixels_
+    ) {
+        if(eye_ == null
+        || origin_ == null
+        || abscissa_ == null
+        || ordinate_ == null
+        || widthPixels_ <= 0
+        || heightPixels_ <= 0) {
+            throw new IllegalArgumentException("Paramètre invalide");
+        }
+
         eye = eye_;
         origin = origin_;
         abscissa = abscissa_;
@@ -28,26 +42,24 @@ public class Camera {
     };
   
     /**
-     * Get the value of widthPixels
-     * @return the value of widthPixels
+     * Retourne la largeur de l'image en pixels.
      */
     public int getWidthPixels ( ) {
         return widthPixels;
     }
 
     /**
-     * Get the value of heightPixels
-     * @return the value of heightPixels
+     * Retourne la hauteur de l'image en pixels.
      */
     public int getHeightPixels ( ) {
         return heightPixels;
     }
 
     /**
-     * Renvoie le rayon qui passe par l'œil et qui se dirige vers le pixel de l'écran dont les coordonnées sont passées en paramètre.
+     * Renvoie le rayon qui passe par l'œil et qui se dirige vers le pixel de
+     * l'écran dont les coordonnées sont passées en paramètre.
      */
-    public Ray getRay(int x, int y)
-    {
+    public Ray getRay(int x, int y) {
         Vector3d v = new Vector3d(screenPoint(x, y), eye);
 
         return new Ray(eye, v);

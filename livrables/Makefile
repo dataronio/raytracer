@@ -1,7 +1,10 @@
-all: imageio
+all: raytracer
 
-raytracer: force
-	javac raytracer/*.java
+raytracer: raytracer/RayTracer.java imageio
+	javac raytracer/RayTracer.java
+
+raytracer/RayTracer.class: raytracer/*.java
+	javac raytracer/RayTracer.java
 
 raytracer/Matrix.class: raytracer/Matrix.java
 	javac raytracer/Matrix.java
@@ -24,7 +27,7 @@ tests/maths/TestMatrix.class: tests/maths/TestMatrix.java
 	javac $^
 
 doc: force
-	javadoc -d ./doc -link http://docs.oracle.com/javase/7/docs/api/ imageio/PPMWriter.java imageio/PPMImageWriterSpi.java
+	javadoc -d ./doc -link http://docs.oracle.com/javase/7/docs/api/ imageio/*.java raytracer/*.java
 
 clean: force
 	rm -f raytracer/*.class

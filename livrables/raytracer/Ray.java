@@ -1,21 +1,18 @@
 package raytracer;
 
-
 import java.util.*;
 
-
 /**
- * Class Ray
+ * Classe représentant un rayon optique par une origine et une direction.
  */
 public class Ray {
-
     private Point3d origin;
     private Vector3d direction;
   
     /**
      * Construit un nouveau rayon.
-     * @param origin_ l'origine du rayon.
-     * @param direction_ la direction du rayon.
+     * @param origin_ l'origine du rayon (copiée).
+     * @param direction_ la direction du rayon (copiée).
      */
     public Ray(Point3d origin_, Vector3d direction_)
     {
@@ -23,14 +20,17 @@ public class Ray {
         direction = new Vector3d(direction_);
     };
 
-    public Point3d getOrigin()
-    {
+    /**
+     * Retourne une copie de l'origine de ce rayon.
+     */
+    public Point3d getOrigin() {
       return new Point3d(origin);
     }
 
-    public Vector3d getDirection()
-    {
+    /**
+     * Retourne une copie de la direction de ce rayon.
+     */
+    public Vector3d getDirection() {
         return new Vector3d(direction);
     }
-
 }

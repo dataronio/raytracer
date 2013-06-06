@@ -1,12 +1,9 @@
 package raytracer;
 
-
 import java.util.*;
 import java.awt.Color;
 
-
 /**
- * Class Object
  * Objet simple, en un seul « bloc », qui contient donc des propriétés optiques
  * uniques et une géométrie simple.
  */
@@ -14,30 +11,22 @@ abstract public class Object extends BasicObject {
 
     protected Texture texture;
 
-    public Object (Texture texture_) {
-        texture = new Texture(texture_);
+    /**
+     * Crée un Object avec la texture donnée, qui n'est pas copiée.
+     */
+    public Object(Texture texture_) {
+        texture = texture_;
     };
 
     /**
-     * Set the value of texture
-     * @param newVar the new value of texture
+     * @return la texture de cet objet, pas une copie.
      */
-    public void setTexture (Texture texture_)
-    {
-        texture = texture_;
-    }
-
-    /**
-     * Get the value of texture
-     * @return the value of texture
-     */
-    public Texture getTexture ()
-    {
+    public Texture getTexture() {
         return texture;
     }
 
     /**
-     * @return       java.awt.Color
+     * @return       Un tableau avec les 3 composantes de couleur.
      * @param        ray Le point de départ indique l'intersection.
      * @param        scene
      * @param        depth La profondeur de l'appel récursif.

@@ -17,11 +17,10 @@ public class Point3d extends Tuple3d {
         super(other);
     }
 
-    public Vector3d sub(Point3d other)
-    {
-        return new Vector3d(new Vector3d(this).sub(new Vector3d(other)));
-    }
-
+    /**
+     * Translate ce vecteur selon <tt>other</tt>.
+     * @return this
+     */
     public Point3d add(Vector3d other)
     {
         set(other.add(this));
