@@ -51,12 +51,32 @@ public class Scene
      * @param        ray
      * @param        depth
      */
-    public java.awt.Color rayColor( Ray ray, int depth )
+    public double[] rayColor( Ray ray, int depth )
     {
-        // on trouve l'objet pour lequel la méthode distance() est la plus faible
-        // on appelle la méthode computeColor dessus.
-        // voilà :)
-        return null;
+        BasicObject best_object = null;
+        double best_distance = 0;
+
+        for(BasicObject object : objects)
+        {
+            try
+            {
+                double d = object.distance(ray);
+
+                if(d < best_distance || best_object == null)
+                {
+                    best_distance = d;
+                    best_object = object;
+                }
+            }
+            catch(DontIntersectException ex)
+            {
+            }
+        }
+
+        if(best_object == null)
+            return {0, 0, 0} // black, if the ray goes to the infinite
+
+        return best_object.computeColor(ray, this, depth);
     }
 
 
