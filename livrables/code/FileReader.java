@@ -21,8 +21,11 @@ public class FileReader {
     public static Scene read(java.util.Scanner scanner)
     throws IllegalStateException, InvalidFormatException {
         Vector<BasicObject> objects = new Vector<BasicObject>();
+        Vector<Light> lights = new Vector<Light>();
         Camera camera = null;
-        Double light = 1.0; // todo : intervalle de la lumière ambiante ?
+        Double light = 1.0;
+            // todo : intervalle de la lumière ambiante ?
+            // todo : pas géré dans la buildCamera
 
         while(scanner.hasNextLine()) {
             String line = scanner.nextLine().toLowerCase();
@@ -35,7 +38,7 @@ public class FileReader {
                 );
             }
 
-            if(m.group(1).equals("Camera")) {
+            if(m.group(1).equals("camera")) {
                 if(camera == null) {
                     camera = buildCamera(parseParams(m.group(2)));
                 }
@@ -44,6 +47,9 @@ public class FileReader {
                         "Format invalide : deux caméras présentes"
                     );
                 }
+            }
+            else if(m.group(1).equals("light")) {
+                lights.add(buildLight(parseParams(m.group(2))));
             }
             else {
                 objects.add(buildObject(m.group(1), parseParams(m.group(2))));
@@ -56,7 +62,7 @@ public class FileReader {
             );
         }
 
-        return new Scene(objects, camera, light);
+        return new Scene(objects, lights, camera, light);
     }
 
     /**
@@ -250,6 +256,21 @@ public class FileReader {
             new Vector3d(parse3Array(params.get("absissa"))),
             new Vector3d(parse3Array(params.get("ordinate"))),
             width, height
+        );
+    }
+
+    private static
+    Light buildLight(HashMap<String, String> params)
+    throws InvalidFormatException {
+        if(!params.containsKey("pos") || !params.containsKey("intensity")) {
+            throw new InvalidFormatException(
+                "Format invalide : paramètre manquant pour Light"
+            );
+        }
+
+        return new Light(
+            new Point3d(parse3Array(params.get("pos"))),
+            parse3Array(params.get("intensity"))
         );
     }
 
