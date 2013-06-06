@@ -46,4 +46,12 @@ public class Tuple3d {
     public void set(Tuple3d other) {
         set(other.x, other.y, other.z);
     }
+
+    public Tuple3d scale(double coef)
+    {
+        x *= coef;
+        y *= coef;
+        z *= coef;
+        return this;
+    }
 }

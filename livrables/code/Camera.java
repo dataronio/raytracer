@@ -57,11 +57,11 @@ public class Camera {
      */
     private Point3d screenPoint(int x, int y)
     {
-        Point3d scaledAbscissa = new Point3d();
-        scaledAbscissa.scale(x / (double)widthPixels, abscissa);
+        Point3d scaledAbscissa = new Point3d(abscissa);
+        scaledAbscissa.scale(x / (double)widthPixels);
 
-        Point3d scaledOrdinate = new Point3d();
-        scaledOrdinate.scale(y / (double)heightPixels, ordinate);
+        Point3d scaledOrdinate = new Point3d(ordinate);
+        scaledOrdinate.scale(y / (double)heightPixels);
 
         Point3d p = new Point3d(origin);
         p.add(scaledAbscissa, scaledOrdinate);

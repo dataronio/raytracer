@@ -31,7 +31,7 @@ public class Mesh extends Object
     /**
      * Set the list of triangles
      */
-    public setTriangles(Set<Triangle> t)
+    public void setTriangles(Set<Triangle> t)
     {
         triangles = t;
     }
@@ -60,7 +60,7 @@ public class Mesh extends Object
     /**
      * Renvoie le premier triangle qui intersecte
      */
-    private firstTriangle(Ray ray)
+    private Triangle firstTriangle(Ray ray)
     {
         // Trouver le triangle qui a triangle.distance(ray) le plus petit.
     }
