@@ -32,7 +32,7 @@ public class Scene
      * Set the value of ambientLight
      * @param newVar the new value of ambientLight
      */
-    public void setAmbientLight ( double newVar )
+    public void setAmbientLight ( double[] newVar )
     {
         ambientLight = newVar;
     }

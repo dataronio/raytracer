@@ -10,7 +10,7 @@ import java.awt.Color;
  */
 abstract public class Object extends BasicObject {
 
-    private Texture texture;
+    protected Texture texture;
 
     public Object (Texture texture_) {
         texture = new Texture(texture_);

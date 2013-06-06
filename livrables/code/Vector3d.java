@@ -19,7 +19,7 @@ public class Vector3d extends Tuple3d {
      * Représente le vecteur AB ou B-A.
      */
     public Vector3d(Tuple3d B, Tuple3d A) {
-        set(new Vector3d(B).sub(A));
+        set(new Vector3d(new Vector3d(B)).sub(new Vector3d(A)));
     }
 
     public double length() {
@@ -50,7 +50,26 @@ public class Vector3d extends Tuple3d {
 
     public double angle(Vector3d other)
     {
-        return Math.arccos(dot(other) / (length(self) * length(other)));
+        return Math.acos(dot(other) / (length() * other.length()));
     }
+
+    public Vector3d add(Vector3d rhs) {
+        x += rhs.x; y += rhs.y; z += rhs.z;
+        return this;
+    }
+
+    public void add(Vector3d lhs, Vector3d rhs) {
+        set(new Vector3d(lhs).add(rhs));
+    }
+
+    public Vector3d sub(Vector3d rhs) {
+        x -= rhs.x; y -= rhs.y; z -= rhs.z;
+        return this;
+    }
+
+    public void sub(Vector3d lhs, Vector3d rhs) {
+        set(new Vector3d(lhs).sub(rhs));
+    }
+
 }
 

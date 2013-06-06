@@ -11,12 +11,14 @@ public class Mesh extends Object
 {
     private Set<Triangle> triangles;
   
-    public Mesh ()
+    public Mesh (Texture texture_)
     {
+        super(texture_);
     };
 
-    public Mesh (Set<Triangle> t)
+    public Mesh (Texture texture_, Set<Triangle> t)
     {
+        super(texture_);
         setTriangles(t);
     }
   
@@ -47,7 +49,7 @@ public class Mesh extends Object
         return firstTriangle(ray).computeColor(ray, scene, depth);
     }
 
-    public Vector3d normal(Ray ray)
+    public Ray normal(Ray ray)
     {
         return firstTriangle(ray).normal(ray);
     }
