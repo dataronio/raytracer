@@ -2,9 +2,10 @@ import java.util.*;
 
 public class Sphere extends Object {
     private Point3d center;
-    private int radius;
+    private double radius;
   
-    public Sphere (Point3d center_, int radius_) {
+    public Sphere(Texture texture, Point3d center_, double radius_) {
+        super(texture);
         center = center_;
         radius = radius_;
     };
