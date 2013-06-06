@@ -9,8 +9,7 @@ public class Sphere extends Object {
         radius = radius_;
     };
 
-    public double distance(Ray ray)
-    throws DontIntersectException {
+    public double distance(Ray ray) throws DontIntersectException {
         Vector3d d = ray.getDirection().normalize();
 
         Vector3d SC = new Vector3d(center, ray.getOrigin());
@@ -36,8 +35,7 @@ public class Sphere extends Object {
         }
     }
 
-    public Vector3d normal(Ray ray)
-    throws DontIntersectException {
+    public Vector3d normal(Ray ray) throws DontIntersectException {
         double dist = distance(ray);
         Vector3d td = ray.getDirection().normalize().scale(dist);
 

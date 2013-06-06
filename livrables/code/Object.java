@@ -10,11 +10,7 @@ import java.awt.Color;
  */
 abstract public class Object extends BasicObject {
 
-    private java.awt.Color color;
-    private double transparency;
-    private double absorbance;
-    private double reflectance;
-    private double refractiveIndex;
+    private Texture texture;
 
     public Object () {};
 
