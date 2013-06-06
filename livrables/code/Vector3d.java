@@ -19,7 +19,7 @@ public class Vector3d extends Tuple3d {
      * Représente le vecteur AB ou B-A.
      */
     public Vector3d(Tuple3d B, Tuple3d A) {
-        set(new Vector3d(new Vector3d(B)).sub(new Vector3d(A)));
+        set(new Vector3d(B).sub(new Vector3d(A)));
     }
 
     public double length() {
@@ -32,6 +32,15 @@ public class Vector3d extends Tuple3d {
 
     public double dot(Vector3d other) {
         return x*other.x + y*other.y + z*other.z;
+    }
+
+    public Vector3d cross(Vector3d other) {
+        set(
+            y*other.z - z*other.y,
+            z*other.x - x*other.z,
+            x*other.y - y*other.x
+        );
+        return this;
     }
 
     public Vector3d scale(double s) {
