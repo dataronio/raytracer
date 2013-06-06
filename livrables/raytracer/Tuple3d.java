@@ -1,3 +1,5 @@
+package raytracer;
+
 public class Tuple3d {
     public double x, y, z;
 

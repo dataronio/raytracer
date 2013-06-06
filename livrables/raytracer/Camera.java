@@ -1,3 +1,5 @@
+package raytracer;
+
 public class Camera {
     private Point3d eye;
     private Point3d origin;

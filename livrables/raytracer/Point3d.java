@@ -1,3 +1,5 @@
+package raytracer;
+
 public class Point3d extends Tuple3d {
     public Point3d() {
         super();

@@ -1,3 +1,5 @@
+package raytracer;
+
 import java.awt.Color;
 
 public class Texture {

@@ -1,3 +1,5 @@
+package raytracer;
+
 public class Vector3d extends Tuple3d {
     public Vector3d() {
         super();

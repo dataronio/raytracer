@@ -1,3 +1,5 @@
+package raytracer;
+
 import java.util.*;
 import java.util.regex.*;
 

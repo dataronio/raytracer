@@ -1,3 +1,5 @@
+package raytracer;
+
 import java.util.*;
 
 public class Sphere extends Object {
