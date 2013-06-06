@@ -62,7 +62,7 @@ public class Vector3d extends Tuple3d {
         return Math.acos(dot(other) / (length() * other.length()));
     }
 
-    public Vector3d add(Vector3d rhs) {
+    public Vector3d add(Tuple3d rhs) {
         x += rhs.x; y += rhs.y; z += rhs.z;
         return this;
     }

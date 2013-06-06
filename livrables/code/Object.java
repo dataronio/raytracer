@@ -40,7 +40,7 @@ abstract public class Object extends BasicObject {
      * @param        scene
      * @param        depth La profondeur de l'appel récursif.
      */
-    public java.awt.Color computeColor( Ray ray, Scene scene, int depth )
+    public double[] computeColor( Ray ray, Scene scene, int depth ) throws DontIntersectException
     {
         Ray normal_ray = normal(ray);
 

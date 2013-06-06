@@ -29,7 +29,7 @@ abstract public class BasicObject {
      * @param        ray Le point de départ indique l'intersection.
      * @param        depth La profondeur de l'appel récursif.
      */
-    public abstract java.awt.Color computeColor(Ray ray, Scene scene, int depth);
+    public abstract double[] computeColor(Ray ray, Scene scene, int depth) throws DontIntersectException;
     /*
      * On appelle d'abord la fonction « normal » pour obtenir le vecteur normal.
      * Ensuite, on calcule la couleur du pixel, en appelant récursivement computeColor
