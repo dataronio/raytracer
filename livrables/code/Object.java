@@ -51,9 +51,12 @@ abstract public class Object extends BasicObject {
 
         // réflection
         // TODO
+        // utiliser scene.rayColor() sur les nouveaux rayons à calculer, en incrémentant depth
 
         // réfraction
         // TODO
+        // utiliser scene.rayColor() sur les nouveaux rayons à calculer, en incrémentant depth
+
 
         for(Light light : scene.getLights())
         {

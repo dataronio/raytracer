@@ -23,6 +23,7 @@ abstract public class BasicObject {
      * rayon avec l'objet.
      * @return       Le vecteur normal unitaire.
      */
+    // FIXME: On a réellement besoin de ça ?
     public abstract Ray normal(Ray ray) throws DontIntersectException;
 
     /**
