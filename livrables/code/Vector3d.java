@@ -47,5 +47,10 @@ public class Vector3d extends Tuple3d {
         scale(1/length());
         return this;
     }
+
+    public double angle(Vector3d other)
+    {
+        return Math.arccos(dot(other) / (length(self) * length(other)));
+    }
 }
 

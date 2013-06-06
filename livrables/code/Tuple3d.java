@@ -47,11 +47,4 @@ public class Tuple3d {
         set(other.x, other.y, other.z);
     }
 
-    public Tuple3d scale(double coef)
-    {
-        x *= coef;
-        y *= coef;
-        z *= coef;
-        return this;
-    }
 }

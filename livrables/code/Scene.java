@@ -12,10 +12,10 @@ public class Scene
 {
     private List<BasicObject> objects;
     private Camera camera;
-    private double ambientLight;
+    private double[] ambientLight;
     private List<Light> lights;
   
-    public Scene (List<BasicObject> objects_, List<Light> lights_, Camera camera_, double ambientLight_)
+    public Scene (List<BasicObject> objects_, List<Light> lights_, Camera camera_, double[] ambientLight_)
     {
         objects = objects_;
         camera = camera_;
@@ -41,9 +41,9 @@ public class Scene
      * Get the value of ambientLight
      * @return the value of ambientLight
      */
-    public double getAmbientLight ( )
+    public double getAmbientLight (int i)
     {
-        return ambientLight;
+        return ambientLight[i];
     }
 
     /**
