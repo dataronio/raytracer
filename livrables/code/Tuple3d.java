@@ -5,6 +5,14 @@ public class Tuple3d {
         this(0, 0, 0);
     }
 
+    /**
+     * @throws IndexOutOfBoundsException si le tableau n'a pas au moins 3
+     * éléments.
+     */
+    public Tuple3d(double[] xyz) throws IndexOutOfBoundsException {
+        this(xyz[0], xyz[1], xyz[2]);
+    }
+
     public Tuple3d(double x_, double y_, double z_) {
         set(x_, y_, z_);
     }

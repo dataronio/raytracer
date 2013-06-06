@@ -7,6 +7,10 @@ public class Vector3d extends Tuple3d {
         super(x_, y_, z_);
     }
 
+    public Vector3d(double[] xyz) {
+        super(xyz);
+    }
+
     public Vector3d(Tuple3d other) {
         super(other);
     }
