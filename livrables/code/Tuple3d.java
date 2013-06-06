@@ -31,15 +31,6 @@ public class Tuple3d {
         set(new Tuple3d(lhs).sub(rhs));
     }
 
-    public Tuple3d scale(double s) {
-        x *= s; y *= s; z *= s;
-        return this;
-    }
-
-    public void scale(double s, Tuple3d t) {
-        set(new Tuple3d(t).scale(s));
-    }
-
     public void set(double x_, double y_, double z_) {
         x = x_; y = y_; z = z_;
     }
