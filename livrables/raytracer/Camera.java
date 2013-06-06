@@ -48,8 +48,7 @@ public class Camera {
      */
     public Ray getRay(int x, int y)
     {
-        Vector3d v = new Vector3d();
-        v.sub(screenPoint(x, y), eye);
+        Vector3d v = new Vector3d(screenPoint(x, y), eye);
 
         return new Ray(eye, v);
     }
@@ -59,14 +58,14 @@ public class Camera {
      */
     private Point3d screenPoint(int x, int y)
     {
-        Point3d scaledAbscissa = new Point3d(abscissa);
-        scaledAbscissa.scale(x / (double)widthPixels);
+        Vector3d scaledAbscissa
+            = new Vector3d(abscissa).scale(x / (double)widthPixels);
 
-        Point3d scaledOrdinate = new Point3d(ordinate);
-        scaledOrdinate.scale(y / (double)heightPixels);
+        Vector3d scaledOrdinate
+            = new Vector3d(ordinate).scale(y / (double)heightPixels);
 
         Point3d p = new Point3d(origin);
-        p.add(scaledAbscissa, scaledOrdinate);
+        p.add(scaledAbscissa).add(scaledOrdinate);
 
         return p;
     }

@@ -1,9 +1,8 @@
 package raytracer;
 
-
 import java.util.*;
 import java.awt.Color;
-
+import java.awt.image.BufferedImage;
 
 /**
  * Class Scene
@@ -49,7 +48,6 @@ public class Scene
     }
 
     /**
-     * @return       java.awt.Color
      * @param        ray
      * @param        depth
      */
@@ -76,21 +74,29 @@ public class Scene
         }
 
         if(best_object == null)
-            return {0, 0, 0} // black, if the ray goes to the infinite
+            return new double[]{0, 0, 0}; // black, if the ray goes to the infinite
 
         return best_object.computeColor(ray, this, depth);
     }
 
 
-    public void generateImage()
+    public BufferedImage generateImage()
     {
-        for(int x = 0; x < camera.getWidthPixels(); x++)
+        int width  = camera.getWidthPixels();
+        int height = camera.getHeightPixels();
+        BufferedImage image = new BufferedImage(
+            width, height, BufferedImage.TYPE_INT_RGB
+        );
+
+        for(int x = 0; x < width; x++)
         {
-            for(int y = 0; y < camera.getHeightPixels(); y++)
+            for(int y = 0; y < height; y++)
             {
-                //image[x][y] = rayColor(camera.getRay(x, y), 0);
+                double[] rgb = rayColor(camera.getRay(x, y), 0);
+                image.setRGB(x, y, new Color((float)rgb[0], (float)rgb[1], (float)rgb[2]).getRGB());
             }
         }
+        return image;
     }
-
 }
+
