@@ -22,7 +22,7 @@ public class FileReader {
     throws IllegalStateException, InvalidFormatException {
         Vector<BasicObject> objects = new Vector<BasicObject>();
         Camera camera = null;
-        double light = 1.0; // todo : intervalle de la lumière ambiante ?
+        Double light = 1.0; // todo : intervalle de la lumière ambiante ?
 
         while(scanner.hasNextLine()) {
             String line = scanner.nextLine().toLowerCase();
@@ -197,9 +197,6 @@ public class FileReader {
     throws InvalidFormatException {
         Texture t = new Texture();
 
-        if(params.containsKey("transparency")) {
-            t.transparency = Double.parseDouble(params.get("transparency"));
-        }
         if(params.containsKey("absorbance")) {
             t.absorbance = parse3Array(params.get("absorbance"));
         }
