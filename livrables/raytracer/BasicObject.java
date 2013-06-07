@@ -47,7 +47,7 @@ abstract public class BasicObject {
     {
         try
         {
-            if(distance(ray) > 0.001)
+            if(distance(ray) > 0.00001)
                 return true;
         }
         catch(DontIntersectException ex)
