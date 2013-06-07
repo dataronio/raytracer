@@ -391,7 +391,7 @@ class Utils {
     }
 
     /**
-     * Convertie une chaine de la forme "#RRGGB" en couleur.
+     * Convertit une chaine de la forme "#RRGGB" en couleur.
      */
     public static double[] parseColor(String s)
     throws InvalidFormatException {

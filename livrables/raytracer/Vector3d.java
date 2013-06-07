@@ -119,5 +119,16 @@ public class Vector3d extends Tuple3d {
         set(new Vector3d(lhs).sub(rhs));
     }
 
+    /**
+     * Fait la symétrie du vecteur par rapport à celui passé en paramètre.
+     */
+    public Vector3d symmetry(Vector3d other)
+    {
+        x = 2*other.x*(x*other.x + y*other.y + z*other.z) - x;
+        y = 2*other.y*(x*other.x + y*other.y + z*other.z) - y;
+        z = 2*other.z*(x*other.x + y*other.y + z*other.z) - z;
+        return this;
+    }
+
 }
 

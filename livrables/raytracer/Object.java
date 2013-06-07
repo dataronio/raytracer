@@ -69,11 +69,24 @@ abstract public class Object extends BasicObject {
             if(angle_normal_light > 0 && ! intersect)
             {
                 for(int i = 0; i < 3; i++)
-                    E[i] = logAdd(E[i], light.getIntensity(i) * angle_normal_light);
+                {
+                    E[i] = logAdd(E[i], light.getIntensity(i) * angle_normal_light * texture.absorbance[i]);
+                }
             }
 
-            // composante spéculaire
-            // TODO
+            // spéculaire
+
+            Ray reflected_ray = new Ray(normal_ray.getOrigin(), ray.getDirection().symmetry(normal_ray.getDirection()).scale(-1));
+            double angle_reflected_light = Math.pow(Math.cos(reflected_ray.getDirection().angle(to_light)), texture.brightness);
+
+            if(angle_reflected_light > 0)
+            {
+                for(int i = 0; i < 3; i++)
+                {
+                    E[i] = logAdd(E[i], light.getIntensity(i) * angle_reflected_light * texture.reflectance);
+                }
+            }
+            
         }
 
         return E;
