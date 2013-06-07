@@ -89,7 +89,7 @@ public class FileReader {
     throws InvalidFormatException {
         String[] required = {
             "eye", "origin", "abscissa", "ordinate",
-            "widthPixel", "heightPixel"
+            "widthpixel", "heightpixel"
         };
 
         if(!params.keySet().containsAll(Arrays.asList(required))) {
@@ -101,8 +101,8 @@ public class FileReader {
         int width, height;
 
         try {
-            width = Integer.parseInt(params.get("widthPixel"));
-            height = Integer.parseInt(params.get("heightPixel"));
+            width = Integer.parseInt(params.get("widthpixel"));
+            height = Integer.parseInt(params.get("heightpixel"));
         }
         catch (NumberFormatException e) {
             throw new InvalidFormatException(
@@ -119,7 +119,7 @@ public class FileReader {
         return new Camera(
             new Point3d(Utils.parse3Array(params.get("eye"))),
             new Point3d(Utils.parse3Array(params.get("origin"))),
-            new Vector3d(Utils.parse3Array(params.get("absissa"))),
+            new Vector3d(Utils.parse3Array(params.get("abscissa"))),
             new Vector3d(Utils.parse3Array(params.get("ordinate"))),
             width, height
         );
@@ -359,7 +359,7 @@ class Utils {
             );
         }
 
-        String[] xyz = params.substring(1, params.length()-2).split(",");
+        String[] xyz = params.substring(1, params.length()-1).split(",");
 
         if(xyz.length != 3) {
             throw new InvalidFormatException(

@@ -1,0 +1,3 @@
+Camera(eye=(0, 0, 0), origin=(0, 0, 1), abscissa=(1, 0, 0), ordinate=(0, 1, 0), widthPixel=15, heightPixel=15)
+Light(pos=(1, 2, 3), intensity=(0.8, 0.4, 0.7))
+Sphere(center=(5, 7, 8), radius=3.14)

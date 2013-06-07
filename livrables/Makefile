@@ -32,7 +32,7 @@ tests/maths/TestMatrix.class: tests/maths/TestMatrix.java
 	javac $^
 
 doc: force
-	javadoc -d ./doc -link http://docs.oracle.com/javase/7/docs/api/ imageio/*.java raytracer/*.java
+	javadoc -private -d ./doc -link http://docs.oracle.com/javase/7/docs/api/ imageio/*.java raytracer/*.java gui/*.java
 
 clean: force
 	rm -f raytracer/*.class
