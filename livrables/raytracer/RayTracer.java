@@ -32,8 +32,6 @@ public class RayTracer {
                 List<String> splitOutputFile
                     = Arrays.asList(args[1].split("\\."));
 
-                System.out.println(args[1]);
-                System.out.println(splitOutputFile);
                 if(splitOutputFile.size() >= 1
                 && Arrays.asList(ImageIO.getWriterFileSuffixes())
                                         .contains(splitOutputFile.get(1))
@@ -41,8 +39,6 @@ public class RayTracer {
                     format = splitOutputFile.get(1);
                 }
 
-                System.out.println(format);
-                
                 ImageIO.write(image, format, output);
             }
             catch (FileNotFoundException | InvalidFormatException e) {
