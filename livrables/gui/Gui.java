@@ -37,15 +37,20 @@ public class Gui
 
         // Mise en place des widgets
         tabbedPane = new JTabbedPane();
+        JPanel buttonPane = new JPanel();
         JButton addButton = new JButton("Ajouter");
-        addButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JButton saveButton = new JButton("Enregister");
         text = new JTextArea();
         JScrollPane scrollText = new JScrollPane(text);
+
+        buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
+        buttonPane.add(saveButton);
+        buttonPane.add(addButton);
 
         Container container = this.window.getContentPane();
         container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
         container.add(tabbedPane);
-        container.add(addButton);
+        container.add(buttonPane);
         container.add(scrollText);
 
         // Ajout des onglets
@@ -58,6 +63,15 @@ public class Gui
 
         // Ajout des actions
         addButton.addActionListener(new AddAction());
+        saveButton.addActionListener(new SaveAction());
+
+        // Lecture du fichier
+        try
+        {
+            String content = new Scanner(file).useDelimiter("\\Z").next();  
+            text.setText(content);
+        }
+        catch(FileNotFoundException e) {}
 
         // Affichage
         this.window.setPreferredSize(new Dimension(600, 600));
@@ -72,6 +86,24 @@ public class Gui
     public Gui(File file)
     {
         this(file, "Gestionnaire de Scène");
+    }
+
+    /** Action qui permet d'enregistrer la scène */
+    class SaveAction extends AbstractAction
+    {
+        public void actionPerformed(ActionEvent a)
+        {
+            try
+            {
+                FileWriter writer = new FileWriter(file);
+                writer.write(text.getText());
+                writer.close();
+            }
+            catch(IOException e)
+            {
+                JOptionPane.showMessageDialog(window, "Erreur : " + e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     /** Action qui permet d'ajouter un objet dans la scène */
