@@ -39,4 +39,20 @@ abstract public class BasicObject {
      * si nécessaire.
      */
 
+
+    /**
+     * Indique si le rayon passé en paramètre intersecte l'objet.
+     */
+    public boolean intersects(Ray ray)
+    {
+        try
+        {
+            if(distance(ray) > 0.001)
+                return true;
+        }
+        catch(DontIntersectException ex)
+        {
+        }
+        return false;
+    }
 }

@@ -52,10 +52,25 @@ abstract public class Object extends BasicObject {
         for(Light light : scene.getLights())
         {
             // composante diffuse
-            double angle_normal_light = normal_ray.getDirection().angle(light.getPosition().sub(normal_ray.getOrigin()));
+            Vector3d to_light = light.getPosition().sub(normal_ray.getOrigin());
+            double angle_normal_light = Math.cos(normal_ray.getDirection().angle(to_light));
+            Ray intersect_to_light = new Ray(normal_ray.getOrigin(), to_light);
 
-            for(int i = 0; i < 3; i++)
-                E[i] = logAdd(E[i], light.getIntensity(i) * (Math.cos(angle_normal_light) ));
+            boolean intersect = false;
+            for(BasicObject object: scene.getObjects())
+            {
+                if(object.intersects(intersect_to_light))
+                {
+                    intersect = true;
+                    break;
+                }
+            }
+
+            if(angle_normal_light > 0 && ! intersect)
+            {
+                for(int i = 0; i < 3; i++)
+                    E[i] = logAdd(E[i], light.getIntensity(i) * angle_normal_light);
+            }
 
             // composante spéculaire
             // TODO

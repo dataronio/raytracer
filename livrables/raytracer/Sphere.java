@@ -44,7 +44,7 @@ public class Sphere extends Object {
 
         Point3d P = new Point3d(ray.getOrigin().add(td));
 
-        return new Ray(P, new Vector3d(center, P).normalize());
+        return new Ray(P, new Vector3d(P, center).normalize());
     }
 }
 

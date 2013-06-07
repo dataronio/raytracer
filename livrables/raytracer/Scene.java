@@ -30,6 +30,11 @@ public class Scene
         return lights;
     }
 
+    public List<BasicObject> getObjects()
+    {
+        return objects;
+    }
+
     /**
      * Set the value of ambientLight
      * @param newVar the new value of ambientLight

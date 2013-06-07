@@ -19,7 +19,7 @@ public class FileReader {
         Vector<BasicObject> objects = new Vector<BasicObject>();
         Vector<Light> lights = new Vector<Light>();
         Camera camera = null;
-        double[] ambientLights = new double[]{1., 1., 1.};
+        double[] ambientLights = new double[]{0.1, 0.1, 0.1};
 
         while(scanner.hasNextLine()) {
             String line = scanner.nextLine().toLowerCase();
