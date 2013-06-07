@@ -17,6 +17,7 @@ public class Plane extends Object {
         P0 = P0_;
         P1 = P1_;
         P2 = P2_;
+        lastPoint = null;
     };
 
     public double distance(Ray ray) throws DontIntersectException {
@@ -43,6 +44,7 @@ public class Plane extends Object {
             lastRay = ray;
             Vector3d sol = m.solve(b);
             if(sol == null) {
+                lastPoint = null;
                 throw new DontIntersectException();
             }
 
@@ -50,6 +52,9 @@ public class Plane extends Object {
             lastN = P01.cross(P02);
             lastPoint = ray.getOrigin()
                            .add(ray.getDirection().scale(lastGamma));
+        }
+        else if(lastPoint == null) {
+            throw new DontIntersectException();
         }
     }
 }

@@ -1,9 +1,9 @@
 all: raytracer
 
-raytracer: raytracer/RayTracer.java imageio
+raytracer: raytracer/RayTracer.java imageio gui
 	javac raytracer/RayTracer.java
 
-raytracer/RayTracer.class: raytracer/*.java
+raytracer/RayTracer.class: $(shell find raytracer -type f)
 	javac raytracer/RayTracer.java
 
 raytracer/Matrix.class: raytracer/Matrix.java
@@ -13,6 +13,11 @@ imageio: imageio/PPMWriter.class imageio/PPMImageWriterSpi.class
 
 imageio/PPMWriter.class imageio/PPMImageWriterSpi.class: imageio/PPMWriter.java imageio/PPMImageWriterSpi.java
 	javac $^
+
+gui: gui/Gui.class
+	
+gui/Gui.class: $(shell find gui -type f)
+	javac gui/*.java
 
 tests: imageio_tests maths_tests
 
@@ -32,6 +37,7 @@ doc: force
 clean: force
 	rm -f raytracer/*.class
 	rm -f imageio/*.class
+	rm -f gui/*.class
 	rm -f tests/imageio/*.class
 	rm -f tests/maths/*.class
 
