@@ -56,14 +56,18 @@ public class Gui
         container.add(scrollText);
 
         // Ajout des onglets
-        tabbedPane.addTab("Test", new ObjectTab("Test"));
         tabbedPane.addTab("Camera", new CameraTab());
+        tabbedPane.addTab("Lumière", new LightTab());
+        tabbedPane.addTab("Cube", new CubeTab());
+        tabbedPane.addTab("Plan", new PlaneTab());
+        tabbedPane.addTab("Sphère", new SphereTab());
+        tabbedPane.addTab("Triangle", new TriangleTab());
 
         // Ajout des actions
         addButton.addActionListener(new AddAction());
 
         // Affichage
-        this.window.setPreferredSize(new Dimension(600, 400));
+        this.window.setPreferredSize(new Dimension(600, 600));
         this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.window.pack();
         this.window.setVisible(true);
