@@ -15,14 +15,35 @@ public class RayTracer {
             Scanner scanner;
 
             try {
+                if(!output.exists()) {
+                    output.createNewFile();
+                } 
+
                 scanner = new Scanner(source);
                 Scene scene = FileReader.read(scanner);
 
                 BufferedImage image = scene.generateImage();
 
+                ImageIO.scanForPlugins();
                 IIORegistry.getDefaultInstance()
                            .registerServiceProvider(new PPMImageWriterSpi());
-                ImageIO.write(image, "png", output);
+
+                String format = "ppm";
+                List<String> splitOutputFile
+                    = Arrays.asList(args[1].split("\\."));
+
+                System.out.println(args[1]);
+                System.out.println(splitOutputFile);
+                if(splitOutputFile.size() >= 1
+                && Arrays.asList(ImageIO.getWriterFileSuffixes())
+                                        .contains(splitOutputFile.get(1))
+                ) {
+                    format = splitOutputFile.get(1);
+                }
+
+                System.out.println(format);
+                
+                ImageIO.write(image, format, output);
             }
             catch (FileNotFoundException | InvalidFormatException e) {
                 System.out.println(
