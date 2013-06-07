@@ -399,30 +399,5 @@ class Utils {
             );
         }
     }
-
-    /**
-     * Convertit une chaine de la forme "#RRGGB" en couleur.
-     */
-    public static double[] parseColor(String s)
-    throws InvalidFormatException {
-        Throwable t = null;
-
-        try {
-            if(s.length() == 7 && s.charAt(0) == '#') {
-                return new double[]{
-                    Integer.parseInt(s.substring(1, 3))/255.,
-                    Integer.parseInt(s.substring(3, 5))/255.,
-                    Integer.parseInt(s.substring(5, 7))/255.
-                };
-            }
-        }
-        catch (NumberFormatException e) {
-            t = e;
-        }
-
-        throw new InvalidFormatException(
-            "Format invalide : couleur invalide, format : #RRGGBB", t
-        );
-    }
 }
 
