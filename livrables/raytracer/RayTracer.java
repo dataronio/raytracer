@@ -28,11 +28,11 @@ public class RayTracer {
                 IIORegistry.getDefaultInstance()
                            .registerServiceProvider(new PPMImageWriterSpi());
 
-                String format = "ppm";
+                String format = "png";
                 List<String> splitOutputFile
                     = Arrays.asList(args[1].split("\\."));
 
-                if(splitOutputFile.size() >= 1
+                if(splitOutputFile.size() >= 2
                 && Arrays.asList(ImageIO.getWriterFileSuffixes())
                                         .contains(splitOutputFile.get(1))
                 ) {
