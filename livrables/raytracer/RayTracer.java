@@ -22,7 +22,7 @@ public class RayTracer {
 
                 IIORegistry.getDefaultInstance()
                            .registerServiceProvider(new PPMImageWriterSpi());
-                ImageIO.write(image, "ppm", output);
+                ImageIO.write(image, "png", output);
             }
             catch (FileNotFoundException | InvalidFormatException e) {
                 System.out.println(
