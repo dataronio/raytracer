@@ -35,13 +35,6 @@ public class Gui
         // Création de la fenêtre
         this.window = new JFrame(windowTitle);
 
-        // Création du menu
-        JMenuBar bar = new JMenuBar();
-        this.window.setJMenuBar(bar);
-
-        JMenu fileMenu = new JMenu("Fichier");
-        fileMenu.add(new QuitAction());
-
         // Mise en place des widgets
         tabbedPane = new JTabbedPane();
         JButton addButton = new JButton("Ajouter");
@@ -79,21 +72,6 @@ public class Gui
     public Gui(File file)
     {
         this(file, "Gestionnaire de Scène");
-    }
-
-
-    /** Action qui permet de fermer la fenêtre */
-    class QuitAction extends AbstractAction
-    {
-        public QuitAction()
-        {
-            super("Quitter");
-        }
-
-        public void actionPerformed(ActionEvent a)
-        {
-            window.dispose();
-        }
     }
 
     /** Action qui permet d'ajouter un objet dans la scène */
