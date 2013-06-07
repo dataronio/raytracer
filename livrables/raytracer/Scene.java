@@ -12,52 +12,77 @@ import java.lang.RuntimeException;
  */
 public class Scene
 {
+    /** Liste des objets */
     private List<BasicObject> objects;
+
+    /** Caméra */
     private Camera camera;
+
+    /** Lumière Ambiante */
     private double[] ambientLight;
+
+    /** Liste des lumières */
     private List<Light> lights;
   
+    /**
+     * Constructeur par défaut
+     *
+     * @param objects_ La liste des objects
+     * @param lights_ La liste des lumières
+     * @param camera_ La caméra
+     * @param ambientLight_ La lumière ambiante
+     */
     public Scene (List<BasicObject> objects_, List<Light> lights_, Camera camera_, double[] ambientLight_)
     {
         objects = objects_;
         camera = camera_;
         ambientLight = ambientLight_;
         lights = lights_;
-    };
-  
+    }
+
+    /** Retourne la liste des lumières
+     * @return La liste des lumières
+     */
     public List<Light> getLights()
     {
         return lights;
     }
 
+    /** Retourne la liste des objets
+     * @return La liste des objets
+     */
     public List<BasicObject> getObjects()
     {
         return objects;
     }
 
     /**
-     * Set the value of ambientLight
-     * @param newVar the new value of ambientLight
+     * Modifie la lumière ambiante
+     * @param newVar La nouvelle valeur de la lumière ambiante
      */
-    public void setAmbientLight ( double[] newVar )
+    public void setAmbientLight(double[] newVar)
     {
         ambientLight = newVar;
     }
 
     /**
-     * Get the value of ambientLight
-     * @return the value of ambientLight
+     * Retourne la lumière ambiante
+     * @return La lumière ambiante
      */
-    public double getAmbientLight (int i)
+    public double getAmbientLight(int i)
     {
         return ambientLight[i];
     }
 
     /**
-     * @param        ray
-     * @param        depth
+     * Calcul la couleur du premier point qui intersecte le rayon
+     *
+     * @param ray Le rayon
+     * @param depth La profondeur actuelle de la projection
+     *
+     * @return La couleur
      */
-    public double[] rayColor( Ray ray, int depth )
+    public double[] rayColor(Ray ray, int depth)
     {
         BasicObject best_object = null;
         double best_distance = 0;
@@ -92,7 +117,10 @@ public class Scene
         }
     }
 
-
+    /**
+     * Génère le rendu de la scène
+     * @return Le rendu de la scène
+     */
     public BufferedImage generateImage()
     {
         int width  = camera.getWidthPixels();
@@ -112,4 +140,3 @@ public class Scene
         return image;
     }
 }
-

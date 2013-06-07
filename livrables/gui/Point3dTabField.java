@@ -56,12 +56,8 @@ public class Point3dTabField extends TabField
         MessageFormat format = new MessageFormat("({0,number," + pattern + "}, {1,number," + pattern + "}, {2,number," + pattern + "})", Locale.ENGLISH);
         this.textField = new JFormattedTextField(format);
         
-        if(init == null) // valeur initiale si null : {0.0, 0.0, 0.0}
-        {
-            init = new Double[3];
-            for(int i=0; i<3; i++)
-                init[i] = 0.0;
-        }
+        if(init == null)
+            init = new Double[3]{0.0, 0.0, 0.0};
         this.textField.setValue(init);
         this.default_ = default_;
     }
