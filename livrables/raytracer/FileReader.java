@@ -23,8 +23,9 @@ public class FileReader {
 
         while(scanner.hasNextLine()) {
             String line = scanner.nextLine().toLowerCase();
-            if(line == "")
+            if(line.isEmpty()) {
                 continue;
+            }
 
             Matcher m = Utils.namePattern.matcher(line);
 
@@ -72,17 +73,24 @@ public class FileReader {
     throws InvalidFormatException {
         Texture t = new Texture();
 
-        if(params.containsKey("absorbance")) {
-            t.absorbance = Utils.parse3ArrayPar(params.get("absorbance"));
+        try {
+            if(params.containsKey("absorbance")) {
+                t.absorbance = Utils.parse3ArrayPar(params.get("absorbance"));
+            }
+            if(params.containsKey("reflectance")) {
+                t.reflectance = Double.parseDouble(params.get("reflectance"));
+            }
+            if(params.containsKey("refractance")) {
+                t.refractance = Double.parseDouble(params.get("refractance"));
+            }
+            if(params.containsKey("brightness")) {
+                t.brightness = Double.parseDouble(params.get("reflectance"));
+            }
         }
-        if(params.containsKey("reflectance")) {
-            t.reflectance = Double.parseDouble(params.get("reflectance"));
-        }
-        if(params.containsKey("refractance")) {
-            t.refractance = Double.parseDouble(params.get("refractance"));
-        }
-        if(params.containsKey("brightness")) {
-            t.brightness = Double.parseDouble(params.get("reflectance"));
+        catch (NumberFormatException e) {
+            throw new InvalidFormatException(
+                "Format invalide : nombre invalide", e
+            );
         }
 
         return t;
