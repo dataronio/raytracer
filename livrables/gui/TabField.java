@@ -80,7 +80,7 @@ public class TabField
      */
     public String getValue()
     {
-        return this.textField.getValue().toString();
+        return this.textField.getText();
     }
 
     /** Retourne la valeur à écrire dans le fichier */

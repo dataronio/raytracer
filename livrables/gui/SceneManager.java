@@ -21,7 +21,7 @@ public class SceneManager
         }
         else
         {
-            final String filePath = args[0];
+            final String filePath = args[0]; // java veut obligatoirement un « final »
             EventQueue.invokeLater(new Runnable() {
                 public void run() {
                     new Gui(new File(filePath));

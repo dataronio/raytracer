@@ -2,27 +2,24 @@ package gui;
 import javax.swing.*;
 import java.text.*;
 
-/** Représente un champ pour un double
+/** Représente un champ pour un entier
  *
  * @author Maxime Arthaud
  */
-public class DoubleTabField extends TabField
+public class IntegerTabField extends TabField
 {
     /** Valeur par défaut
      * null s'il n'y en a pas
      */
-    protected Double default_;
-
-    /** Valeur très petite pour la comparaison de double */
-    public static double EPSILON = 0.0000001;
+    protected Integer default_;
 
     /** Constructeur par défaut
      * @param identifier L'identifiant du champ
      * @param label L'étiquette du champ
      */
-    public DoubleTabField(String identifier, String label)
+    public IntegerTabField(String identifier, String label)
     {
-        this(identifier, label, 0.0, null);
+        this(identifier, label, 0, null);
     }
     
     /** Constructeur
@@ -30,7 +27,7 @@ public class DoubleTabField extends TabField
      * @param label L'étiquette du champ
      * @param init La valeur initiale
      */
-    public DoubleTabField(String identifier, String label, double init)
+    public IntegerTabField(String identifier, String label, int init)
     {
         this(identifier, label, init, null);
     }
@@ -41,19 +38,15 @@ public class DoubleTabField extends TabField
      * @param init La valeur initiale
      * @param default_ La valeur par défaut. null s'il n'y en a pas.
      */
-    public DoubleTabField(String identifier, String label, double init, Double default_)
+    public IntegerTabField(String identifier, String label, int init, Integer default_)
     {
         super(identifier, label);
         
-        DecimalFormat format = new DecimalFormat();
-        format.setMinimumFractionDigits(1);
+        NumberFormat format = NumberFormat.getInstance();
         format.setGroupingUsed(false);
-        DecimalFormatSymbols dfs = format.getDecimalFormatSymbols();
-        dfs.setDecimalSeparator('.');
-        format.setDecimalFormatSymbols(dfs);
 
         this.textField = new JFormattedTextField(format);
-        this.textField.setValue(new Double(init));
+        this.textField.setValue(new Integer(init));
         this.default_ = default_;
     }
 
@@ -62,12 +55,6 @@ public class DoubleTabField extends TabField
      */
     public boolean isDefault()
     {
-        if(this.default_ == null)
-            return false;
-        else
-        {
-            double val = ((Number)this.textField.getValue()).doubleValue();
-            return Math.abs(val - this.default_) < EPSILON;
-        }
+        return this.default_ != null && this.default_ == ((Number)this.textField.getValue()).intValue();
     }
 }

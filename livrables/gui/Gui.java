@@ -57,6 +57,7 @@ public class Gui
 
         // Ajout des onglets
         tabbedPane.addTab("Test", new ObjectTab("Test"));
+        tabbedPane.addTab("Camera", new CameraTab());
 
         // Ajout des actions
         addButton.addActionListener(new AddAction());
