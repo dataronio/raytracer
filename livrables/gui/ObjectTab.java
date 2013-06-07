@@ -1,4 +1,5 @@
 package gui;
+import java.awt.Color;
 
 /** Onglet de création d'un objet.
  *
@@ -17,9 +18,13 @@ public class ObjectTab extends Tab
     /** Met en place les widgets dans le layout */
     protected void setupFields()
     {
-        fields.add(new DoubleTabField("transparency", "Transparence", 0.0, new Double(0.0)));
-        fields.add(new DoubleTabField("absorbance", "Absorbance", 1.0, new Double(1.0)));
-        fields.add(new DoubleTabField("reflectance", "Réflectance", 0.0, new Double(0.0)));
-        fields.add(new DoubleTabField("refractiveIndex", "Indice de réfraction", 1.0, new Double(1.0)));
+        Double[] zeros = {0.0, 0.0, 0.0};
+        Double[] ones = {1.0, 1.0, 1.0};
+
+        fields.add(new ColorTabField("color", "Couleur", Color.WHITE, Color.WHITE));
+        fields.add(new Point3dTabField("transparency", "Transparence", zeros, zeros));
+        fields.add(new Point3dTabField("absorbance", "Absorbance", ones, ones));
+        fields.add(new Point3dTabField("reflectance", "Réflectance", zeros, zeros));
+        fields.add(new Point3dTabField("refractiveIndex", "Indice de réfraction", ones, ones));
     }
 }
