@@ -68,7 +68,7 @@ public class Scene
             {
                 double d = object.distance(ray);
 
-                if(d < best_distance || best_object == null)
+                if(d > 0.000001 && (d < best_distance || best_object == null))
                 {
                     best_distance = d;
                     best_object = object;
@@ -79,7 +79,7 @@ public class Scene
             }
         }
 
-        if(best_object == null)
+        if(best_object == null || depth > 3)
             return new double[]{0, 0, 0}; // black, if the ray goes to the infinite
 
         try

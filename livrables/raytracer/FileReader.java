@@ -79,7 +79,7 @@ public class FileReader {
             t.reflectance = Double.parseDouble(params.get("reflectance"));
         }
         if(params.containsKey("refractance")) {
-            t.refractance = Double.parseDouble(params.get("reflectance"));
+            t.refractance = Double.parseDouble(params.get("refractance"));
         }
         if(params.containsKey("brightness")) {
             t.brightness = Double.parseDouble(params.get("reflectance"));

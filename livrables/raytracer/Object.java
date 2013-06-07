@@ -40,7 +40,16 @@ abstract public class Object extends BasicObject {
         for(int i = 0; i < 3; i++)
             E[i] = scene.getAmbientLight(i)*texture.absorbance[i];
 
+        Ray reflected_ray = new Ray(normal_ray.getOrigin(), ray.getDirection().symmetry(normal_ray.getDirection()).scale(-1));
+
         // réflection
+        if(texture.refractance > 0)
+        {
+            double[] E2 = scene.rayColor(reflected_ray, depth + 1);
+
+            for(int i = 0; i < 3; i++)
+                E[i] = logAdd(E[i], E2[i] * texture.refractance);
+        }
         // TODO
         // utiliser scene.rayColor() sur les nouveaux rayons à calculer, en incrémentant depth
 
@@ -76,7 +85,6 @@ abstract public class Object extends BasicObject {
 
             // spéculaire
 
-            Ray reflected_ray = new Ray(normal_ray.getOrigin(), ray.getDirection().symmetry(normal_ray.getDirection()).scale(-1));
             double angle_reflected_light = Math.cos(reflected_ray.getDirection().angle(to_light));
 
             if(angle_reflected_light > 0 && ! intersect)
