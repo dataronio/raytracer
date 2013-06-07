@@ -23,6 +23,8 @@ public class FileReader {
 
         while(scanner.hasNextLine()) {
             String line = scanner.nextLine().toLowerCase();
+            if(line == "")
+                continue;
 
             Matcher m = Utils.namePattern.matcher(line);
 
