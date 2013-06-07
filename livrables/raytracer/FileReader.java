@@ -76,13 +76,13 @@ public class FileReader {
             t.absorbance = Utils.parse3ArrayPar(params.get("absorbance"));
         }
         if(params.containsKey("reflectance")) {
-            t.reflectance = Utils.parse3ArrayPar(params.get("reflectance"));
+            t.reflectance = Double.parseDouble(params.get("reflectance"));
         }
-        if(params.containsKey("refractiveindex")) {
-            t.refractiveIndex = Utils.parse3ArrayPar(params.get("refractiveindex"));
+        if(params.containsKey("refractance")) {
+            t.refractance = Double.parseDouble(params.get("reflectance"));
         }
-        if(params.containsKey("color")) {
-            t.color = Utils.parseColor(params.get("color"));
+        if(params.containsKey("brightness")) {
+            t.brightness = Double.parseDouble(params.get("reflectance"));
         }
 
         return t;
