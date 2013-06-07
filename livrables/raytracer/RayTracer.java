@@ -54,9 +54,14 @@ public class RayTracer {
             }
         }
         else {
-            System.out.println(
-                "Usage: java Raytracer nomFichierSource nomFichierDestination"
-            );
+            System.out.println("Usage: java raytracer.RayTracer source destination");
+            System.out.println("");
+            System.out.println("Fait le rendu d'une scène, dans le format suggéré par l'extension du fichier de destination.");
+            System.out.println("Par défaut, le format utilisé est png.");
+            System.out.println("");
+            System.out.println("arguments:");
+            System.out.println("   source       Le fichier de scène.");
+            System.out.println("   destination  Le fichier de destination. S'il n'existe pas, il sera créé.");
             System.exit(1);
         }
     }
