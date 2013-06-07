@@ -60,6 +60,8 @@ abstract public class Object extends BasicObject {
             // composante spéculaire
             // TODO
         }
+
+        return E;
     }
 
     private double logAdd(double a, double b)

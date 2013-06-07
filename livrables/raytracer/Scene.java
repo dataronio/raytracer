@@ -3,6 +3,7 @@ package raytracer;
 import java.util.*;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.lang.RuntimeException;
 
 /**
  * Class Scene
@@ -76,7 +77,14 @@ public class Scene
         if(best_object == null)
             return new double[]{0, 0, 0}; // black, if the ray goes to the infinite
 
-        return best_object.computeColor(ray, this, depth);
+        try
+        {
+            return best_object.computeColor(ray, this, depth);
+        }
+        catch(DontIntersectException ex)
+        {
+            throw new java.lang.RuntimeException();
+        }
     }
 
 
