@@ -20,8 +20,6 @@ public class FileReader {
         Vector<Light> lights = new Vector<Light>();
         Camera camera = null;
         double[] ambientLights = new double[]{1., 1., 1.};
-            // todo : intervalle de la lumière ambiante ?
-            // todo : pas géré dans la buildCamera
 
         while(scanner.hasNextLine()) {
             String line = scanner.nextLine().toLowerCase();
@@ -47,6 +45,9 @@ public class FileReader {
             else if(m.group(1).equals("light")) {
                 lights.add(buildLight(Utils.parseParams(m.group(2))));
             }
+            else if(m.group(1).equals("ambientlights")) {
+                ambientLights = Utils.parse3Array(m.group(2));
+            }
             else {
                 objects.add(
                     buildObject(m.group(1), Utils.parseParams(m.group(2)))
@@ -70,13 +71,13 @@ public class FileReader {
         Texture t = new Texture();
 
         if(params.containsKey("absorbance")) {
-            t.absorbance = Utils.parse3Array(params.get("absorbance"));
+            t.absorbance = Utils.parse3ArrayPar(params.get("absorbance"));
         }
         if(params.containsKey("reflectance")) {
-            t.reflectance = Utils.parse3Array(params.get("reflectance"));
+            t.reflectance = Utils.parse3ArrayPar(params.get("reflectance"));
         }
         if(params.containsKey("refractiveindex")) {
-            t.refractiveIndex = Utils.parse3Array(params.get("refractiveindex"));
+            t.refractiveIndex = Utils.parse3ArrayPar(params.get("refractiveindex"));
         }
         if(params.containsKey("color")) {
             t.color = Utils.parseColor(params.get("color"));
@@ -117,10 +118,10 @@ public class FileReader {
         }
 
         return new Camera(
-            new Point3d(Utils.parse3Array(params.get("eye"))),
-            new Point3d(Utils.parse3Array(params.get("origin"))),
-            new Vector3d(Utils.parse3Array(params.get("abscissa"))),
-            new Vector3d(Utils.parse3Array(params.get("ordinate"))),
+            new Point3d(Utils.parse3ArrayPar(params.get("eye"))),
+            new Point3d(Utils.parse3ArrayPar(params.get("origin"))),
+            new Vector3d(Utils.parse3ArrayPar(params.get("abscissa"))),
+            new Vector3d(Utils.parse3ArrayPar(params.get("ordinate"))),
             width, height
         );
     }
@@ -135,8 +136,8 @@ public class FileReader {
         }
 
         return new Light(
-            new Point3d(Utils.parse3Array(params.get("pos"))),
-            Utils.parse3Array(params.get("intensity"))
+            new Point3d(Utils.parse3ArrayPar(params.get("pos"))),
+            Utils.parse3ArrayPar(params.get("intensity"))
         );
     }
 
@@ -186,7 +187,7 @@ class SphereBuilder implements ObjectBuilder {
 
         return new Sphere(
             texture,
-            new Point3d(Utils.parse3Array(params.get("center"))),
+            new Point3d(Utils.parse3ArrayPar(params.get("center"))),
             Double.parseDouble(params.get("radius"))
         );
     }
@@ -207,9 +208,9 @@ class PlaneBuilder implements ObjectBuilder {
 
         return new Plane(
             texture,
-            new Point3d(Utils.parse3Array(params.get("p1"))),
-            new Point3d(Utils.parse3Array(params.get("p2"))),
-            new Point3d(Utils.parse3Array(params.get("p3")))
+            new Point3d(Utils.parse3ArrayPar(params.get("p1"))),
+            new Point3d(Utils.parse3ArrayPar(params.get("p2"))),
+            new Point3d(Utils.parse3ArrayPar(params.get("p3")))
         );
     }
 }
@@ -229,9 +230,9 @@ class TriangleBuilder implements ObjectBuilder {
 
         return new Triangle(
             texture,
-            new Point3d(Utils.parse3Array(params.get("p1"))),
-            new Point3d(Utils.parse3Array(params.get("p2"))),
-            new Point3d(Utils.parse3Array(params.get("p3")))
+            new Point3d(Utils.parse3ArrayPar(params.get("p1"))),
+            new Point3d(Utils.parse3ArrayPar(params.get("p2"))),
+            new Point3d(Utils.parse3ArrayPar(params.get("p3")))
         );
     }
 }
@@ -252,10 +253,10 @@ class CubeBuilder implements ObjectBuilder {
 
         return new Cube(
             texture,
-            new Point3d(Utils.parse3Array(params.get("p1"))),
-            new Point3d(Utils.parse3Array(params.get("p2"))),
-            new Point3d(Utils.parse3Array(params.get("p3"))),
-            new Point3d(Utils.parse3Array(params.get("p4")))
+            new Point3d(Utils.parse3ArrayPar(params.get("p1"))),
+            new Point3d(Utils.parse3ArrayPar(params.get("p2"))),
+            new Point3d(Utils.parse3ArrayPar(params.get("p3"))),
+            new Point3d(Utils.parse3ArrayPar(params.get("p4")))
         );
     }
 }
@@ -351,7 +352,7 @@ class Utils {
     /**
      * Crée un tableau de 3 doubles à partir d'une chaine de la forme "(x,y,z)"
      */
-    public static double[] parse3Array(String params)
+    public static double[] parse3ArrayPar(String params)
     throws InvalidFormatException {
         if(!params.startsWith("(") || !params.endsWith(")")) {
             throw new InvalidFormatException(
@@ -359,7 +360,15 @@ class Utils {
             );
         }
 
-        String[] xyz = params.substring(1, params.length()-1).split(",");
+        return parse3Array(params.substring(1, params.length()-1));
+    }
+
+    /**
+     * Crée un tableau de 3 double à partir d'une chaine de la forme "x, y, z".
+     */
+    public static double[] parse3Array(String params)
+    throws InvalidFormatException {
+        String[] xyz = params.split(",");
 
         if(xyz.length != 3) {
             throw new InvalidFormatException(
