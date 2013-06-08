@@ -1,4 +1,4 @@
-all: analyse livrables
+all: analyse livrables rapport
 
 livrables: force
 	cd livrables; make
@@ -8,10 +8,16 @@ tests:
 
 analyse: gui.png uml.pdf livrables/analyse.pdf
 
+rapport: gui.png uml.pdf livrables/rapport.pdf
+
 livrables/analyse.pdf: analyse.tex
 	pdflatex -interaction nonstopmode -output-directory livrables analyse.tex
 	pdflatex -interaction nonstopmode -output-directory livrables analyse.tex
 
+livrables/rapport.pdf: rapport.tex
+	pdflatex -interaction nonstopmode -output-directory livrables rapport.tex
+	pdflatex -interaction nonstopmode -output-directory livrables rapport.tex
+	
 uml.pdf: livrables/Uml.xmi
 	# l'export depuis umbrello est foireux, seul l'export en svg marche,
 	# et pas avec la version installée à l'n7 (la version 2.4.5 marche)
@@ -32,10 +38,14 @@ clean: force
 	rm -f livrables/analyse.aux
 	rm -f livrables/analyse.log
 	rm -f livrables/analyse.out
+	rm -f livrables/rapport.aux
+	rm -f livrables/rapport.log
+	rm -f livrables/rapport.out
 	cd livrables; make clean
 
 cleanall: clean
 	rm -f livrables/analyse.pdf
+	rm -f livrables/rapport.pdf
 	rm -f uml.pdf
 	rm -rf livrables/doc
 
