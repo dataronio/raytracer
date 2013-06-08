@@ -61,7 +61,6 @@ abstract public class Object extends BasicObject {
             E[i] = scene.getAmbientLight(i) * texture.k_diffuse[i];
 
 
-
         // réflection
 
         if(texture.k_reflection > 0)

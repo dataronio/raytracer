@@ -165,7 +165,8 @@ public class FileReader {
     private static ObjectBuilder[] objectBuilders = new ObjectBuilder[]{
         new SphereBuilder(),
         new PlaneBuilder(),
-        new CubeBuilder()
+        new CubeBuilder(),
+        new TriangleBuilder()
     };
 
     private static

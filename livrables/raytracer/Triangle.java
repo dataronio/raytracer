@@ -48,9 +48,8 @@ public class Triangle extends Object {
 
             lastRay = ray;
             lastSol = m.solve(b);
-            if(lastSol == null
-            || (lastSol.x >= 0. && lastSol.x <= 1.
-             && lastSol.y >= 0. && lastSol.y <= 1-lastSol.x)) {
+            if(lastSol == null || lastSol.x < 0 || lastSol.x > 1 || lastSol.y < 0 || lastSol.y > 1 - lastSol.x)
+            {
                 lastSol = null;
                 throw new DontIntersectException();
             }
