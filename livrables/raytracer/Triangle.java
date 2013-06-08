@@ -11,7 +11,7 @@ public class Triangle extends Object {
     private Point3d P2;
 
     private Ray lastRay;
-    private Vector3d lastSol;
+    protected Vector3d lastSol;
     private Vector3d lastN;
     private Point3d lastPoint;
   
@@ -25,12 +25,14 @@ public class Triangle extends Object {
         lastSol = null;
     }
 
+    @Override
     public double distance(Ray ray) throws DontIntersectException {
         update(ray);
 
         return lastSol.z;
     }
 
+    @Override
     public Ray normal(Ray ray) throws DontIntersectException {
         update(ray);
 
@@ -48,8 +50,7 @@ public class Triangle extends Object {
 
             lastRay = ray;
             lastSol = m.solve(b);
-            if(lastSol == null || lastSol.x < 0 || lastSol.x > 1 || lastSol.y < 0 || lastSol.y > 1 - lastSol.x)
-            {
+            if(checkDontIntersect()) {
                 lastSol = null;
                 throw new DontIntersectException();
             }
@@ -63,7 +64,14 @@ public class Triangle extends Object {
         }
     }
 
+    protected boolean checkDontIntersect() {
+        return lastSol == null
+        ||     (lastSol.x >= 0. && lastSol.x <= 1.
+             && lastSol.y >= 0. && lastSol.y <= 1-lastSol.x);
+    }
+
     public boolean isEntering(Ray ray) throws DontIntersectException {
         return true;
     }
 }
+

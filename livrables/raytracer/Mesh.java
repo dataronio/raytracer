@@ -35,19 +35,16 @@ public class Mesh extends BasicObject {
         triangles = t;
     }
 
+    @Override
     public double[] computeColor(Ray ray, Scene scene, int depth)
     throws DontIntersectException {
         return firstTriangle(ray).computeColor(ray, scene, depth);
     }
 
-    public Ray normal(Ray ray)
-    throws DontIntersectException {
-        return firstTriangle(ray).normal(ray);
-    }
-
     /**
      * Renvoie la distance au triangle le plus proche.
      */
+    @Override
     public double distance(Ray ray)
     throws DontIntersectException {
         return firstTriangle(ray).distance(ray);
