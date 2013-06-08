@@ -71,7 +71,12 @@ public class Triangle extends Object {
     }
 
     public boolean isEntering(Ray ray) throws DontIntersectException {
-        return true;
+        if(checkDontIntersect()) {
+            throw new DontIntersectException();
+        }
+        else {
+            return true;
+        }
     }
 }
 

@@ -26,7 +26,7 @@ public class Vector3d extends Tuple3d {
      * Représente le vecteur AB ou B-A.
      */
     public Vector3d(Tuple3d B, Tuple3d A) {
-        set(new Vector3d(B).sub(new Vector3d(A)));
+        set(B.x-A.x, B.y-A.y, B.z-A.z);
     }
 
     public double length() {
@@ -124,9 +124,10 @@ public class Vector3d extends Tuple3d {
      */
     public Vector3d symmetry(Vector3d other)
     {
-        x = 2*other.x*(x*other.x + y*other.y + z*other.z) - x;
-        y = 2*other.y*(x*other.x + y*other.y + z*other.z) - y;
-        z = 2*other.z*(x*other.x + y*other.y + z*other.z) - z;
+        double dd = 2*dot(other);
+        x = other.x*dd - x;
+        y = other.y*dd - y;
+        z = other.z*dd - z;
         return this;
     }
 

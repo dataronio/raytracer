@@ -31,4 +31,7 @@ public class Tuple3d {
         set(other.x, other.y, other.z);
     }
 
+    public String toString() {
+        return "(" + x + ", " + y + ", " + z + ")";
+    };
 }

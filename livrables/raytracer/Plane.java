@@ -7,10 +7,11 @@ package raytracer;
 public class Plane extends Triangle {
     public Plane(Texture texture, Point3d P0, Point3d P1, Point3d P2) {
         super(texture, P0, P1, P2);
-    };
+    }
 
     @Override
     protected boolean checkDontIntersect() {
         return lastSol == null;
     }
 }
+
