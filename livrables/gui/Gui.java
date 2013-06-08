@@ -55,6 +55,7 @@ public class Gui
 
         // Ajout des onglets
         tabbedPane.addTab("Camera", new CameraTab());
+        tabbedPane.addTab("Lumière Ambiante", new AmbientLightTab());
         tabbedPane.addTab("Lumière", new LightTab());
         tabbedPane.addTab("Cube", new CubeTab());
         tabbedPane.addTab("Plan", new PlaneTab());
