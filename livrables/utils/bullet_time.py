@@ -44,3 +44,5 @@ while angle < 2*math.pi:
     open(fichier_scène, 'w+').write('\n'.join(scène) + '\n')
     os.system("java raytracer.RayTracer %s %s" % (fichier_scène, os.path.join(répertoire_destination, '%s.png' % si)))
 
+    print("%s done." % i)
+
