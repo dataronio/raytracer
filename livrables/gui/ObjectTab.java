@@ -21,10 +21,11 @@ public class ObjectTab extends Tab
         Double[] zeros = {0.0, 0.0, 0.0};
         Double[] ones = {1.0, 1.0, 1.0};
 
-        fields.add(new ColorTabField("color", "Couleur", Color.WHITE, Color.WHITE));
-        fields.add(new Point3dTabField("transparency", "Transparence", zeros, zeros));
-        fields.add(new Point3dTabField("absorbance", "Absorbance", ones, ones));
-        fields.add(new Point3dTabField("reflectance", "Réflectance", zeros, zeros));
-        fields.add(new Point3dTabField("refractiveIndex", "Indice de réfraction", ones, ones));
+        fields.add(new DoubleTabField("brightness", "Brillance", 30.0, 30.0));
+        fields.add(new DoubleTabField("k_specular", "Spéculaire", 1.0, 1.0));
+        fields.add(new Point3dTabField("k_diffuse", "Composante diffuse", ones, ones));
+        fields.add(new DoubleTabField("k_reflection", "Réflection", 0.0, 0.0));
+        fields.add(new Point3dTabField("k_refraction", "Réfraction", zeros, zeros));
+        fields.add(new DoubleTabField("refractive_index", "Indice de réfraction", 1.0, 1.0));
     }
 }

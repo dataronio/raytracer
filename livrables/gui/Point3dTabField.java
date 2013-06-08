@@ -57,7 +57,7 @@ public class Point3dTabField extends TabField
         this.textField = new JFormattedTextField(format);
         
         if(init == null)
-            init = new Double[3]{0.0, 0.0, 0.0};
+            init = new Double[]{0.0, 0.0, 0.0};
         this.textField.setValue(init);
         this.default_ = default_;
     }
