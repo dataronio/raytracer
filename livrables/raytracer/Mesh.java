@@ -76,7 +76,7 @@ public class Mesh extends BasicObject {
                 try {
                     double c = t.distance(ray);
 
-                    if(minDistance > c) {
+                    if(minDistance > c && c > 0.0001) {
                         minDistance = c;
                         lastTriangle = t;
                     }

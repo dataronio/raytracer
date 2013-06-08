@@ -12,6 +12,8 @@ import java.lang.RuntimeException;
  */
 public class Scene
 {
+    private final int MAX_DEPTH = 10;
+
     /** Liste des objets */
     private List<BasicObject> objects;
 
@@ -104,7 +106,7 @@ public class Scene
             }
         }
 
-        if(best_object == null || depth > 3)
+        if(best_object == null || depth > MAX_DEPTH)
             return new double[]{0, 0, 0}; // black, if the ray goes to the infinite
 
         try

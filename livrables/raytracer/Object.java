@@ -35,14 +35,21 @@ abstract public class Object extends BasicObject {
     {
         Ray normal_ray = normal(ray);
 
+        Ray reflected_ray = new Ray(normal_ray.getOrigin(), ray.getDirection().symmetry(normal_ray.getDirection()).scale(-1));
+
+        // la couleur finale du rayon
         double[] E = {0, 0, 0};
+
+
+        // composante ambiante
 
         for(int i = 0; i < 3; i++)
             E[i] = scene.getAmbientLight(i) * texture.k_diffuse[i];
 
-        Ray reflected_ray = new Ray(normal_ray.getOrigin(), ray.getDirection().symmetry(normal_ray.getDirection()).scale(-1));
+
 
         // réflection
+
         if(texture.k_reflection > 0)
         {
             double[] E2 = scene.rayColor(reflected_ray, depth + 1);
@@ -50,13 +57,24 @@ abstract public class Object extends BasicObject {
             for(int i = 0; i < 3; i++)
                 E[i] = logAdd(E[i], E2[i] * texture.k_reflection);
         }
-        // TODO
-        // utiliser scene.rayColor() sur les nouveaux rayons à calculer, en incrémentant depth
+
 
         // réfraction
-        // TODO
-        // utiliser scene.rayColor() sur les nouveaux rayons à calculer, en incrémentant depth
+        
+        if(texture.k_refraction[0] > 0 || texture.k_refraction[1] > 0 || texture.k_refraction[2] > 0)
+        {
+            double coef = normal_ray.getDirection().dot(ray.getDirection());
+            coef += Math.sqrt(Math.pow(texture.refractive_index, 2) + Math.pow(coef, 2) - 1);
+            Ray refracted_ray = new Ray(normal_ray.getOrigin(), normal_ray.getDirection().scale(coef*-1).add(ray.getDirection()));
 
+            double[] E2 = scene.rayColor(refracted_ray, depth + 1);
+
+            for(int i = 0; i < 3; i++)
+                E[i] = logAdd(E[i], E2[i] * texture.k_refraction[i]);
+        }
+
+
+        // éclairement
 
         for(Light light : scene.getLights())
         {

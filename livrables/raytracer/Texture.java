@@ -4,7 +4,7 @@ public class Texture {
     public Texture() {}
 
     /* Composante spéculaire */
-    public double brightness = 20; // plus ce nombre est grand, plus la composante spéculaire est restreinte à une zone faible (puissance du cosinus)
+    public double brightness = 30; // plus ce nombre est grand, plus la composante spéculaire est restreinte à une zone faible (puissance du cosinus)
     public double k_specular = 1; // coefficient par lequel on multiplie la composante spéculaire
 
     /* Composante diffuse */
