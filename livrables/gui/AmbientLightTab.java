@@ -19,7 +19,7 @@ public class AmbientLightTab extends Tab
     /** Met en place les widgets dans le layout */
     protected void setupFields()
     {
-        Double[] init = {0.0, 0.0, 0.0};
+        Double[] init = {0.1, 0.1, 0.1};
         intensity = new Point3dTabField("intensity", "Intensité", init);
         fields.add(intensity);
     }
