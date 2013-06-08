@@ -14,7 +14,7 @@ public class ColorTabField extends TabField
      */
     protected Color default_;
 
-    /** Constructeur par défaut
+    /** Constructeur
      * @param identifier L'identifiant du champ
      * @param label L'étiquette du champ
      */

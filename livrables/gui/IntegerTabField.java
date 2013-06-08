@@ -13,7 +13,7 @@ public class IntegerTabField extends TabField
      */
     protected Integer default_;
 
-    /** Constructeur par défaut
+    /** Constructeur
      * @param identifier L'identifiant du champ
      * @param label L'étiquette du champ
      */

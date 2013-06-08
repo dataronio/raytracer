@@ -17,7 +17,7 @@ public class TabField
     /** Le champ texte */
     protected JFormattedTextField textField;
 
-    /** Constructeur par défaut
+    /** Constructeur
      * @param identifier L'identifiant du champ
      * @param label L'étiquette du champ
      */

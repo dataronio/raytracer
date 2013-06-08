@@ -15,7 +15,7 @@ abstract public class Tab extends JPanel
     /** Liste des champs */
     protected java.util.List<TabField> fields;
 
-    /** Constructeur par défaut 
+    /** Constructeur 
      * @param name Le nom de l'onglet
      */
     public Tab(String name)

@@ -16,7 +16,7 @@ public class DoubleTabField extends TabField
     /** Valeur très petite pour la comparaison de double */
     public static double EPSILON = 0.0000001;
 
-    /** Constructeur par défaut
+    /** Constructeur
      * @param identifier L'identifiant du champ
      * @param label L'étiquette du champ
      */

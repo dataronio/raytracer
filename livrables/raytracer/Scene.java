@@ -27,19 +27,19 @@ public class Scene
     private List<Light> lights;
   
     /**
-     * Constructeur par défaut (les paramètres ne sont pas copiés).
+     * Constructeur (les paramètres ne sont pas copiés).
      *
-     * @param objects_ La liste des objects
-     * @param lights_ La liste des lumières
-     * @param camera_ La caméra
-     * @param ambientLight_ La lumière ambiante
+     * @param objects La liste des objects
+     * @param lights La liste des lumières
+     * @param camera La caméra
+     * @param ambientLight La lumière ambiante
      */
-    public Scene (List<BasicObject> objects_, List<Light> lights_, Camera camera_, double[] ambientLight_)
+    public Scene (List<BasicObject> objects, List<Light> lights, Camera camera, double[] ambientLight)
     {
-        objects = objects_;
-        camera = camera_;
-        ambientLight = ambientLight_;
-        lights = lights_;
+        this.objects = objects;
+        this.camera = camera;
+        this.ambientLight = ambientLight;
+        this.lights = lights;
     }
 
     /**

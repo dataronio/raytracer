@@ -17,7 +17,7 @@ public class Point3dTabField extends TabField
     /** Valeur très petite pour la comparaison de double */
     public static double EPSILON = 0.0000001;
 
-    /** Contructeur par défaut
+    /** Contructeur
      * @param identifier L'identifiant du champ
      * @param label L'étiquette du champ
      */

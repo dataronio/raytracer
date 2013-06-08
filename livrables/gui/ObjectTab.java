@@ -7,7 +7,7 @@ import java.awt.Color;
  */
 public class ObjectTab extends Tab
 {    
-    /** Constructeur par défaut 
+    /** Constructeur 
      * @param name Le nom de l'onglet
      */
     public ObjectTab(String name)
