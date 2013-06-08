@@ -82,7 +82,6 @@ abstract public class Object extends BasicObject {
                 {
                 }
             }
-            //intersect = false; // FIXME
 
             if(angle_normal_light > 0 && ! intersect)
             {
