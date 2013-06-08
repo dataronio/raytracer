@@ -65,6 +65,7 @@ abstract public class Object extends BasicObject {
         {
             double coef = normal_ray.getDirection().dot(ray.getDirection());
             coef += Math.sqrt(Math.pow(texture.refractive_index, 2) + Math.pow(coef, 2) - 1);
+           
             Ray refracted_ray = new Ray(normal_ray.getOrigin(), normal_ray.getDirection().scale(coef*-1).add(ray.getDirection()));
 
             double[] E2 = scene.rayColor(refracted_ray, depth + 1);

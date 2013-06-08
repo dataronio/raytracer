@@ -40,11 +40,11 @@ public class Sphere extends Object {
 
     public Ray normal(Ray ray) throws DontIntersectException {
         double dist = distance(ray);
-        Vector3d td = ray.getDirection().normalize().scale(dist);
+        Vector3d td = ray.getDirection().scale(dist);
 
         Point3d P = new Point3d(ray.getOrigin().add(td));
 
-        return new Ray(P, new Vector3d(P, center).normalize());
+        return new Ray(P, new Vector3d(P, center));
     }
 }
 
