@@ -87,7 +87,8 @@ public class FileReader {
                 t.k_reflection = Double.parseDouble(params.get("k_reflection"));
             }
             if(params.containsKey("k_refraction")) {
-                t.k_refraction = Double.parseDouble(params.get("k_refraction"));
+                t.k_refraction
+                    = Utils.parse3ArrayPar(params.get("k_refraction"));
             }
             if(params.containsKey("refractive_index")) {
                 t.refractive_index
