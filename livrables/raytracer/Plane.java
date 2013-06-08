@@ -57,4 +57,8 @@ public class Plane extends Object {
             throw new DontIntersectException();
         }
     }
+
+    public boolean isEntering(Ray ray) throws DontIntersectException {
+        return true;
+    }
 }

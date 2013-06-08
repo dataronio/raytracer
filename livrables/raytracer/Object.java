@@ -25,12 +25,19 @@ abstract public class Object extends BasicObject {
         return texture;
     }
 
+
     /**
      * Calcule la normale à la surface de l'objet au point d'intersection du
      * rayon avec l'objet.
      * @return       Le vecteur normal unitaire.
      */
     public abstract Ray normal(Ray ray) throws DontIntersectException;
+
+    /**
+     * Indique si le rayon rentre dans l'objet ou en sort
+     */
+    public abstract boolean isEntering(Ray ray) throws DontIntersectException;
+
 
     /**
      * @return       Un tableau avec les 3 composantes de couleur.
@@ -71,7 +78,12 @@ abstract public class Object extends BasicObject {
         if(texture.k_refraction[0] > 0 || texture.k_refraction[1] > 0 || texture.k_refraction[2] > 0)
         {
             double coef = normal_ray.getDirection().dot(ray.getDirection());
-            coef += Math.sqrt(Math.pow(texture.refractive_index, 2) + Math.pow(coef, 2) - 1);
+
+            double refindex = texture.refractive_index;
+            if(! isEntering(ray))
+                refindex = 1 / refindex;
+
+            coef += Math.sqrt(Math.pow(refindex, 2) + Math.pow(coef, 2) - 1);
            
             Ray refracted_ray = new Ray(normal_ray.getOrigin(), normal_ray.getDirection().scale(coef*-1).add(ray.getDirection()));
 
