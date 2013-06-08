@@ -70,8 +70,6 @@ public class FileReader {
         return new Scene(objects, lights, camera, ambientLights);
     }
 
-
-
     private static Texture buildTexture(HashMap<String, String> params)
     throws InvalidFormatException {
         Texture t = new Texture();
@@ -216,7 +214,7 @@ class SphereBuilder implements ObjectBuilder {
 }
 
 class PlaneBuilder implements ObjectBuilder {
-    public String objectName() { return "plan"; }
+    public String objectName() { return "plane"; }
 
     public BasicObject build(HashMap<String, String> params, Texture texture)
     throws InvalidFormatException {
@@ -224,7 +222,7 @@ class PlaneBuilder implements ObjectBuilder {
         || !params.containsKey("p2")
         || !params.containsKey("p3")) {
             throw new InvalidFormatException(
-                "Format invalide : point manquant pour Sphere"
+                "Format invalide : point manquant pour Plan"
             );
         }
 
@@ -246,7 +244,7 @@ class TriangleBuilder implements ObjectBuilder {
         || !params.containsKey("p2")
         || !params.containsKey("p3")) {
             throw new InvalidFormatException(
-                "Format invalide : point manquant pour Sphere"
+                "Format invalide : point manquant pour Triangle"
             );
         }
 
