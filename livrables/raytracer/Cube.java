@@ -23,7 +23,8 @@ public class Cube extends Mesh {
     public Cube(
         Texture texture,
         Point3d p1, Point3d p2, Point3d p3, Point3d p4
-    ) {
+    ) 
+    {
         /*     +-------p5
          *    /|      /|
          *   / |     / |

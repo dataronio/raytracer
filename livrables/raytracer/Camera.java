@@ -10,35 +10,35 @@ public class Camera {
     
     /**
      * Construit une caméra.
-     * @param eye_ le point où doit être placé l'œil.
-     * @param origin_ l'origine du plan de l'écran.
-     * @param abscissa_ le vecteur de l'abscisse, qui va jusqu'au bout de l'écran (origin_ + abscissa_ donne le bout de l'écran).
-     * @param ordinate_ le vecteur de l'ordonnée, qui va jusqu'au bout de l'écran.
-     * @param widthPixels_ la largeur de l'image en pixels.
-     * @param heightPixels_ la hauteur de l'image en pixels.
+     * @param eye le point où doit être placé l'œil.
+     * @param origin l'origine du plan de l'écran.
+     * @param abscissa le vecteur de l'abscisse, qui va jusqu'au bout de l'écran (origin + abscissa donne le bout de l'écran).
+     * @param ordinate le vecteur de l'ordonnée, qui va jusqu'au bout de l'écran.
+     * @param widthPixels la largeur de l'image en pixels.
+     * @param heightPixels la hauteur de l'image en pixels.
      * @throws IllegalArgumentException si l'une des référence passée est nulle
      * ou si les tailles données sont négatives.
      */
     public Camera(
-        Point3d eye_, Point3d origin_,
-        Vector3d abscissa_, Vector3d ordinate_,
-        int widthPixels_, int heightPixels_
+        Point3d eye, Point3d origin,
+        Vector3d abscissa, Vector3d ordinate,
+        int widthPixels, int heightPixels
     ) {
-        if(eye_ == null
-        || origin_ == null
-        || abscissa_ == null
-        || ordinate_ == null
-        || widthPixels_ <= 0
-        || heightPixels_ <= 0) {
+        if(eye == null
+        || origin == null
+        || abscissa == null
+        || ordinate == null
+        || widthPixels <= 0
+        || heightPixels <= 0) {
             throw new IllegalArgumentException("Paramètre invalide");
         }
 
-        eye = eye_;
-        origin = origin_;
-        abscissa = abscissa_;
-        ordinate = ordinate_;
-        widthPixels = widthPixels_;
-        heightPixels = heightPixels_;
+        this.eye = eye;
+        this.origin = origin;
+        this.abscissa = abscissa;
+        this.ordinate = ordinate;
+        this.widthPixels = widthPixels;
+        this.heightPixels = heightPixels;
     };
   
     /**
@@ -58,6 +58,8 @@ public class Camera {
     /**
      * Renvoie le rayon qui passe par l'œil et qui se dirige vers le pixel de
      * l'écran dont les coordonnées sont passées en paramètre.
+     * @param x
+     * @param y
      */
     public Ray getRay(int x, int y) {
         Vector3d v = new Vector3d(screenPoint(x, y), eye);
@@ -67,6 +69,8 @@ public class Camera {
 
     /**
      * Renvoie les coordonnées spatiales d'un point sur l'écran
+     * @param x
+     * @param y
      */
     private Point3d screenPoint(int x, int y)
     {

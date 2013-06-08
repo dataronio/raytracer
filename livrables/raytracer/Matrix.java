@@ -1,17 +1,22 @@
 package raytracer;
 
 public class Matrix {
+    /** Les colonnes de la matrice */
     private Vector3d c1, c2, c3;
 
     /**
      * Construit la matrice représentée par les colonnes (c1_ c2_ c3_)
+     * @param c1
+     * @param c2
+     * @param c3
      */
-    public Matrix(Vector3d c1_, Vector3d c2_, Vector3d c3_) {
-        c1 = c1_;
-        c2 = c2_;
-        c3 = c3_;
+    public Matrix(Vector3d c1, Vector3d c2, Vector3d c3) {
+        this.c1 = c1;
+        this.c2 = c2;
+        this.c3 = c3;
     }
 
+    /** Retourne le déterminant de la matrice */
     public double determinant() {
         return c1.x*c2.y*c3.z
              + c1.y*c2.z*c3.x
@@ -23,6 +28,8 @@ public class Matrix {
 
     /**
      * Résoud le système this*X = B et retourne X.
+     * @param B
+     * @return La solution du système, ou null si la matrice n'est pas inversible.
      */
     public Vector3d solve(Vector3d B) {
         Vector3d X = new Vector3d();

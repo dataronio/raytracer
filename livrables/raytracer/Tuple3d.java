@@ -1,13 +1,16 @@
 package raytracer;
 
+/** Classe représentant un tuple 3D */
 public class Tuple3d {
     public double x, y, z;
 
+    /** Constructeur par défaut */
     public Tuple3d() {
         this(0, 0, 0);
     }
 
-    /**
+    /** Constructeur
+     * @param xyz
      * @throws IndexOutOfBoundsException si le tableau n'a pas au moins 3
      * éléments.
      */
@@ -15,18 +18,34 @@ public class Tuple3d {
         this(xyz[0], xyz[1], xyz[2]);
     }
 
-    public Tuple3d(double x_, double y_, double z_) {
-        set(x_, y_, z_);
+    /** Constructeur
+     * @param x
+     * @param y
+     * @param z
+     */
+    public Tuple3d(double x, double y, double z) {
+        set(x, y, z);
     }
 
+    /** Constructeur de copie
+     * @param other
+     */
     public Tuple3d(Tuple3d other) {
         this(other.x, other.y, other.z);
     }
 
-    public void set(double x_, double y_, double z_) {
-        x = x_; y = y_; z = z_;
+    /** Modifieur
+     * @param x
+     * @param y
+     * @param z
+     */
+    public void set(double x, double y, double z) {
+        this.x = x; this.y = y; this.z = z;
     }
 
+    /** Assignation
+     * @param other
+     */
     public void set(Tuple3d other) {
         set(other.x, other.y, other.z);
     }

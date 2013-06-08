@@ -5,6 +5,13 @@ package raytracer;
  * infini.
  */
 public class Plane extends Triangle {
+
+    /** Constructeur
+     * @param texture La texture
+     * @param P0
+     * @param P1
+     * @param P2
+     */
     public Plane(Texture texture, Point3d P0, Point3d P1, Point3d P2) {
         super(texture, P0, P1, P2);
     }

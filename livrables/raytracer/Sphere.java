@@ -2,14 +2,25 @@ package raytracer;
 
 import java.util.*;
 
+/**
+ * Représente une sphère
+ */
 public class Sphere extends Object {
+    /** Centre de la sphère */
     private Point3d center;
+
+    /** Rayon de la sphère */
     private double radius;
   
-    public Sphere(Texture texture, Point3d center_, double radius_) {
+    /** Constructeur
+     * @param texture La texture de la sphère
+     * @param center Le centre
+     * @param radius Le rayon
+     */
+    public Sphere(Texture texture, Point3d center, double radius) {
         super(texture);
-        center = center_;
-        radius = radius_;
+        this.center = center;
+        this.radius = radius;
     };
 
     @Override

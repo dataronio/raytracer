@@ -6,18 +6,21 @@ import java.util.*;
  * Classe représentant un rayon optique par une origine et une direction.
  */
 public class Ray {
+    /** L'origine du rayon */
     private Point3d origin;
+
+    /** La direction du rayon */
     private Vector3d direction;
   
     /**
      * Construit un nouveau rayon.
-     * @param origin_ l'origine du rayon (copiée).
-     * @param direction_ la direction du rayon (copiée).
+     * @param origin l'origine du rayon (copiée).
+     * @param direction la direction du rayon (copiée).
      */
-    public Ray(Point3d origin_, Vector3d direction_)
+    public Ray(Point3d origin, Vector3d direction)
     {
-        origin = new Point3d(origin_);
-        direction = new Vector3d(direction_).normalize();
+        this.origin = new Point3d(origin);
+        this.direction = new Vector3d(direction).normalize();
     };
 
     /**

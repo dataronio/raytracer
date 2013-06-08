@@ -3,22 +3,31 @@ package raytracer;
 
 public class Light
 {
+    /** Position de la lumière */
     private Point3d position;
+
+    /** Intensité lumineuse */
     private double[] intensity;
 
-    public Light(Point3d position_, double[] rgbIntensity)
+    /** Constructeur
+     * @param position La position (copié)
+     * @param rgbIntensity L'intensité (copié)
+     */
+    public Light(Point3d position, double[] rgbIntensity)
     {
-        position = new Point3d(position_);
-        intensity = new double[3];
-        System.arraycopy(rgbIntensity, 0, intensity, 0, 3);
+        this.position = new Point3d(position);
+        this.intensity = new double[3];
+        System.arraycopy(rgbIntensity, 0, this.intensity, 0, 3);
     }
 
+    /** Retourne la position */
     public Point3d getPosition()
     {
         return new Point3d(position);
     }
 
     /**
+     * Retourne l'intensité d'une couleur voulue
      * @param color la composante (0 = rouge, 1 = vert, 2 = bleu) voulue.
      * @throws IndexOutOfBoundsException si color < 0 ou color > 2.
      */

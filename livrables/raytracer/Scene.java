@@ -70,7 +70,9 @@ public class Scene
     }
 
     /**
-     * @return La lumière ambiante.
+     * Retourne une composante de la lumière ambiante
+     * @param i La composante voulue
+     * @return La composante de la lumière ambiante voulue
      */
     public double getAmbientLight(int i)
     {
@@ -80,8 +82,8 @@ public class Scene
     /**
      * Calcule la couleur du premier point qui intersecte le rayon.
      *
-     * @param ray Le rayon.
-     * @param depth La profondeur actuelle de la projection.
+     * @param ray Le rayon
+     * @param depth La profondeur actuelle de la projection
      *
      * @return La couleur
      */
@@ -122,7 +124,7 @@ public class Scene
 
     /**
      * Génère le rendu de la scène.
-     * @return Une image représentant la scène.
+     * @return Une image représentant la scène
      */
     public RenderedImage generateImage()
     {

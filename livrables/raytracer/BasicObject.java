@@ -6,17 +6,18 @@ import java.util.*;
  * Classe abstraite qui représente un objet de base.
  */
 abstract public class BasicObject {
+
     /**
      * Calcule la distance à l'objet, suivant le rayon depuis son origine.
-     * @return       double
-     * @param        ray
+     * @param ray Le rayon
+     * @return double La distance à l'objet.
      */
     public abstract double distance(Ray ray) throws DontIntersectException;
 
     /**
      * Détermine la couleur du rayon partant de cette objet.
-     * @param        ray Le point de départ indique l'intersection.
-     * @param        depth La profondeur de l'appel récursif.
+     * @param ray Le point de départ indique l'intersection.
+     * @param depth La profondeur de l'appel récursif.
      */
     public abstract double[] computeColor(Ray ray, Scene scene, int depth)
         throws DontIntersectException;
@@ -28,6 +29,7 @@ abstract public class BasicObject {
 
     /**
      * Indique si le rayon passé en paramètre intersecte l'objet.
+     * @param ray Le rayon
      */
     public boolean intersects(Ray ray) {
         try {

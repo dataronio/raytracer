@@ -11,6 +11,8 @@ public class FileReader {
 
     /**
      * Construit une Scene en parsant le Scanner donné en entré.
+     * @param scanner
+     * @return La scène créée
      * @throws IllegalStateException si le scanner est fermé.
      * @throws InvalidFormatException si le scanner ne respecte pas le format.
      */
@@ -70,6 +72,10 @@ public class FileReader {
         return new Scene(objects, lights, camera, ambientLights);
     }
 
+    /** Constructeur de Texture
+     * @param params la table des paramètres
+     * @return la texture
+     */
     private static Texture buildTexture(HashMap<String, String> params)
     throws InvalidFormatException {
         Texture t = new Texture();
@@ -105,6 +111,10 @@ public class FileReader {
         return t;
     }
 
+    /** Constructeur de Caméra
+     * @param params la table des paramètres
+     * @return la caméra
+     */
     private static Camera buildCamera(HashMap<String, String> params)
     throws InvalidFormatException {
         String[] required = {
@@ -145,6 +155,10 @@ public class FileReader {
         );
     }
 
+    /** Constructeur de lumière
+     * @param params la table des paramètres
+     * @return la lumière
+     */
     private static
     Light buildLight(HashMap<String, String> params)
     throws InvalidFormatException {
@@ -160,6 +174,7 @@ public class FileReader {
         );
     }
 
+    /** Tableau de constructeur d'objet */
     private static ObjectBuilder[] objectBuilders = new ObjectBuilder[]{
         new SphereBuilder(),
         new PlaneBuilder(),
@@ -167,6 +182,10 @@ public class FileReader {
         new TriangleBuilder()
     };
 
+    /** Constructeur d'objet
+     * @param params la table des paramètres
+     * @return l'objet créé
+     */
     private static
     BasicObject buildObject(String name, HashMap<String, String> params)
     throws InvalidFormatException {
@@ -188,8 +207,14 @@ public class FileReader {
  * interface.
  */ 
 interface ObjectBuilder {
+    /** Retourne le nom de l'objet */
     public String objectName();
 
+    /** Constructeur de l'objet
+     * @param params la table des paramètres
+     * @param texture la texture de l'objet
+     * @return l'objet créé
+     */
     public BasicObject build(HashMap<String, String> params, Texture texture)
         throws InvalidFormatException;
 }

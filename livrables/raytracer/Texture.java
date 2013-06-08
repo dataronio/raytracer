@@ -1,5 +1,8 @@
 package raytracer;
 
+/**
+ * Classe qui représente les propriétés générales d'un objet
+ */
 public class Texture {
     public Texture() {}
 
