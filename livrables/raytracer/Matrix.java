@@ -5,10 +5,7 @@ public class Matrix {
     private Vector3d c1, c2, c3;
 
     /**
-     * Construit la matrice représentée par les colonnes (c1_ c2_ c3_)
-     * @param c1
-     * @param c2
-     * @param c3
+     * Construit la matrice représentée par les colonnes (c1 c2 c3)
      */
     public Matrix(Vector3d c1, Vector3d c2, Vector3d c3) {
         this.c1 = c1;
@@ -28,8 +25,8 @@ public class Matrix {
 
     /**
      * Résoud le système this*X = B et retourne X.
-     * @param B
-     * @return La solution du système, ou null si la matrice n'est pas inversible.
+     * @return La solution du système, ou null si la matrice n'est pas
+     * inversible.
      */
     public Vector3d solve(Vector3d B) {
         Vector3d X = new Vector3d();

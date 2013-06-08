@@ -10,20 +10,22 @@ public class Mesh extends BasicObject {
     /** Liste des triangles */
     private Set<Triangle> triangles;
 
-    /**
-     * le dernier triangle intersecté est enregistré avec le rayon associé afin
-     * d'éviter de le recalculer à chaque fois
-     */
+    /** Conservé afin d'éviter de refaire les calculs à chaque fois. */
     private Ray lastRay;
+    /** Conservé afin d'éviter de refaire les calculs à chaque fois. */
     private Triangle lastTriangle;
 
     /** Constructeur par défaut */
+    /**
+     * Construit un Mesh qui n'est composé d'un ensemble vide mais non-null de
+     * triangles.
+     */
     public Mesh() {
         this(new HashSet<Triangle>());
     };
 
-    /** Constructeur
-     * @params t L'ensemble de triangles (non copié)
+    /**
+     * Construit un Mesh à partir de l'ensemble de triangles donné.
      */
     public Mesh(Set<Triangle> t) {
         setTriangles(t);

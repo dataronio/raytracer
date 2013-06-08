@@ -9,8 +9,7 @@ public class Tuple3d {
         this(0, 0, 0);
     }
 
-    /** Constructeur
-     * @param xyz
+    /** 
      * @throws IndexOutOfBoundsException si le tableau n'a pas au moins 3
      * éléments.
      */
@@ -18,38 +17,34 @@ public class Tuple3d {
         this(xyz[0], xyz[1], xyz[2]);
     }
 
-    /** Constructeur
-     * @param x
-     * @param y
-     * @param z
-     */
     public Tuple3d(double x, double y, double z) {
         set(x, y, z);
     }
 
-    /** Constructeur de copie
-     * @param other
+    /**
+     * Constructeur de copie.
      */
     public Tuple3d(Tuple3d other) {
         this(other.x, other.y, other.z);
     }
 
-    /** Modifieur
-     * @param x
-     * @param y
-     * @param z
+    /**
+     * Modifie ce tuple.
      */
     public void set(double x, double y, double z) {
         this.x = x; this.y = y; this.z = z;
     }
 
-    /** Assignation
-     * @param other
+    /**
+     * Modifie ce tuple à partir du tuple donné.
      */
     public void set(Tuple3d other) {
         set(other.x, other.y, other.z);
     }
 
+    /**
+     * Retourne une chaine de la forme "(x, y, z)".
+     */
     public String toString() {
         return "(" + x + ", " + y + ", " + z + ")";
     };

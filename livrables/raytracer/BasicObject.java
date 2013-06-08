@@ -9,8 +9,7 @@ abstract public class BasicObject {
 
     /**
      * Calcule la distance à l'objet, suivant le rayon depuis son origine.
-     * @param ray Le rayon
-     * @return double La distance à l'objet.
+     * @throws DontIntersectException si le rayon ne passe par par cet objet.
      */
     public abstract double distance(Ray ray) throws DontIntersectException;
 
@@ -18,6 +17,7 @@ abstract public class BasicObject {
      * Détermine la couleur du rayon partant de cette objet.
      * @param ray Le point de départ indique l'intersection.
      * @param depth La profondeur de l'appel récursif.
+     * @throws DontIntersectException si le rayon ne passe par par cet objet.
      */
     public abstract double[] computeColor(Ray ray, Scene scene, int depth)
         throws DontIntersectException;

@@ -18,7 +18,7 @@ import javax.imageio.stream.ImageOutputStream;
  */
 public class PPMWriter extends ImageWriter {
     /** Flux sur lequel l'image sera écrit.
-     *  @see setOutput
+     *  @see #setOutput(Object)
      */
     ImageOutputStream stream = null;
 

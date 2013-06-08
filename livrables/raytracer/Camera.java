@@ -58,8 +58,6 @@ public class Camera {
     /**
      * Renvoie le rayon qui passe par l'œil et qui se dirige vers le pixel de
      * l'écran dont les coordonnées sont passées en paramètre.
-     * @param x
-     * @param y
      */
     public Ray getRay(int x, int y) {
         Vector3d v = new Vector3d(screenPoint(x, y), eye);
@@ -69,8 +67,6 @@ public class Camera {
 
     /**
      * Renvoie les coordonnées spatiales d'un point sur l'écran
-     * @param x
-     * @param y
      */
     private Point3d screenPoint(int x, int y)
     {

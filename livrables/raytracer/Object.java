@@ -9,12 +9,11 @@ import java.awt.Color;
  */
 abstract public class Object extends BasicObject {
 
-    /** Texture de l'objet */
+    /** Texture de l'objet. */
     protected Texture texture;
 
     /**
      * Crée un Object avec la texture donnée, qui n'est pas copiée.
-     * @param texture
      */
     public Object(Texture texture) {
         this.texture = texture;
@@ -27,26 +26,25 @@ abstract public class Object extends BasicObject {
         return texture;
     }
 
-
     /**
      * Calcule la normale à la surface de l'objet au point d'intersection du
      * rayon avec l'objet.
-     * @return Le vecteur normal unitaire
+     * @return Le vecteur normal unitaire.
      */
     public abstract Ray normal(Ray ray) throws DontIntersectException;
 
     /**
-     * Indique si le rayon rentre dans l'objet ou en sort
-     * @param ray Le rayon
+     * Indique si le rayon rentre dans l'objet ou en sort.
+     * Si cette opération n'a pas de sens pour cet objet (il est plats), la
+     * méthode retourne <tt>true</tt> si le rayon intersecte l'objet.
      */
     public abstract boolean isEntering(Ray ray) throws DontIntersectException;
 
-
     /**
-     * @return Un tableau avec les 3 composantes de couleur
-     * @param ray Le point de départ indique l'intersection
-     * @param scene La scène
-     * @param depth La profondeur de l'appel récursif
+     * @return Un tableau avec les 3 composantes de couleur.
+     * @param ray Le point de départ indique l'intersection.
+     * @param scene La scène dans laquel est l'objet.
+     * @param depth La profondeur de l'appel récursif.
      */
     public double[] computeColor(Ray ray, Scene scene, int depth) throws DontIntersectException
     {
@@ -171,9 +169,8 @@ abstract public class Object extends BasicObject {
         return E;
     }
 
-    /** Addition de couleur
-     * @param a
-     * @param b
+    /**
+     * Addition de couleur
      */
     private double logAdd(double a, double b)
     {

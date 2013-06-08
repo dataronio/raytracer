@@ -11,7 +11,6 @@ public class FileReader {
 
     /**
      * Construit une Scene en parsant le Scanner donné en entré.
-     * @param scanner
      * @return La scène créée
      * @throws IllegalStateException si le scanner est fermé.
      * @throws InvalidFormatException si le scanner ne respecte pas le format.
@@ -72,9 +71,9 @@ public class FileReader {
         return new Scene(objects, lights, camera, ambientLights);
     }
 
-    /** Constructeur de Texture
-     * @param params la table des paramètres
-     * @return la texture
+    /**
+     * Construit une Texture à partir des paramètres donnés. Les valeurs par
+     * défaut pour les paramètres non-passés sont spécifiées dans Texture.java.
      */
     private static Texture buildTexture(HashMap<String, String> params)
     throws InvalidFormatException {
@@ -111,9 +110,9 @@ public class FileReader {
         return t;
     }
 
-    /** Constructeur de Caméra
-     * @param params la table des paramètres
-     * @return la caméra
+    /**
+     * Construit une caméra à partir des paramètres donnés.
+     * Une exception est lancé s'il en manque un.
      */
     private static Camera buildCamera(HashMap<String, String> params)
     throws InvalidFormatException {
@@ -155,9 +154,9 @@ public class FileReader {
         );
     }
 
-    /** Constructeur de lumière
-     * @param params la table des paramètres
-     * @return la lumière
+    /**
+     * Construit une Light à partir des paramètres donnés.
+     * pos et intensity sont obligatoires.
      */
     private static
     Light buildLight(HashMap<String, String> params)
@@ -174,7 +173,9 @@ public class FileReader {
         );
     }
 
-    /** Tableau de constructeur d'objet */
+    /**
+     * Liste des ObjectsBuilders connus.
+     */
     private static ObjectBuilder[] objectBuilders = new ObjectBuilder[]{
         new SphereBuilder(),
         new PlaneBuilder(),
@@ -182,9 +183,9 @@ public class FileReader {
         new TriangleBuilder()
     };
 
-    /** Constructeur d'objet
-     * @param params la table des paramètres
-     * @return l'objet créé
+    /**
+     * Construit un objet du type donné par name à partir des paramètres
+     * donnés en utilisant les ObjectBuilders.
      */
     private static
     BasicObject buildObject(String name, HashMap<String, String> params)
@@ -207,10 +208,10 @@ public class FileReader {
  * interface.
  */ 
 interface ObjectBuilder {
-    /** Retourne le nom de l'objet */
+    /** Retourne le nom de l'objet que peut construire ce builder. */
     public String objectName();
 
-    /** Constructeur de l'objet
+    /** Construit un objet.
      * @param params la table des paramètres
      * @param texture la texture de l'objet
      * @return l'objet créé

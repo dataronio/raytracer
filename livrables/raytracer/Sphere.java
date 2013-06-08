@@ -12,12 +12,10 @@ public class Sphere extends Object {
     /** Rayon de la sphère */
     private double radius;
   
-    /** Constructeur
-     * @param texture La texture de la sphère
-     * @param center Le centre
-     * @param radius Le rayon
+    /**
+     * Construit une sphère. Les paramètres ne sont pas copiés.
      */
-    public Sphere(Texture texture, Point3d center, double radius) {
+    public Sphere(Texture texture, Point3d center_, double radius_) {
         super(texture);
         this.center = center;
         this.radius = radius;

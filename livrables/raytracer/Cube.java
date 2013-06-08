@@ -8,7 +8,7 @@ import java.util.HashSet;
  */
 public class Cube extends Mesh {
     /**
-     * Crée un cube à partir de 4 points disposés de cette manière :
+     * Crée un cube à partir de 4 points copiés disposés de cette manière :
      * <pre>{@code .
      *     p2------+
      *    /|      /|
@@ -22,7 +22,7 @@ public class Cube extends Mesh {
      */
     public Cube(
         Texture texture,
-        Point3d p1, Point3d p2, Point3d p3, Point3d p4
+        Point3d p1_, Point3d p2_, Point3d p3_, Point3d p4_
     ) 
     {
         /*     +-------p5
@@ -34,6 +34,14 @@ public class Cube extends Mesh {
          *  |/      |/
          *  +------p6
          */
+
+        // les points sont copiés afin d'éviter que p5..p8 ne deviennent
+        // incohérents
+        Point3d p1 = new Point3d(p1_);
+        Point3d p2 = new Point3d(p2_);
+        Point3d p3 = new Point3d(p3_);
+        Point3d p4 = new Point3d(p4_);
+
         Vector3d p1p3 = new Vector3d(p3, p1);
 
         Point3d p5 = new Point3d(p2);

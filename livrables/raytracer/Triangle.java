@@ -11,22 +11,19 @@ public class Triangle extends Object {
     private Point3d P1;
     private Point3d P2;
 
-    /**
-     * pour éviter de refaire les calculs entre l'appel à distance et l'appel à 
-     * normal
-     */
+    /** Conservé pour éviter de refaire les calculs */
     private Ray lastRay;
+    /** Conservé pour éviter de refaire les calculs */
     protected Vector3d lastSol;
+    /** Conservé pour éviter de refaire les calculs */
     private Vector3d lastN;
+    /** Conservé pour éviter de refaire les calculs */
     private Point3d lastPoint;
-
-    /** Constructeur
-     * @param texture
-     * @param P0
-     * @param P1
-     * @param P2
+  
+    /**
+     * Construit un Triangle. Les paramètres ne sont pas copiés.
      */
-    public Triangle(Texture texture, Point3d P0, Point3d P1, Point3d P2) {
+    public Triangle(Texture texture, Point3d P0_, Point3d P1_, Point3d P2_) {
         super(texture);
         this.P0 = P0;
         this.P1 = P1;
@@ -48,6 +45,10 @@ public class Triangle extends Object {
         return new Ray(lastPoint, lastN);
     }
 
+    /**
+     * Met à jour l'état interne du triangle si le rayon a changé depuis le
+     * dernier appel.
+     */
     private void update(Ray ray) throws DontIntersectException {
         if(lastRay != ray) {
             Vector3d P01 = new Vector3d(P1, P0);
@@ -77,12 +78,18 @@ public class Triangle extends Object {
         }
     }
 
+    /**
+     * Vérifie si le dernier rayon intersecte cet objet.
+     */
     protected boolean checkDontIntersect() {
         return lastSol == null
         ||  lastSol.x < 0. || lastSol.x > 1.
              || lastSol.y < 0. || lastSol.y > 1-lastSol.x;
     }
 
+    /**
+     * Renvoie <tt>true</tt> si le dernier rayon intersecte cet objet.
+     */
     public boolean isEntering(Ray ray) throws DontIntersectException {
         if(checkDontIntersect()) {
             throw new DontIntersectException();

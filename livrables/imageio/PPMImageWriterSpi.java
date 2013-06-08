@@ -56,7 +56,7 @@ public class PPMImageWriterSpi extends ImageWriterSpi {
     }
 
     public boolean canEncodeImage(ImageTypeSpecifier imageType) {
-        return true; // todo
+        return true;
     }
 
     public String getDescription(Locale locale) {

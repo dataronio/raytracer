@@ -6,11 +6,9 @@ package raytracer;
  */
 public class Plane extends Triangle {
 
-    /** Constructeur
-     * @param texture La texture
-     * @param P0
-     * @param P1
-     * @param P2
+    /**
+     * Construit un plan à partir de 3 points.
+     * @param texture La texture du plan (non copiée).
      */
     public Plane(Texture texture, Point3d P0, Point3d P1, Point3d P2) {
         super(texture, P0, P1, P2);

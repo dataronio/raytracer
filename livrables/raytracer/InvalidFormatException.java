@@ -1,7 +1,7 @@
 package raytracer;
 
 /**
- * Exception lancée lors d'une erreur lors du parsage d'un fichier
+ * Exception lancée lors d'une erreur lors du parsage d'un fichier.
  */
 public class InvalidFormatException extends Exception {
     /** Constructeur
