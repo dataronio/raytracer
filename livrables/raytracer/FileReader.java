@@ -23,11 +23,14 @@ public class FileReader {
 
         while(scanner.hasNextLine()) {
             String line = scanner.nextLine().toLowerCase();
-            if(line.isEmpty()) {
+
+            Matcher m = Utils.commentPattern.matcher(line);
+
+            if(m.matches()) {
                 continue;
             }
 
-            Matcher m = Utils.namePattern.matcher(line);
+            m = Utils.namePattern.matcher(line);
 
             if(!m.matches()) {
                 throw new InvalidFormatException(
@@ -283,13 +286,18 @@ class CubeBuilder implements ObjectBuilder {
  * Contient des méthodes utiles à tout les ObjectBuilders.
  */
 class Utils {
-    // capture Nom et params dans une expression de la forme "Nom(params)"
+    // capture Nom et params dans une expression de la forme
+    // "Nom(params) // commentaire optionnel"
     public static final Pattern namePattern
-        = Pattern.compile("(\\w+)[\\t ]*\\((.+)\\)");
+        = Pattern.compile("(\\w+)[\\t ]*\\((.+)\\)([\\t ]*//.+)?");
 
     // capture nom et valeur dans une chaine de la forme "nom = valeur"
     public static final Pattern nameValuePattern
         = Pattern.compile("[\\t ]*(\\w+)[\\t ]*=[\\t ]*(.*)[\\t ]*");
+
+    // matche les lignes de commentaire
+    public static final Pattern commentPattern
+        = Pattern.compile("([\\t ]*//.*)?");
 
     /**
      * Découpe une chaine de caractère selon les ',' en respectant les
