@@ -3,12 +3,12 @@ package raytracer;
 import java.util.*;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.lang.RuntimeException;
 
 /**
- * Class Scene
- * Représente une scène, c'est à dire la caméra et les objets que contient la
- * scène.
+ * Représente une scène, c'est à dire la caméra, les lumières et les objets
+ * que contient la scène.
  */
 public class Scene
 {
@@ -20,14 +20,14 @@ public class Scene
     /** Caméra */
     private Camera camera;
 
-    /** Lumière Ambiante */
+    /** Lumière ambiante */
     private double[] ambientLight;
 
     /** Liste des lumières */
     private List<Light> lights;
   
     /**
-     * Constructeur par défaut
+     * Constructeur par défaut (les paramètres ne sont pas copiés).
      *
      * @param objects_ La liste des objects
      * @param lights_ La liste des lumières
@@ -42,16 +42,18 @@ public class Scene
         lights = lights_;
     }
 
-    /** Retourne la liste des lumières
-     * @return La liste des lumières
+    /**
+     * Retourne la liste des lumières.
+     * @return La liste des lumières (non copiée).
      */
     public List<Light> getLights()
     {
         return lights;
     }
 
-    /** Retourne la liste des objets
-     * @return La liste des objets
+    /**
+     * Retourne la liste des objets.
+     * @return La liste des objets (non copiée).
      */
     public List<BasicObject> getObjects()
     {
@@ -59,8 +61,8 @@ public class Scene
     }
 
     /**
-     * Modifie la lumière ambiante
-     * @param newVar La nouvelle valeur de la lumière ambiante
+     * Modifie la lumière ambiante.
+     * @param newVar La nouvelle valeur de la lumière ambiante.
      */
     public void setAmbientLight(double[] newVar)
     {
@@ -68,8 +70,7 @@ public class Scene
     }
 
     /**
-     * Retourne la lumière ambiante
-     * @return La lumière ambiante
+     * @return La lumière ambiante.
      */
     public double getAmbientLight(int i)
     {
@@ -77,10 +78,10 @@ public class Scene
     }
 
     /**
-     * Calcul la couleur du premier point qui intersecte le rayon
+     * Calcule la couleur du premier point qui intersecte le rayon.
      *
-     * @param ray Le rayon
-     * @param depth La profondeur actuelle de la projection
+     * @param ray Le rayon.
+     * @param depth La profondeur actuelle de la projection.
      *
      * @return La couleur
      */
@@ -120,10 +121,10 @@ public class Scene
     }
 
     /**
-     * Génère le rendu de la scène
-     * @return Le rendu de la scène
+     * Génère le rendu de la scène.
+     * @return Une image représentant la scène.
      */
-    public BufferedImage generateImage()
+    public RenderedImage generateImage()
     {
         int width  = camera.getWidthPixels();
         int height = camera.getHeightPixels();

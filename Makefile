@@ -6,6 +6,9 @@ livrables: force
 tests:
 	cd livrables; make tests
 
+raytracer:
+	cd livrables; make raytracer
+
 analyse: gui.png uml.pdf livrables/analyse.pdf
 
 rapport: gui.png uml.pdf livrables/rapport.pdf
@@ -17,7 +20,7 @@ livrables/analyse.pdf: analyse.tex
 livrables/rapport.pdf: rapport.tex
 	pdflatex -interaction nonstopmode -output-directory livrables rapport.tex
 	pdflatex -interaction nonstopmode -output-directory livrables rapport.tex
-	
+
 uml.pdf: livrables/Uml.xmi
 	# l'export depuis umbrello est foireux, seul l'export en svg marche,
 	# et pas avec la version installée à l'n7 (la version 2.4.5 marche)

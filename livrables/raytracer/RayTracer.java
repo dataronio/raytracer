@@ -1,7 +1,7 @@
 package raytracer;
 
 import imageio.PPMImageWriterSpi;
-import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import javax.imageio.spi.IIORegistry;
 import javax.imageio.ImageIO;
 import java.io.*;
@@ -22,7 +22,7 @@ public class RayTracer {
                 scanner = new Scanner(source);
                 Scene scene = FileReader.read(scanner);
 
-                BufferedImage image = scene.generateImage();
+                RenderedImage image = scene.generateImage();
 
                 ImageIO.scanForPlugins();
                 IIORegistry.getDefaultInstance()

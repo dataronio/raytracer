@@ -1,18 +1,11 @@
 package raytracer;
 
 import java.util.*;
-import java.awt.Color;
 
 /**
- * Class BasicObject
  * Classe abstraite qui représente un objet de base.
  */
 abstract public class BasicObject {
-
-    public BasicObject ()
-    {
-    };
-
     /**
      * Calcule la distance à l'objet, suivant le rayon depuis son origine.
      * @return       double
@@ -21,38 +14,28 @@ abstract public class BasicObject {
     public abstract double distance(Ray ray) throws DontIntersectException;
 
     /**
-     * Calcule la normale à la surface de l'objet au point d'intersection du
-     * rayon avec l'objet.
-     * @return       Le vecteur normal unitaire.
-     */
-    // FIXME: On a réellement besoin de ça ?
-    public abstract Ray normal(Ray ray) throws DontIntersectException;
-
-    /**
+     * Détermine la couleur du rayon partant de cette objet.
      * @param        ray Le point de départ indique l'intersection.
      * @param        depth La profondeur de l'appel récursif.
      */
-    public abstract double[] computeColor(Ray ray, Scene scene, int depth) throws DontIntersectException;
+    public abstract double[] computeColor(Ray ray, Scene scene, int depth)
+        throws DontIntersectException;
     /*
      * On appelle d'abord la fonction « normal » pour obtenir le vecteur normal.
      * Ensuite, on calcule la couleur du pixel, en appelant récursivement computeColor
      * si nécessaire.
      */
 
-
     /**
      * Indique si le rayon passé en paramètre intersecte l'objet.
      */
-    public boolean intersects(Ray ray)
-    {
-        try
-        {
-            if(distance(ray) > 0.00001)
-                return true;
+    public boolean intersects(Ray ray) {
+        try {
+            return distance(ray) > 0.00001;
         }
-        catch(DontIntersectException ex)
-        {
+        catch(DontIntersectException ex) {
+            return false;
         }
-        return false;
     }
 }
+

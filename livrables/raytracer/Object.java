@@ -26,6 +26,13 @@ abstract public class Object extends BasicObject {
     }
 
     /**
+     * Calcule la normale à la surface de l'objet au point d'intersection du
+     * rayon avec l'objet.
+     * @return       Le vecteur normal unitaire.
+     */
+    public abstract Ray normal(Ray ray) throws DontIntersectException;
+
+    /**
      * @return       Un tableau avec les 3 composantes de couleur.
      * @param        ray Le point de départ indique l'intersection.
      * @param        scene
