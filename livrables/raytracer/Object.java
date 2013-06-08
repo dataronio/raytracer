@@ -68,12 +68,21 @@ abstract public class Object extends BasicObject {
             boolean intersect = false;
             for(BasicObject object: scene.getObjects())
             {
-                if(object.intersects(intersect_to_light))
+                try
                 {
-                    intersect = true;
-                    break;
+                    double d = object.distance(intersect_to_light);
+                    //System.out.println(d + ", " + to_light.length());
+                    if(0.00001 < d && d < to_light.length())
+                    {
+                        intersect = true;
+                        break;
+                    }
+                }
+                catch(DontIntersectException ex)
+                {
                 }
             }
+            //intersect = false; // FIXME
 
             if(angle_normal_light > 0 && ! intersect)
             {
