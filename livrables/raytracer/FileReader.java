@@ -74,17 +74,24 @@ public class FileReader {
         Texture t = new Texture();
 
         try {
-            if(params.containsKey("absorbance")) {
-                t.absorbance = Utils.parse3ArrayPar(params.get("absorbance"));
-            }
-            if(params.containsKey("reflectance")) {
-                t.reflectance = Double.parseDouble(params.get("reflectance"));
-            }
-            if(params.containsKey("refractance")) {
-                t.refractance = Double.parseDouble(params.get("refractance"));
-            }
             if(params.containsKey("brightness")) {
-                t.brightness = Double.parseDouble(params.get("reflectance"));
+                t.brightness = Double.parseDouble(params.get("brightness"));
+            }
+            if(params.containsKey("k_specular")) {
+                t.k_specular = Double.parseDouble(params.get("k_specular"));
+            }
+            if(params.containsKey("k_diffuse")) {
+                t.k_diffuse = Utils.parse3ArrayPar(params.get("k_diffuse"));
+            }
+            if(params.containsKey("k_reflection")) {
+                t.k_reflection = Double.parseDouble(params.get("k_reflection"));
+            }
+            if(params.containsKey("k_refraction")) {
+                t.k_refraction = Double.parseDouble(params.get("k_refraction"));
+            }
+            if(params.containsKey("refractive_index")) {
+                t.refractive_index
+                    = Double.parseDouble(params.get("refractive_index"));
             }
         }
         catch (NumberFormatException e) {
