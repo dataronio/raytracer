@@ -51,6 +51,7 @@ abstract public class Object extends BasicObject {
     public double[] computeColor(Ray ray, Scene scene, int depth) throws DontIntersectException
     {
         Ray normal_ray = normal(ray);
+        assert(normal_ray.getDirection().dot(ray.getDirection()) <= 0); // la normale doit être correctement orientée
 
         Ray reflected_ray = new Ray(normal_ray.getOrigin(), ray.getDirection().symmetry(normal_ray.getDirection()).scale(-1));
 
@@ -85,9 +86,9 @@ abstract public class Object extends BasicObject {
             if(! isEntering(ray))
                 refindex = 1 / refindex;
 
-            coef += Math.sqrt(Math.pow(refindex, 2) + Math.pow(coef, 2) - 1);
+            coef += Math.sqrt(refindex*refindex + coef*coef - 1.d);
            
-            Ray refracted_ray = new Ray(normal_ray.getOrigin(), normal_ray.getDirection().scale(coef*-1).add(ray.getDirection()));
+            Ray refracted_ray = new Ray(normal_ray.getOrigin(), normal_ray.getDirection().scale(coef*-1.d).add(ray.getDirection()));
 
             double[] E2 = scene.rayColor(refracted_ray, depth + 1);
 
@@ -103,16 +104,28 @@ abstract public class Object extends BasicObject {
             Vector3d to_light = light.getPosition().sub(normal_ray.getOrigin());
             Ray intersect_to_light = new Ray(normal_ray.getOrigin(), to_light);
 
-            
+
             // on regarde si il y a un objet qui masque la lumière
+          
+            if(to_light.dot(normal_ray.getDirection()) <= 0) // ça peut éventuellement être l'objet lui-même !
+                continue;
 
             boolean intersect = false;
             for(BasicObject object: scene.getObjects())
             {
+                /* FIXME !
+                 * Dans certains cas, il serait possible que l'objet se fasse de l'ombre à lui-même !
+                 * Donc ceci n'est pas adapté.
+                 * On peut l'enlever, mais il faut alors mettre un epsilon, et non 0, dans le if après le calcul de la distance (dans le try qui suit). Et je ne suis pas certain que ça résoudrait le problème :
+                 * Ça pourrait renvoyer 0.00001 (l'endroit en cours), alors qu'il y a une vraie intersection valide plus loin...
+                 */
+                if(object == this)
+                    continue;
+
                 try
                 {
                     double d = object.distance(intersect_to_light);
-                    if(0.00001 < d && d < to_light.length())
+                    if(0 < d && d < to_light.length())
                     {
                         intersect = true;
                         break;

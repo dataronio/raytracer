@@ -1,0 +1,9 @@
+tests/raytracer/complet
+/tmp
+200
+0
+70
+5
+60
+50
+

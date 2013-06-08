@@ -104,7 +104,7 @@ public class Vector3d extends Tuple3d {
      * @return this
      */
     public Vector3d normalize() {
-        scale(1/length());
+        scale(1.d/length());
         return this;
     }
 
@@ -160,7 +160,7 @@ public class Vector3d extends Tuple3d {
      */
     public Vector3d symmetry(Vector3d other)
     {
-        double dd = 2*dot(other);
+        double dd = 2.d*dot(other);
         x = other.x*dd - x;
         y = other.y*dd - y;
         z = other.z*dd - z;

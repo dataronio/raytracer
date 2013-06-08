@@ -65,6 +65,10 @@ public class Triangle extends Object {
             }
 
             lastN = P01.cross(P02);
+            // FIXME, la normale était pas orientée, j'ai mis ça en attendant.
+            if(lastN.dot(ray.getDirection()) > 0)
+                lastN.scale(-1.d);
+
             lastPoint = ray.getOrigin()
                            .add(ray.getDirection().scale(lastSol.z));
         }
