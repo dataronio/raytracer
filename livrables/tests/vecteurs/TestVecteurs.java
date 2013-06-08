@@ -1,4 +1,4 @@
-package tests.maths;
+package tests.vecteurs;
 
 import raytracer.Vector3d;
 import raytracer.Tuple3d;
@@ -33,10 +33,10 @@ public class TestVecteurs {
         Vector3d p = new Vector3d(vx);
         assertEquals(p.symmetry(vx), vx);
 
-        Vector3d p = new Vector3d(vx);
+        p = new Vector3d(vx);
         assertEquals(p.symmetry(vy), new Vector3d(vx).scale(-1));
 
-        Vector3d p = new Vector3d(vx);
+        p = new Vector3d(vx);
         assertEquals(p.symmetry(vz), new Vector3d(vx).scale(-1));
     }
 }
