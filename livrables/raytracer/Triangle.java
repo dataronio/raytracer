@@ -66,8 +66,8 @@ public class Triangle extends Object {
 
     protected boolean checkDontIntersect() {
         return lastSol == null
-        ||     (lastSol.x >= 0. && lastSol.x <= 1.
-             && lastSol.y >= 0. && lastSol.y <= 1-lastSol.x);
+        ||  lastSol.x < 0. || lastSol.x > 1.
+             || lastSol.y < 0. || lastSol.y > 1-lastSol.x;
     }
 
     public boolean isEntering(Ray ray) throws DontIntersectException {
