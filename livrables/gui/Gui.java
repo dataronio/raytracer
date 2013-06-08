@@ -38,12 +38,14 @@ public class Gui
         // Mise en place des widgets
         tabbedPane = new JTabbedPane();
         JPanel buttonPane = new JPanel();
+        JButton generateImageButton = new JButton("Voir l'image");
         JButton addButton = new JButton("Ajouter");
         JButton saveButton = new JButton("Enregister");
         text = new JTextArea();
         JScrollPane scrollText = new JScrollPane(text);
 
         buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
+        buttonPane.add(generateImageButton);
         buttonPane.add(saveButton);
         buttonPane.add(addButton);
 
@@ -63,6 +65,7 @@ public class Gui
         tabbedPane.addTab("Triangle", new TriangleTab());
 
         // Ajout des actions
+        generateImageButton.addActionListener(new GenerateImageAction(this));
         addButton.addActionListener(new AddAction());
         saveButton.addActionListener(new SaveAction());
 
@@ -87,6 +90,22 @@ public class Gui
     public Gui(File file)
     {
         this(file, "Gestionnaire de Scène");
+    }
+
+    /** Retourne la scène actuelle, sous forme textuelle
+     * @return La scène actuelle
+     */
+    public String getText()
+    {
+        return this.text.getText();
+    }
+
+    /** Retourne la fenêtre principale
+     * @return La fenêtre principale
+     */
+    public JFrame getWindow()
+    {
+        return this.window;
     }
 
     /** Action qui permet d'enregistrer la scène */
