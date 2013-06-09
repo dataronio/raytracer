@@ -11,7 +11,7 @@ raytracer:
 
 analyse: gui.png uml.pdf livrables/analyse.pdf
 
-rapport: gui.png uml.pdf livrables/rapport.pdf
+rapport: gui.png uml.pdf guiuml.pdf livrables/rapport.pdf
 
 livrables/analyse.pdf: analyse.tex
 	pdflatex -interaction nonstopmode -output-directory livrables analyse.tex
@@ -31,6 +31,11 @@ uml.pdf: livrables/Uml.xmi
 	inkscape -A uml.pdf livrables/class\ diagram.svg
 	rm livrables/class\ diagram.svg
 
+guiuml.pdf: livrables/GuiUml.xmi
+	umbrello --export svg livrables/GuiUml.xmi
+	inkscape -A guiuml.pdf livrables/class\ diagram.svg
+	rm livrables/class\ diagram.svg
+
 gui.png: gui.ui
 	$(warning "gui.ui modifié, impossible de générer gui.png automatiquement !")
 
@@ -44,12 +49,15 @@ clean: force
 	rm -f livrables/rapport.aux
 	rm -f livrables/rapport.log
 	rm -f livrables/rapport.out
+	rm -f livrables/rapport.toc
+	rm -f livrables/rapport.lof
 	cd livrables; make clean
 
 cleanall: clean
 	rm -f livrables/analyse.pdf
 	rm -f livrables/rapport.pdf
 	rm -f uml.pdf
+	rm -f guiuml.pdf
 	rm -rf livrables/doc
 
 force:
