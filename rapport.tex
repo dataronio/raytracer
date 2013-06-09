@@ -120,12 +120,12 @@ p4------+
     Les objets \textit{Sphere}, \textit{Plane}, \textit{Triangle} et
     \textit{Cube} peuvent en plus avoir les propriétés suivantes:
     \begin{description}
-      \item[brightness] flottant, par défaut à 30;
-      \item[k\_specular] flottant, par défaut à 1;
-      \item[k\_diffuse] vecteur, par défaut à \textit{(1, 1, 1)};
-      \item[k\_reflection] flottant, par défaut à 1;
-      \item[k\_refraction] vecteur, par défaut à \textit{(0, 0, 0)};
-      \item[refractive\_index] flottant, par défaut à 1.
+      \item[brightness] flottant, par défaut à 30. Plus ce nombre est grand, plus la tâche provoquée par la composante spéculaire sera localisée.
+      \item[k\_specular] flottant, par défaut à 1. Coefficient par lequel on multiplie la composante spéculaire.
+      \item[k\_diffuse] vecteur, par défaut à \textit{(1, 1, 1)}. Coefficients par lesquels on multiplie les composantes diffuse pour chaque couleur. Donne donc la couleur de l'objet.
+      \item[k\_reflection] flottant, par défaut à 0. Coefficient par lequel on multiplie la composante réfléchie.
+      \item[k\_refraction] vecteur, par défaut à \textit{(0, 0, 0)}. Coefficients par lesquels on multiplie les composantes réfractées pour chaque couleur.
+      \item[refractive\_index] flottant, par défaut à 1 (la lumière réfractée ne sera alors pas déviée). Indice du milieu intérieur à l'objet.
     \end{description}
 
     \bigskip
@@ -185,5 +185,32 @@ p4------+
     Dans ces calculs, elle va appeler la méthode \verb+normal+, qui va donner
     la normale au point d'intersection du rayon avec l'objet, méthode qui sera
     définie dans des sous-classes, en fonction de l'objet.
+
+    \subsubsection{Problèmes}
+
+    Un problème qui se pose est que, en lançant le rayon avec la méthode \verb+rayColor+ d'une scène,
+    à partir d'un point d'intersection avec un objet, l'objet le plus proche qui va intersecter de nouveau
+    sera l'objet lui même, à ce même point d'intersection et avec une distance de zéro.
+    Pour celà, on aurait pu définir un \textit{epsilon} et vérifier que la distance y soit supérieure, mais
+    celà entraînait des problèmes de pixels complètement différent des autres, et il aurait fallu trouver
+    une valeur adéquate pour \textit{epsilon}. Nous avons donc décidé de ne pas utiliser ce système, et tout
+    simplement d'ignorer l'objet qui intersecte, lors du lancer de rayon.
+    La méthode \verb+rayColor+, à donc un paramètre (pouvant être nul), qui indique si elle doit ignorer un objet.
+    Ce système pose toutefois un problème : Un rayon entrant dans une sphère coupera toutefois la sphère en un autre
+    endroit. Ce cas est actuellement ignoré, et fait que notre réfraction dans une sphère est peu représentative de la réalité.
+
+    Un autre problème assez important, mais lié à la façon dont le raytracer fonctionne, est qu'un objet transparent ou qui va seulement
+    dévier légèrement la lumière, sera capable de masquer les sources lumineuses.
+    Cela veut dire qu'il laissera une ombre, alors qu'il est pourtant transparent.
+
+    \subsubsection{Améliorations}
+
+    En changeant la façon dont le raytracer fonctionne, il serait possible d'éviter ce genre de problème : Une solution simple est d'utiliser
+    des simulations de Monte-Carlo :
+    Pour obtenir l'éclairement d'un point, on lancera des rayons à partir de ce point, dans des directions choisies au hasard (mais réparties de manière non
+    uniforme, pour tenir compte que plus de lumière provient des rayons dans la direction de la normale), et on regardera la lumière diffuse émanera de ces points.
+    Ainsi, le problème d'ombre précédemment développé pourra être éliminé.
+    Toutefois, cette méthode est très coûteuse en calcul.
+
 \end{document}
 
