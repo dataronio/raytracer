@@ -26,14 +26,13 @@ public class RayTracer {
 
                 String format = args.length >= 3 ? args[2] : "png";
 
-                for(int i = 0; i < images.size(); ++i) {
-                    File output = new File(args[1] + i + "." + format);
-
-                    if(!output.exists()) {
-                        output.createNewFile();
+                if(images.size() > 0) {
+                    saveImage(args[1], format, images.get(0));
+                }
+                else {
+                    for(int i = 0; i < images.size(); ++i) {
+                        saveImage(args[1], format, images.get(i));
                     }
-
-                    ImageIO.write(images.get(i), format, output);
                 }
             }
             catch (FileNotFoundException e) {
@@ -50,10 +49,6 @@ public class RayTracer {
                 ); 
                 System.exit(1);
             }
-            catch (IOException e) {
-                System.out.println("Erreur : " + e.toString());
-                System.exit(1);
-            }
         }
         else {
             System.out.println(
@@ -68,6 +63,23 @@ public class RayTracer {
             +                   "S'il n'existe pas, il sera créé. \n"
             +   "   format       Le format de fichier. Par défaut png."
             );
+            System.exit(1);
+        }
+    }
+
+    static private
+    void saveImage(String name, String format, RenderedImage image) {
+        try {
+            File output = new File(name + "." + format);
+
+            if(!output.exists()) {
+                output.createNewFile();
+            }
+
+            ImageIO.write(image, format, output);
+        }
+        catch (IOException e) {
+            System.out.println("Erreur : " + e.toString());
             System.exit(1);
         }
     }
