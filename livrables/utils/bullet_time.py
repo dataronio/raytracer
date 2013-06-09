@@ -46,7 +46,7 @@ while angle < 2*math.pi:
 
     fichier_scène = os.path.join(répertoire_destination, '%s.scn' % si)
     open(fichier_scène, 'w+').write('\n'.join(scène) + '\n')
-    commands.append("java raytracer.RayTracer %s %s" % (fichier_scène, os.path.join(répertoire_destination, '%s.png' % si)))
+    commands.append("java raytracer.RayTracer %s %s" % (fichier_scène, os.path.join(répertoire_destination, si)))
 
 print("Parallel rendering...")
 
