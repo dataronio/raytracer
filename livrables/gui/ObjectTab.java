@@ -16,6 +16,7 @@ public class ObjectTab extends Tab
     }
 
     /** Met en place les widgets dans le layout */
+    @Override
     protected void setupFields()
     {
         Double[] zeros = {0.0, 0.0, 0.0};

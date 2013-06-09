@@ -14,6 +14,7 @@ public class CameraTab extends Tab
     }
 
     /** Met en place les widgets dans le layout */
+    @Override
     protected void setupFields()
     {
         fields.add(new Point3dTabField("eye", "Position de l'oeil"));

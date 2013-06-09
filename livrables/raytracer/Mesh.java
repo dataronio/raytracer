@@ -15,7 +15,6 @@ public class Mesh extends BasicObject {
     /** Conservé afin d'éviter de refaire les calculs à chaque fois. */
     private Triangle lastTriangle;
 
-    /** Constructeur par défaut */
     /**
      * Construit un Mesh qui n'est composé d'un ensemble vide mais non-null de
      * triangles.

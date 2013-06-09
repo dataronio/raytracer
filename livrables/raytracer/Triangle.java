@@ -23,7 +23,7 @@ public class Triangle extends Object {
     /**
      * Construit un Triangle. Les paramètres ne sont pas copiés.
      */
-    public Triangle(Texture texture, Point3d P0_, Point3d P1_, Point3d P2_) {
+    public Triangle(Texture texture, Point3d P0, Point3d P1, Point3d P2) {
         super(texture);
         this.P0 = P0;
         this.P1 = P1;

@@ -17,6 +17,7 @@ public class AmbientLightTab extends Tab
     }
 
     /** Met en place les widgets dans le layout */
+    @Override
     protected void setupFields()
     {
         Double[] init = {0.1, 0.1, 0.1};
@@ -25,6 +26,7 @@ public class AmbientLightTab extends Tab
     }
 
     /** Retourne la ligne à écrire dans le fichier */
+    @Override
     public String toString()
     {
         return name + intensity.getValue();

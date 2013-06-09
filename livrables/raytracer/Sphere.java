@@ -15,7 +15,7 @@ public class Sphere extends Object {
     /**
      * Construit une sphère. Les paramètres ne sont pas copiés.
      */
-    public Sphere(Texture texture, Point3d center_, double radius_) {
+    public Sphere(Texture texture, Point3d center, double radius) {
         super(texture);
         this.center = center;
         this.radius = radius;

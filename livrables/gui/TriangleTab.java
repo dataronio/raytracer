@@ -14,6 +14,7 @@ public class TriangleTab extends ObjectTab
     }
 
     /** Met en place les widgets dans le layout */
+    @Override
     protected void setupFields()
     {
         fields.add(new Point3dTabField("p1", "Point 1"));

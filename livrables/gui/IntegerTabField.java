@@ -53,6 +53,7 @@ public class IntegerTabField extends TabField
     /** Retourne si la valeur actuelle est la valeur par défaut 
      * dans ce cas, l'écriture dans le fichier n'est pas necéssaire
      */
+    @Override
     public boolean isDefault()
     {
         return this.default_ != null && this.default_ == ((Number)this.textField.getValue()).intValue();

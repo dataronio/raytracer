@@ -12,6 +12,7 @@ import java.lang.RuntimeException;
  */
 public class Scene
 {
+    /** Profondeur maximale du calcul */
     private final int MAX_DEPTH = 10;
 
     /** Liste des objets */
