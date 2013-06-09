@@ -67,7 +67,7 @@ abstract public class Object extends BasicObject {
 
         if(texture.k_reflection > 0)
         {
-            double[] E2 = scene.rayColor(reflected_ray, depth + 1);
+            double[] E2 = scene.rayColor(reflected_ray, depth + 1, this);
 
             for(int i = 0; i < 3; i++)
                 E[i] = logAdd(E[i], E2[i] * texture.k_reflection);
@@ -88,7 +88,7 @@ abstract public class Object extends BasicObject {
            
             Ray refracted_ray = new Ray(normal_ray.getOrigin(), normal_ray.getDirection().scale(coef*-1.d).add(ray.getDirection()));
 
-            double[] E2 = scene.rayColor(refracted_ray, depth + 1);
+            double[] E2 = scene.rayColor(refracted_ray, depth + 1, this);
 
             for(int i = 0; i < 3; i++)
                 E[i] = logAdd(E[i], E2[i] * texture.k_refraction[i]);

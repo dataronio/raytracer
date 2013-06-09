@@ -35,12 +35,12 @@ public class Scene
      * @param camera La caméra
      * @param ambientLight La lumière ambiante
      */
-    public Scene (List<BasicObject> objects, List<Light> lights, Camera camera, double[] ambientLight)
+    public Scene (List<BasicObject> objects_, List<Light> lights_, Camera camera_, double[] ambientLight_)
     {
-        this.objects = objects;
-        this.camera = camera;
-        this.ambientLight = ambientLight;
-        this.lights = lights;
+        objects = objects_;
+        camera = camera_;
+        ambientLight = ambientLight_;
+        lights = lights_;
     }
 
     /**
@@ -88,18 +88,21 @@ public class Scene
      *
      * @return La couleur
      */
-    public double[] rayColor(Ray ray, int depth)
+    public double[] rayColor(Ray ray, int depth, Object ignore_object)
     {
         BasicObject best_object = null;
-        double best_distance = 0;
+        double best_distance = Double.MAX_VALUE;
 
         for(BasicObject object : objects)
         {
+            //if(object == ignore_object)
+            //    continue;
+
             try
             {
                 double d = object.distance(ray);
 
-                if(d > 0.000001 && (d < best_distance || best_object == null))
+                if(d > 0.00001 && d < best_distance)
                 {
                     best_distance = d;
                     best_object = object;
@@ -139,7 +142,7 @@ public class Scene
         {
             for(int y = 0; y < height; y++)
             {
-                double[] rgb = rayColor(camera.getRay(x, y), 0);
+                double[] rgb = rayColor(camera.getRay(x, y), 0, null);
                 image.setRGB(x, y, new Color((float)rgb[0], (float)rgb[1], (float)rgb[2]).getRGB());
             }
         }

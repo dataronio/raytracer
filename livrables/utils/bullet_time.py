@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import math, os
+import math, os, multiprocessing
 
 RATIO = 1
 
@@ -21,6 +21,10 @@ step = 2*math.pi/nb_images
 
 angle = -step
 i = 0
+commands = []
+
+print("Generating scenes...")
+
 while angle < 2*math.pi:
     angle += step
     i += 1
@@ -42,7 +46,11 @@ while angle < 2*math.pi:
 
     fichier_scène = os.path.join(répertoire_destination, '%s.scn' % si)
     open(fichier_scène, 'w+').write('\n'.join(scène) + '\n')
-    os.system("java raytracer.RayTracer %s %s" % (fichier_scène, os.path.join(répertoire_destination, '%s.png' % si)))
+    commands.append("java raytracer.RayTracer %s %s" % (fichier_scène, os.path.join(répertoire_destination, '%s.png' % si)))
 
-    print("%s done." % i)
+print("Parallel rendering...")
+
+pool = multiprocessing.Pool(None)
+r = pool.map_async(os.system, commands)
+r.wait()
 

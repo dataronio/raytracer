@@ -23,12 +23,12 @@ public class Triangle extends Object {
     /**
      * Construit un Triangle. Les paramètres ne sont pas copiés.
      */
-    public Triangle(Texture texture, Point3d P0, Point3d P1, Point3d P2) {
+    public Triangle(Texture texture, Point3d P0_, Point3d P1_, Point3d P2_) {
         super(texture);
-        this.P0 = P0;
-        this.P1 = P1;
-        this.P2 = P2;
-        this.lastSol = null;
+        P0 = P0_;
+        P1 = P1_;
+        P2 = P2_;
+        lastSol = null;
     }
 
     @Override

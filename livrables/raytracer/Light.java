@@ -13,11 +13,11 @@ public class Light
      * @param position La position (copié)
      * @param rgbIntensity L'intensité (copié)
      */
-    public Light(Point3d position, double[] rgbIntensity)
+    public Light(Point3d position_, double[] rgbIntensity)
     {
-        this.position = new Point3d(position);
-        this.intensity = new double[3];
-        System.arraycopy(rgbIntensity, 0, this.intensity, 0, 3);
+        position = new Point3d(position_);
+        intensity = new double[3];
+        System.arraycopy(rgbIntensity, 0, intensity, 0, 3);
     }
 
     /** Retourne la position */

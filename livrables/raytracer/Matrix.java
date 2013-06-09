@@ -7,10 +7,10 @@ public class Matrix {
     /**
      * Construit la matrice représentée par les colonnes (c1 c2 c3)
      */
-    public Matrix(Vector3d c1, Vector3d c2, Vector3d c3) {
-        this.c1 = c1;
-        this.c2 = c2;
-        this.c3 = c3;
+    public Matrix(Vector3d c1_, Vector3d c2_, Vector3d c3_) {
+        c1 = c1_;
+        c2 = c2_;
+        c3 = c3_;
     }
 
     /** Retourne le déterminant de la matrice */

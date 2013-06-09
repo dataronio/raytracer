@@ -9,8 +9,8 @@ public class Point3d extends Tuple3d {
         super();
     }
 
-    public Point3d(double x, double y, double z) {
-        super(x, y, z);
+    public Point3d(double x_, double y_, double z_) {
+        super(x_, y_, z_);
     }
 
     /**

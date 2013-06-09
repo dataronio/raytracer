@@ -15,10 +15,10 @@ public class Sphere extends Object {
     /**
      * Construit une sphère. Les paramètres ne sont pas copiés.
      */
-    public Sphere(Texture texture, Point3d center, double radius) {
-        super(texture);
-        this.center = center;
-        this.radius = radius;
+    public Sphere(Texture texture_, Point3d center_, double radius_) {
+        super(texture_);
+        center = center_;
+        radius = radius_;
     };
 
     @Override
@@ -37,8 +37,11 @@ public class Sphere extends Object {
         if(t1 >= 0) {
             return t1;
         }
-        else {
+        else if(t2 >= 0) {
             return t2;
+        }
+        else {
+            throw new DontIntersectException();
         }
     }
 
@@ -62,9 +65,9 @@ public class Sphere extends Object {
         if(delta < 0)
             throw new DontIntersectException();
 
-        double distance = dDotSC - Math.sqrt(delta);
+        double distance_premier = dDotSC - Math.sqrt(delta);
 
-        return distance >= 0;
+        return distance_premier >= 0;
     }
 }
 

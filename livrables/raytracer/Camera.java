@@ -20,25 +20,25 @@ public class Camera {
      * ou si les tailles données sont négatives.
      */
     public Camera(
-        Point3d eye, Point3d origin,
-        Vector3d abscissa, Vector3d ordinate,
-        int widthPixels, int heightPixels
+        Point3d eye_, Point3d origin_,
+        Vector3d abscissa_, Vector3d ordinate_,
+        int widthPixels_, int heightPixels_
     ) {
-        if(eye == null
-        || origin == null
-        || abscissa == null
-        || ordinate == null
-        || widthPixels <= 0
-        || heightPixels <= 0) {
+        if(eye_ == null
+        || origin_ == null
+        || abscissa_ == null
+        || ordinate_ == null
+        || widthPixels_ <= 0
+        || heightPixels_ <= 0) {
             throw new IllegalArgumentException("Paramètre invalide");
         }
 
-        this.eye = eye;
-        this.origin = origin;
-        this.abscissa = abscissa;
-        this.ordinate = ordinate;
-        this.widthPixels = widthPixels;
-        this.heightPixels = heightPixels;
+        eye = eye_;
+        origin = origin_;
+        abscissa = abscissa_;
+        ordinate = ordinate_;
+        widthPixels = widthPixels_;
+        heightPixels = heightPixels_;
     };
   
     /**

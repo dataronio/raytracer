@@ -17,8 +17,8 @@ public class Tuple3d {
         this(xyz[0], xyz[1], xyz[2]);
     }
 
-    public Tuple3d(double x, double y, double z) {
-        set(x, y, z);
+    public Tuple3d(double x_, double y_, double z_) {
+        set(x_, y_, z_);
     }
 
     /**
@@ -31,8 +31,8 @@ public class Tuple3d {
     /**
      * Modifie ce tuple.
      */
-    public void set(double x, double y, double z) {
-        this.x = x; this.y = y; this.z = z;
+    public void set(double x_, double y_, double z_) {
+        x = x_;y = y_; z = z_;
     }
 
     /**
