@@ -32,7 +32,7 @@ public class Point3d extends Tuple3d {
      * @return this
      */
     public Point3d add(Vector3d other) {
-        set(other.add(this));
+        set(x+other.x, y+other.y, z+other.z);
         return this;
     }
 

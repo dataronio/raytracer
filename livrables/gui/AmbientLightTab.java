@@ -13,7 +13,7 @@ public class AmbientLightTab extends Tab
      */
     public AmbientLightTab()
     {
-        super("AmbientLight");
+        super("AmbientLights");
     }
 
     /** Met en place les widgets dans le layout */

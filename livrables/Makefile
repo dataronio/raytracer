@@ -1,9 +1,9 @@
 all: raytracer
 
-raytracer: raytracer/RayTracer.java imageio gui
+raytracer: raytracer/RayTracer.class imageio gui
 	javac raytracer/RayTracer.java
 
-raytracer/RayTracer.class: $(shell find raytracer -type f)
+raytracer/RayTracer.class: $(shell find raytracer -type f -name "*.java")
 	javac raytracer/RayTracer.java
 
 raytracer/Matrix.class: raytracer/Matrix.java
@@ -25,7 +25,7 @@ imageio/PPMWriter.class imageio/PPMImageWriterSpi.class: imageio/PPMWriter.java 
 
 gui: gui/Gui.class
 
-gui/Gui.class: $(shell find gui -type f)
+gui/Gui.class: $(shell find gui -type f -name "*.java")
 	javac gui/*.java
 
 tests: imageio_tests maths_tests vecteurs_tests
@@ -46,7 +46,7 @@ tests/vecteurs/TestVecteurs.class: tests/vecteurs/TestVecteurs.java
 	javac $^
 
 doc: force
-	javadoc -private -d ./doc -link http://docs.oracle.com/javase/7/docs/api/ imageio/*.java raytracer/*.java gui/*.java
+	javadoc -private -d ./doc -link http://docs.oracle.com/javase/7/docs/api/ imageio/*.java raytracer/*.java gui/*.java tests/imageio/*.java tests/maths/*.java tests/vecteurs/*.java
 
 clean: force
 	rm -f raytracer/*.class

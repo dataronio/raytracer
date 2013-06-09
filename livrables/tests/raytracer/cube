@@ -1,0 +1,4 @@
+Camera(eye=(0, 0, 0), origin=(-1, 0, 1), abscissa=(2, 0, 0), ordinate=(0, 2, 0), widthPixel=500, heightPixel=500)
+Light(pos=(5, 0, 0), intensity=(0.8, 0.8, 0.9))
+Cube(p1=(0, 5, 20), p2=(0, 5, 25), p3=(0, 10, 20), p4=(5, 5, 20), radius=3.14, k_diffuse=(0.6,0.3,0.6))
+AmbientLights(0.9, 0.9, 0.9)
