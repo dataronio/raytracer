@@ -19,7 +19,7 @@ public class FileReader {
     throws IllegalStateException, InvalidFormatException {
         Vector<BasicObject> objects = new Vector<BasicObject>();
         Vector<Light> lights = new Vector<Light>();
-        Camera camera = null;
+        List<Camera> cameras = new ArrayList<Camera>();
         double[] ambientLights = new double[]{0.1, 0.1, 0.1};
 
         while(scanner.hasNextLine()) {
@@ -40,14 +40,7 @@ public class FileReader {
             }
 
             if(m.group(1).equals("camera")) {
-                if(camera == null) {
-                    camera = buildCamera(Utils.parseParams(m.group(2)));
-                }
-                else {
-                    throw new InvalidFormatException(
-                        "Format invalide : deux caméras présentes"
-                    );
-                }
+                cameras.add(buildCamera(Utils.parseParams(m.group(2))));
             }
             else if(m.group(1).equals("light")) {
                 lights.add(buildLight(Utils.parseParams(m.group(2))));
@@ -62,13 +55,13 @@ public class FileReader {
             }
         }
 
-        if(camera == null) {
+        if(cameras.isEmpty()) {
             throw new InvalidFormatException(
                 "Format invalide : caméra manquante"
             );
         }
 
-        return new Scene(objects, lights, camera, ambientLights);
+        return new Scene(objects, lights, cameras, ambientLights);
     }
 
     /**

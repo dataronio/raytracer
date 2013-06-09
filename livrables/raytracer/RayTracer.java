@@ -9,37 +9,32 @@ import java.util.*;
 
 public class RayTracer {
     public static void main(String[] args) {
-        if(args.length == 2) {
+        if(args.length >= 2) {
             File source = new File(args[0]);
-            File output = new File(args[1]);
             Scanner scanner;
 
             try {
-                if(!output.exists()) {
-                    output.createNewFile();
-                } 
-
-                scanner = new Scanner(source);
-                Scene scene = FileReader.read(scanner);
-
-                RenderedImage image = scene.generateImage();
-
+                // enregistre le format PPM auprès de Java.
                 ImageIO.scanForPlugins();
                 IIORegistry.getDefaultInstance()
                            .registerServiceProvider(new PPMImageWriterSpi());
 
-                String format = "png";
-                List<String> splitOutputFile
-                    = Arrays.asList(args[1].split("\\."));
+                scanner = new Scanner(source);
+                Scene scene = FileReader.read(scanner);
 
-                if(splitOutputFile.size() >= 2
-                && Arrays.asList(ImageIO.getWriterFileSuffixes())
-                                        .contains(splitOutputFile.get(1))
-                ) {
-                    format = splitOutputFile.get(1);
+                List<RenderedImage> images = scene.generateImages();
+
+                String format = args.length >= 3 ? args[2] : "png";
+
+                for(int i = 0; i < images.size(); ++i) {
+                    File output = new File(args[1] + i + "." + format);
+
+                    if(!output.exists()) {
+                        output.createNewFile();
+                    }
+
+                    ImageIO.write(images.get(i), format, output);
                 }
-
-                ImageIO.write(image, format, output);
             }
             catch (FileNotFoundException e) {
                 System.out.println(
@@ -61,14 +56,18 @@ public class RayTracer {
             }
         }
         else {
-            System.out.println("Usage: java raytracer.RayTracer source destination");
-            System.out.println("");
-            System.out.println("Fait le rendu d'une scène, dans le format suggéré par l'extension du fichier de destination.");
-            System.out.println("Par défaut, le format utilisé est png.");
-            System.out.println("");
-            System.out.println("arguments:");
-            System.out.println("   source       Le fichier de scène.");
-            System.out.println("   destination  Le fichier de destination. S'il n'existe pas, il sera créé.");
+            System.out.println(
+                "Usage: java raytracer.RayTracer source destination format\n"
+            +   "\n"
+            +   "Crée autant de fichiers que de caméras dans la source.\n"
+            +   "Les fichiers sont nommés destination[nombre].format\n"
+            +   "\n"
+            +   "arguments :\n"
+            +   "   source       Le fichier de scène.\n"
+            +   "   destination  Le fichier de destination. "
+            +                   "S'il n'existe pas, il sera créé. \n"
+            +   "   format       Le format de fichier. Par défaut png."
+            );
             System.exit(1);
         }
     }

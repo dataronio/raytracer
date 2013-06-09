@@ -15,30 +15,20 @@ public class Scene
     /** Profondeur maximale du calcul */
     private final int MAX_DEPTH = 10;
 
-    /** Liste des objets */
     private List<BasicObject> objects;
-
-    /** Caméra */
-    private Camera camera;
-
-    /** Lumière ambiante */
+    private List<Camera> cameras;
     private double[] ambientLight;
-
-    /** Liste des lumières */
     private List<Light> lights;
   
     /**
      * Constructeur (les paramètres ne sont pas copiés).
-     *
-     * @param objects La liste des objects
-     * @param lights La liste des lumières
-     * @param camera La caméra
-     * @param ambientLight La lumière ambiante
      */
-    public Scene (List<BasicObject> objects_, List<Light> lights_, Camera camera_, double[] ambientLight_)
-    {
+    public Scene (
+        List<BasicObject> objects_, List<Light> lights_,
+        List<Camera> cameras_, double[] ambientLight_
+    ) {
         objects = objects_;
-        camera = camera_;
+        cameras = cameras_;
         ambientLight = ambientLight_;
         lights = lights_;
     }
@@ -47,8 +37,7 @@ public class Scene
      * Retourne la liste des lumières.
      * @return La liste des lumières (non copiée).
      */
-    public List<Light> getLights()
-    {
+    public List<Light> getLights() {
         return lights;
     }
 
@@ -56,8 +45,7 @@ public class Scene
      * Retourne la liste des objets.
      * @return La liste des objets (non copiée).
      */
-    public List<BasicObject> getObjects()
-    {
+    public List<BasicObject> getObjects() {
         return objects;
     }
 
@@ -65,73 +53,86 @@ public class Scene
      * Modifie la lumière ambiante.
      * @param newVar La nouvelle valeur de la lumière ambiante.
      */
-    public void setAmbientLight(double[] newVar)
-    {
+    public void setAmbientLight(double[] newVar) {
         ambientLight = newVar;
     }
 
     /**
-     * Retourne une composante de la lumière ambiante
-     * @param i La composante voulue
-     * @return La composante de la lumière ambiante voulue
+     * Retourne une composante de la lumière ambiante.
+     * @param i La composante voulue (0=rouge, 1=vert, 2=bleu).
+     * @return La composante de la lumière ambiante voulue.
      */
-    public double getAmbientLight(int i)
-    {
+    public double getAmbientLight(int i) {
         return ambientLight[i];
     }
 
     /**
      * Calcule la couleur du premier point qui intersecte le rayon.
      *
-     * @param ray Le rayon
      * @param depth La profondeur actuelle de la projection
-     * @param ignore_object Un éventuel objet que l'on va ignorer. Peut être nul.
+     * @param ignore_object Un éventuel objet que l'on va ignorer.
+     * Peut être nul.
      *
      * @return La couleur
      */
-    public double[] rayColor(Ray ray, int depth, BasicObject ignore_object)
-    {
+    public double[] rayColor(Ray ray, int depth, BasicObject ignore_object) {
+        if(depth > MAX_DEPTH) {
+            return new double[]{0, 0, 0};
+        }
+
         BasicObject best_object = null;
         double best_distance = Double.MAX_VALUE;
 
-        for(BasicObject object : objects)
-        {
-            if(object == ignore_object)
+        // détermine le premier objet que croise le rayon.
+        for(BasicObject object : objects) {
+            if(object == ignore_object) {
                 continue;
+            }
 
-            try
-            {
+            try {
                 double d = object.distance(ray);
 
-                if(d > 0 && d < best_distance)
-                {
+                if(d > 0 && d < best_distance) {
                     best_distance = d;
                     best_object = object;
                 }
             }
-            catch(DontIntersectException ex)
-            {
+            catch(DontIntersectException ex) {
+                continue;
             }
         }
 
-        if(best_object == null || depth > MAX_DEPTH)
-            return new double[]{0, 0, 0}; // black, if the ray goes to the infinite
+        if(best_object == null) {
+            // black, if the ray goes to the infinite
+            return new double[]{0, 0, 0};
+        }
 
-        try
-        {
+        try {
             return best_object.computeColor(ray, this, depth);
         }
-        catch(DontIntersectException ex)
-        {
+        catch(DontIntersectException ex) {
+            // ne devrait pas arriver.
             throw new java.lang.RuntimeException();
         }
     }
 
     /**
-     * Génère le rendu de la scène.
+     * Génère le rendu de la scène pour chaque caméra.
+     * @return La liste des images générée.
+     */
+    public List<RenderedImage> generateImages() {
+        List<RenderedImage> list = new ArrayList<RenderedImage>();
+        for(Camera camera : cameras) {
+            list.add(generateImage(camera));
+        }
+        return list;
+    }
+
+    /**
+     * Génère le rendu de la scène pour la caméra donnée.
      * @return Une image représentant la scène
      */
-    public RenderedImage generateImage()
+    private RenderedImage generateImage(Camera camera)
     {
         int width  = camera.getWidthPixels();
         int height = camera.getHeightPixels();

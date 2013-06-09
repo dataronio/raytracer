@@ -1,5 +1,5 @@
 Camera(eye=(0, -2, 5), origin=(-0.5, 0, 5.5), abscissa=(1, 0, 0), ordinate=(0, 0, -1), widthPixel=500, heightPixel=500)
-//Camera(eye=(51.5, -2, 5), origin=(50, 0, 5.5), abscissa=(1, 0, 0), ordinate=(0, 0, -1), widthPixel=600, heightPixel=600)
+Camera(eye=(51.5, -2, 5), origin=(50, 0, 5.5), abscissa=(1, 0, 0), ordinate=(0, 0, -1), widthPixel=600, heightPixel=600)
 
 
 // plan de base
@@ -15,7 +15,7 @@ Sphere(center=(2, 96, 7), radius=0.5)
 Sphere(center=(-2, 96, 7), radius=0.5)
 
 // Cube
-//Cube(p1=(10,80,0),p2=(10,80,5),p3=(10,85,0),p4=(15,80,0))
+Cube(p1=(10,80,0),p2=(10,80,5),p3=(10,85,0),p4=(15,80,0), k_diffuse=(0.2,0.2,0.2), k_reflection=0.8, k_specular=0.2)
 
 // Triangle miroir
 Triangle(p1=(-10,110,0),p2=(-20,89,0),p3=(-15,100,15), k_diffuse=(0.2,0.2,0.2), k_reflection=0.8, k_specular=0.2)
