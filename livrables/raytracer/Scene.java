@@ -85,24 +85,25 @@ public class Scene
      *
      * @param ray Le rayon
      * @param depth La profondeur actuelle de la projection
+     * @param ignore_object Un éventuel objet que l'on va ignorer. Peut être nul.
      *
      * @return La couleur
      */
-    public double[] rayColor(Ray ray, int depth, Object ignore_object)
+    public double[] rayColor(Ray ray, int depth, BasicObject ignore_object)
     {
         BasicObject best_object = null;
         double best_distance = Double.MAX_VALUE;
 
         for(BasicObject object : objects)
         {
-            //if(object == ignore_object)
-            //    continue;
+            if(object == ignore_object)
+                continue;
 
             try
             {
                 double d = object.distance(ray);
 
-                if(d > 0.00001 && d < best_distance)
+                if(d > 0 && d < best_distance)
                 {
                     best_distance = d;
                     best_object = object;
