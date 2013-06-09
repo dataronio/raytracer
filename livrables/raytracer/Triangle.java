@@ -68,8 +68,9 @@ public class Triangle extends Object {
             lastN = P01.cross(P02);
 
             // oriente la normale.
-            if(lastN.dot(ray.getDirection()) > 0)
+            if(lastN.dot(ray.getDirection()) > 0) {
                 lastN.scale(-1.d);
+            }
 
             lastPoint = ray.getOrigin()
                            .add(ray.getDirection().scale(lastSol.z));
@@ -84,19 +85,22 @@ public class Triangle extends Object {
      */
     protected boolean checkDontIntersect() {
         return lastSol == null
-        ||  lastSol.x < 0. || lastSol.x > 1.
-             || lastSol.y < 0. || lastSol.y > 1-lastSol.x;
+            || lastSol.x < 0. || lastSol.x > 1.
+            || lastSol.y < 0. || lastSol.y > 1-lastSol.x;
     }
 
     /**
-     * Renvoie <tt>true</tt> si le dernier rayon intersecte cet objet.
+     * Le rayon « entre » dans le triangle si est dans la direction opposée à
+     * P0P1^P0P2. 
      */
     public boolean isEntering(Ray ray) throws DontIntersectException {
         if(checkDontIntersect()) {
             throw new DontIntersectException();
         }
         else {
-            return true;
+            Vector3d P01 = new Vector3d(P1, P0);
+            Vector3d P02 = new Vector3d(P2, P0);
+            return P01.cross(P02).dot(ray.getDirection()) < 0;
         }
     }
 }

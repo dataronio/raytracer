@@ -61,28 +61,28 @@ public class Cube extends Mesh {
         Set<Triangle> triangles = new HashSet<Triangle>(12);
 
         // up
-        triangles.add(new Triangle(texture, p1, p2, p3));
+        triangles.add(new Triangle(texture, p1, p3, p2));
         triangles.add(new Triangle(texture, p5, p2, p3));
 
         // down
-        triangles.add(new Triangle(texture, p4, p6, p8));
+        triangles.add(new Triangle(texture, p4, p8, p6));
         triangles.add(new Triangle(texture, p7, p6, p8));
 
         // front
         triangles.add(new Triangle(texture, p1, p4, p6));
-        triangles.add(new Triangle(texture, p1, p3, p6));
+        triangles.add(new Triangle(texture, p3, p1, p6));
 
         // bottom
-        triangles.add(new Triangle(texture, p2, p8, p7));
+        triangles.add(new Triangle(texture, p2, p7, p8));
         triangles.add(new Triangle(texture, p2, p5, p7));
 
         // left
-        triangles.add(new Triangle(texture, p1, p8, p2));
+        triangles.add(new Triangle(texture, p1, p2, p8));
         triangles.add(new Triangle(texture, p1, p8, p4));
 
         // right
         triangles.add(new Triangle(texture, p3, p5, p7));
-        triangles.add(new Triangle(texture, p3, p6, p7));
+        triangles.add(new Triangle(texture, p3, p7, p6));
 
         setTriangles(triangles);
     }
