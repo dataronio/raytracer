@@ -41,9 +41,16 @@ public class RayTracer {
 
                 ImageIO.write(image, format, output);
             }
-            catch (FileNotFoundException | InvalidFormatException e) {
+            catch (FileNotFoundException e) {
                 System.out.println(
                     "Fichier \"" + args[0] + "\" illisible.\n" +
+                    "Raison : " + e.toString()
+                ); 
+                System.exit(1);
+            }
+            catch (InvalidFormatException e) {
+                System.out.println(
+                    "Fichier incorect.\n" +
                     "Raison : " + e.toString()
                 ); 
                 System.exit(1);

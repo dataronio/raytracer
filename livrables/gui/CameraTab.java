@@ -20,8 +20,8 @@ public class CameraTab extends Tab
         fields.add(new Point3dTabField("eye", "Position de l'oeil"));
         fields.add(new Point3dTabField("origin", "Origine de l'écran"));
         fields.add(new Point3dTabField("abscissa", "Axe des abscisses"));
-        fields.add(new Point3dTabField("ordonate", "Axe des ordonnées"));
-        fields.add(new IntegerTabField("widthPixels", "Largeur en pixels"));
-        fields.add(new IntegerTabField("heigthPixels", "Hauteur en pixels"));
+        fields.add(new Point3dTabField("ordinate", "Axe des ordonnées"));
+        fields.add(new IntegerTabField("widthPixel", "Largeur en pixels", 100));
+        fields.add(new IntegerTabField("heightPixel", "Hauteur en pixels", 100));
     }
 }

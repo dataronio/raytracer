@@ -18,7 +18,7 @@ public class LightTab extends Tab
     @Override
     protected void setupFields()
     {
-        fields.add(new Point3dTabField("position", "Position"));
-        fields.add(new ColorTabField("intensity", "Intensité", Color.WHITE));
+        fields.add(new Point3dTabField("pos", "Position"));
+        fields.add(new Point3dTabField("intensity", "Intensité", new Double[]{1., 1., 1.}));
     }
 }
