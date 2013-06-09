@@ -44,8 +44,8 @@ Triangle(p1=(40,50,0),p2=(40,40,0),p3=(40,45,15), k_diffuse=(0.1,0.1,0.1), k_spe
 Sphere(center=(20,45,3), radius=3)
 Sphere(center=(20,45,7), radius=1)
 
-// Fond avec miroir et plan
-Plane(p1=(1,-10,0),p2=(-1,-10,0),p3=(0,-10,1), k_reflection=1, k_diffuse=(0.2,0.2,0.2), brightness=200)
+// Fond avec plan miroir
+Plane(p1=(1,-10,0),p2=(-1,-10,0),p3=(0,-8.1,10), k_reflection=1, k_diffuse=(0.2,0.2,0.2), brightness=200)
 
 //AmbientLights(0.1, 0.1, 0.1)
 Light(pos=(0, -9, 20), intensity=(0.4, 0.5, 0.5))
