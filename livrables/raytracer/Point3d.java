@@ -40,7 +40,7 @@ public class Point3d extends Tuple3d {
      * Construit un vecteur égal à other-this.
      */
     public Vector3d sub(Point3d other) {
-        return new Vector3d(other, this);
+        return new Vector3d(this, other);
     }
 }
 
