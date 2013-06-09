@@ -144,6 +144,23 @@ public class Scene
             for(int y = 0; y < height; y++)
             {
                 double[] rgb = rayColor(camera.getRay(x, y), 0, null);
+
+                if(rgb[0] > 1)
+                {
+                    System.out.println("Warning: red saturation at (" + x + "," + y + ").");
+                    rgb[0] = 1;
+                }
+                if(rgb[1] > 1)
+                {
+                    System.out.println("Warning: green saturation at (" + x + "," + y + ").");
+                    rgb[1] = 1;
+                }
+                if(rgb[2] > 1)
+                {
+                    System.out.println("Warning: blue saturation at (" + x + "," + y + ").");
+                    rgb[2] = 1;
+                }
+
                 image.setRGB(x, y, new Color((float)rgb[0], (float)rgb[1], (float)rgb[2]).getRGB());
             }
         }
