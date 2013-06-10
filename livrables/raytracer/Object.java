@@ -49,9 +49,12 @@ abstract public class Object extends BasicObject {
     public double[] computeColor(Ray ray, Scene scene, int depth) throws DontIntersectException
     {
         Ray normal_ray = normal(ray);
-        assert(normal_ray.getDirection().dot(ray.getDirection()) <= 0); // la normale doit être correctement orientée
+        Vector3d normal_ray_direction = normal_ray.getDirection();
+        assert(normal_ray_direction.dot(ray.getDirection()) <= 0); // la normale doit être correctement orientée
 
-        Ray reflected_ray = new Ray(normal_ray.getOrigin(), ray.getDirection().symmetry(normal_ray.getDirection()).scale(-1));
+        Point3d normal_ray_origin = normal_ray.getOrigin();
+        Vector3d ray_direction = ray.getDirection();
+        Ray reflected_ray = new Ray(normal_ray_origin, ray_direction.symmetry(normal_ray_direction).scale(-1));
 
         // la couleur finale du rayon
         double[] E = {0, 0, 0};
@@ -78,7 +81,7 @@ abstract public class Object extends BasicObject {
         
         if(texture.k_refraction[0] > 0 || texture.k_refraction[1] > 0 || texture.k_refraction[2] > 0)
         {
-            double coef = normal_ray.getDirection().dot(ray.getDirection());
+            double coef = normal_ray_direction.dot(ray_direction);
 
             double refindex = texture.refractive_index;
             if(! isEntering(ray))
@@ -86,7 +89,7 @@ abstract public class Object extends BasicObject {
 
             coef += Math.sqrt(refindex*refindex + coef*coef - 1.d);
            
-            Ray refracted_ray = new Ray(normal_ray.getOrigin(), normal_ray.getDirection().scale(coef*-1.d).add(ray.getDirection()));
+            Ray refracted_ray = new Ray(normal_ray_origin, normal_ray_direction.scale(-coef).add(ray_direction));
 
             double[] E2 = scene.rayColor(refracted_ray, depth + 1, this);
 
@@ -99,14 +102,13 @@ abstract public class Object extends BasicObject {
 
         for(Light light : scene.getLights())
         {
-            Vector3d to_light = light.getPosition().sub(normal_ray.getOrigin());
-            Ray intersect_to_light = new Ray(normal_ray.getOrigin(), to_light);
-
+            Vector3d to_light = light.getPosition().sub(normal_ray_origin);
 
             // on regarde si il y a un objet qui masque la lumière
-          
-            if(to_light.dot(normal_ray.getDirection()) <= 0) // ça peut éventuellement être l'objet lui-même !
+            if(to_light.dot(normal_ray_direction) <= 0) // ça peut éventuellement être l'objet lui-même !
                 continue;
+
+            Ray intersect_to_light = new Ray(normal_ray_origin, to_light);
 
             boolean intersect = false;
             for(BasicObject object: scene.getObjects())
@@ -139,7 +141,7 @@ abstract public class Object extends BasicObject {
 
             // composante diffuse
 
-            double angle_normal_light = Math.cos(normal_ray.getDirection().angle(to_light));
+            double angle_normal_light = Math.cos(normal_ray_direction.angle(to_light));
 
             if(angle_normal_light > 0)
             {
@@ -152,7 +154,8 @@ abstract public class Object extends BasicObject {
 
             // composante spéculaire
 
-            double angle_reflected_light = Math.cos(reflected_ray.getDirection().angle(to_light));
+            Vector3d reflected_ray_direction = reflected_ray.getDirection();
+            double angle_reflected_light = reflected_ray_direction.dot(to_light) / (reflected_ray_direction.length() * to_light.length());
 
             if(angle_reflected_light > 0)
             {

@@ -52,15 +52,16 @@ public class RayTracer {
         }
         else {
             System.out.println(
-                "Usage: java raytracer.RayTracer source destination format\n"
+                "Usage: java raytracer.RayTracer source destination [format]\n"
             +   "\n"
             +   "Crée autant de fichiers que de caméras dans la source.\n"
             +   "Les fichiers sont nommés destination[nombre].format\n"
+            +   "Aucun nombre n'est ajouté s'il n'y a qu'une caméra.\n"
             +   "\n"
-            +   "arguments :\n"
+            +   "Arguments :\n"
             +   "   source       Le fichier de scène.\n"
-            +   "   destination  Le fichier de destination. "
-            +                   "S'il n'existe pas, il sera créé. \n"
+            +   "   destination  Le fichier de destination. Si les fichiers"
+            +                  " n'existent pas, ils seront créés. \n"
             +   "   format       Le format de fichier. Par défaut png."
             );
             System.exit(1);
