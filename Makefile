@@ -11,15 +11,21 @@ raytracer:
 
 analyse: gui.png uml.pdf livrables/analyse.pdf
 
-rapport: gui.png uml.pdf guiuml.pdf livrables/rapport.pdf
+rapport: livrables/rapport.pdf
 
 livrables/analyse.pdf: analyse.tex
 	pdflatex -interaction nonstopmode -output-directory livrables analyse.tex
 	pdflatex -interaction nonstopmode -output-directory livrables analyse.tex
 
-livrables/rapport.pdf: rapport.tex
+livrables/rapport.pdf: rapport.tex gui.png uml.pdf guiuml.pdf
+	$(warning Les images de test du rapport ne sont pas générées pour des raisons de perf, faites make images_rapport pour les générer)
 	pdflatex -interaction nonstopmode -output-directory livrables rapport.tex
 	pdflatex -interaction nonstopmode -output-directory livrables rapport.tex
+
+images_rapport: rapport.tex livrables/tests/raytracer/fichier_simple.png livrables/tests/raytracer/complet.png
+livrables/tests/raytracer/%.png: livrables/tests/raytracer/%
+	# échoue si raytracer n'est pas compilé, mais volontairement ignoré
+	cd livrables; java raytracer.RayTracer ../$< ../$<; true
 
 uml.pdf: livrables/Uml.xmi
 	# l'export depuis umbrello est foireux, seul l'export en svg marche,

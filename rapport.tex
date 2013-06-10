@@ -43,8 +43,10 @@
     d'enregistrer ce format auprès de \verb+javax.image.ImageIO+ qui propose une
     interface commune pour enregistrer des images dans différents formats. Ainsi
     notre programme peut générer des images au format PPM, mais aussi par
-    exemple en PNG. Le choix de ce format est déterminé par l'extension du
-    fichier de sortie fournie au programme.
+    exemple en PNG.
+    
+    Le choix de ce format est déterminé par le troisième paramètre d'appel du
+    programme (la valeur pas défaut est png, ce format étant plus commun).
 
     Ce plugin consiste en deux classes \verb+imageio.PPMImageWriterSpi+ et
     \verb+imageio.PPMImageWriterSpi+. La première permet d'indiquer à Java les
@@ -54,28 +56,35 @@
   \subsection{Format de fichier}
     Nous avons décidé de mettre à disposition un format de fichier dans lequel
     on peut décrire une scène afin de pouvoir enregistrer celles-ci, ou de la
-    générer automatiquement.
+    générer automatiquement (ce qui nous a même permis de faire quelques
+    vidéos).
 
     Le format de fichier ressemble à ceci:
-    \begin{lstlisting}
-#exemple de scene :
-Camera(eye=(0, 0, 0), origin=(-0.5, -0.5, 1), abscissa=(1, 0, 0), \
-ordinate=(0, 1, 0), widthPixel=1000, heightPixel=1000)
+    \begin{lstlisting}[caption=Exemple de fichier associé à la figure
+    \ref{fig:rendusimple}]
+//exemple de scene :
+Camera(eye=(0, 0, 0), origin=(-0.5, 0, 1.5), abscissa=(1, 0, 0),  \
+ordinate=(0, 1, 0), widthPixel=700, heightPixel=700)
 AmbientLights(0.2, 0.2, 0.2)
 Light(pos=(5, 0, 0), intensity=(0.5, 0.5, 0.5))
 Sphere(center=(0, 5, 20), radius=3.14, k_diffuse=(0.6,0.3,0.6))
-Plan(p1=(0,0,30), p2=(1, 0, 30), p3=(0, 1, 30))
+Plane(p1=(-1,0,30), p2=(1, 0, 30), p3=(0, 1, 30))
     \end{lstlisting}
 
-    Il y a un élément par ligne et seule la ligne décrivant la caméra est
-    obligatoire. La casse et l'espacement sont ignorés. La plupart des
+    \begin{figure}[p]
+      \includegraphics[width=\textwidth]{livrables/tests/raytracer/fichier_simple.png}
+      \caption{Exemple de rendu simple\label{fig:rendusimple}}
+    \end{figure}
+
+    Il y a un élément par ligne et seule la ligne décrivant au moins une caméra
+    est obligatoire. La casse et l'espacement sont ignorés. La plupart des
     propriétés ont une valeur par défaut afin d'éviter de surcharger le
     fichier et de permettre de l'écrire à la main. Des commentaires de fin de
     ligne commençant par «~\verb+//+~» peuvent être insérés.
 
     Les éléments suivants peuvent être ajoutés:
     \begin{description}
-      \item[Camera] décrit la caméra de la scène: elle doit posséder les
+      \item[Camera] décrit une caméra de la scène: elle doit posséder les
         propriétés suivantes:
         \begin{description}
           \item[eye] un point décrivant la position de l'œil;
@@ -102,7 +111,9 @@ Plan(p1=(0,0,30), p2=(1, 0, 30), p3=(0, 1, 30))
         \textit{P2} et \textit{P3}.
       \item[Triangle] décrit un triangle, doit avoir trois points nommés
         \textit{P1}, \textit{P2} et \textit{P3}.
-      \item[Cube] décrit un cube, doit avoir quatre points nommés
+      \item[Cube] décrit un cube\footnote{En fait les points ne sont pas testés
+        pour former un cube, cet objet peut représenter n'importe quel
+        parallélépipède.}, doit avoir quatre points nommés
         \textit{P1}, \textit{P2}, \textit{P3} et \textit{P4} répartis comme
         ceci: \begin{lstlisting}
    p2------+
@@ -171,8 +182,6 @@ p4------+
       \restoregeometry
       \clearpage
     }
-
-
     Ainsi, l'objet \verb+Scene+ dispose d'une méthode pour calculer la couleur
     d'un rayon passé en paramètre.
     Pour le faire, il va regarder quel objet va intersecter avec le rayon en
@@ -186,17 +195,22 @@ p4------+
     la normale au point d'intersection du rayon avec l'objet, méthode qui sera
     définie dans des sous-classes, en fonction de l'objet.
 
+    \begin{figure}[p]
+      \includegraphics[width=\textwidth]{livrables/tests/raytracer/complet.png}
+      \caption{Exemple de rendu complexe}
+    \end{figure}
+
     \subsubsection{Problèmes}
 
     Un problème qui se pose est que, en lançant le rayon avec la méthode \verb+rayColor+ d'une scène,
     à partir d'un point d'intersection avec un objet, l'objet le plus proche qui va intersecter de nouveau
     sera l'objet lui même, à ce même point d'intersection et avec une distance de zéro.
-    Pour celà, on aurait pu définir un \textit{epsilon} et vérifier que la distance y soit supérieure, mais
-    celà entraînait des problèmes de pixels complètement différent des autres, et il aurait fallu trouver
-    une valeur adéquate pour \textit{epsilon}. Nous avons donc décidé de ne pas utiliser ce système, et tout
+    Pour cela, on aurait pu définir un $\varepsilon$ et vérifier que la distance y soit supérieure, mais
+    cela entraînait des problèmes de pixels complètement différent des autres, et il aurait fallu trouver
+    une valeur adéquate pour $\varepsilon$. Nous avons donc décidé de ne pas utiliser ce système, et tout
     simplement d'ignorer l'objet qui intersecte, lors du lancer de rayon.
-    La méthode \verb+rayColor+, à donc un paramètre (pouvant être nul), qui indique si elle doit ignorer un objet.
-    Ce système pose toutefois un problème : Un rayon entrant dans une sphère coupera toutefois la sphère en un autre
+    La méthode \verb+rayColor+ a donc un paramètre (pouvant être nul), qui indique si elle doit ignorer un objet.
+    Ce système pose toutefois un problème: un rayon entrant dans une sphère coupera toutefois la sphère en un autre
     endroit. Ce cas est actuellement ignoré, et fait que notre réfraction dans une sphère est peu représentative de la réalité.
 
     Un autre problème assez important, mais lié à la façon dont le raytracer fonctionne, est qu'un objet transparent ou qui va seulement
@@ -205,12 +219,12 @@ p4------+
 
     \subsubsection{Améliorations}
 
-    En changeant la façon dont le raytracer fonctionne, il serait possible d'éviter ce genre de problème : Une solution simple est d'utiliser
-    des simulations de Monte-Carlo :
-    Pour obtenir l'éclairement d'un point, on lancera des rayons à partir de ce point, dans des directions choisies au hasard (mais réparties de manière non
+    En changeant la façon dont le raytracer fonctionne, il serait possible d'éviter ce genre de problème: une solution simple est d'utiliser
+    des simulations de Monte-Carlo:
+    pour obtenir l'éclairement d'un point, on lancera des rayons à partir de ce point, dans des directions choisies au hasard (mais réparties de manière non
     uniforme, pour tenir compte que plus de lumière provient des rayons dans la direction de la normale), et on regardera la lumière diffuse émanera de ces points.
     Ainsi, le problème d'ombre précédemment développé pourra être éliminé.
-    Toutefois, cette méthode est très coûteuse en calcul.
+    Toutefois, cette méthode est très coûteuse en calculs.
 
 \end{document}
 
