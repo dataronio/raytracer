@@ -10,9 +10,9 @@ public class SceneManager
 {
     public static void main(String[] args)
     {
-        if(args.length == 0 || (args.length == 1 && args[0].equals("-h")))
+        if(args.length > 1 || (args.length == 1 && args[0].equals("-h")))
         {
-            System.out.println("usage: java gui.SceneManager [-h] file");
+            System.out.println("usage: java gui.SceneManager [-h] [file]");
             System.out.println("");
             System.out.println("Gère un fichier de scène.");
             System.out.println("");
@@ -21,10 +21,13 @@ public class SceneManager
         }
         else
         {
-            final String filePath = args[0]; // java veut obligatoirement un « final »
+            // le final est nécessaire pour y avoir accès dans la classe
+            // anonyme ci-dessous
+            final String filePath = args.length == 1 ? args[0] : null;
+
             EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new Gui(new File(filePath));
+                    new Gui(filePath);
                 }
             });
         }

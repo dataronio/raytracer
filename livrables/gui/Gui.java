@@ -5,6 +5,7 @@ import javax.swing.event.*;
 import java.awt.event.*;
 import java.util.*;
 import java.io.*;
+import javax.swing.JFileChooser;
 
 /** Interface Graphique pour la gestion de scène.
  * 
@@ -24,13 +25,25 @@ public class Gui
     /** La zone de texte */
     private JTextArea text;
 
-    /** Construire une interface de gestion de scène
-     * @param file le fichier scène à gérer
-     * @param windowTitle le titre de la scène
+    /** Construit une interface de gestion de scène.
+     * @param path Le chemin fichier scène à gérer, ou null s'il faut le
+     * demander à l'utilisateur.
+     * @param windowTitle Le titre de la scène.
      */
-    public Gui(File file, String windowTitle)
+    public Gui(String path, String windowTitle)
     {
-        this.file = file;
+        if(path == null) {
+            JFileChooser dialog = new JFileChooser(path);
+            dialog.showOpenDialog(null);
+            file = dialog.getSelectedFile();
+
+            if(file == null) {
+                System.exit(1);
+            }
+        }
+        else {
+            file = new File(path);
+        }
 
         // Création de la fenêtre
         this.window = new JFrame(windowTitle);
@@ -84,12 +97,13 @@ public class Gui
         this.window.setVisible(true);
     }
 
-    /** Construire une interface de gestion de scène
-     * @param file le fichier scène à gérer
+    /**
+     * Construit une interface de gestion de scène.
+     * @see #Gui(String, String)
      */
-    public Gui(File file)
+    public Gui(String path)
     {
-        this(file, "Gestionnaire de Scène");
+        this(path, "Gestionnaire de Scène");
     }
 
     /** Retourne la scène actuelle, sous forme textuelle
