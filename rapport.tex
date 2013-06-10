@@ -217,14 +217,32 @@ p4------+
     dévier légèrement la lumière, sera capable de masquer les sources lumineuses.
     Cela veut dire qu'il laissera une ombre, alors qu'il est pourtant transparent.
 
+    On peut évaluer la complexité de notre algorithme à du $O(x*y*n*m)$, où :
+    \begin{itemize}
+        \item $x$ est la largeur de l'image
+        \item $y$ est la hauteur de l'image
+        \item $n$ est le nombre d'objets dans l'image
+        \item $m$ est le nombre de sources lumineuses
+    \end{itemize}
+    On voit donc que même sa l'algorithme est rapide sur des scènes simples, plus la scène contiendra d'objets et de lumières, plus le temps de rendu sera élevé.
+
     \subsubsection{Améliorations}
 
+    % Peut-être à virer
     En changeant la façon dont le raytracer fonctionne, il serait possible d'éviter ce genre de problème: une solution simple est d'utiliser
     des simulations de Monte-Carlo:
     pour obtenir l'éclairement d'un point, on lancera des rayons à partir de ce point, dans des directions choisies au hasard (mais réparties de manière non
     uniforme, pour tenir compte que plus de lumière provient des rayons dans la direction de la normale), et on regardera la lumière diffuse émanera de ces points.
     Ainsi, le problème d'ombre précédemment développé pourra être éliminé.
     Toutefois, cette méthode est très coûteuse en calculs.
+
+    Concernant le temps de rendu sur de grosse scènes, plusieurs choses sont possibles :
+    \begin{itemize}
+        \item On pourrait paralléliser la génération des images sur tous les cœurs disponibles sur l'ordinateur. C'est typiquement quelque chose de trivial à paralléliser.
+        \item Pour chaque source de lumière, plutôt que de parcourir tous les objets pour voir si ils interceptent, on pourrait parcourir seulement qui sont sur le parcours du rayon.
+              Pour cela, il nous faudrait diviser notre espace 3D, par exemples à l'aide d'une partition binaire de l'espace (BSP), ou d'un \textit{octree}.
+        \item On peut aussi profiler le code, et essayer de voir si certaines méthodes ne gagneraient pas à être optimisées.
+    \end{itemize}
 
 \end{document}
 
