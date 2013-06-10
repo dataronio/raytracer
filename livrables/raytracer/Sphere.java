@@ -23,7 +23,7 @@ public class Sphere extends Object {
 
     @Override
     public double distance(Ray ray) throws DontIntersectException {
-        Vector3d SC = new Vector3d(center, ray.getOrigin());
+        Vector3d SC = new Vector3d(ray.getOrigin(), center);
         double dDotSC = ray.getDirection().dot(SC);
         double delta = radius*radius + dDotSC*dDotSC - SC.lengthSquared();
 
@@ -52,13 +52,13 @@ public class Sphere extends Object {
         Point3d P = new Point3d(ray.getOrigin().add(td));
 
         if(isEntering(ray))
-            return new Ray(P, new Vector3d(P, center));
-        return new Ray(P, new Vector3d(center, P));
+            return new Ray(P, new Vector3d(center, P));
+        return new Ray(P, new Vector3d(P, center));
     }
 
     @Override
     public boolean isEntering(Ray ray) throws DontIntersectException {
-        Vector3d SC = new Vector3d(center, ray.getOrigin());
+        Vector3d SC = new Vector3d(ray.getOrigin(), center);
         double dDotSC = ray.getDirection().dot(SC);
         double delta = radius*radius + dDotSC*dDotSC - SC.lengthSquared();
 

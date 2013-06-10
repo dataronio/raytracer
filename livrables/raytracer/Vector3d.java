@@ -33,7 +33,7 @@ public class Vector3d extends Tuple3d {
     /**
      * Représente le vecteur AB ou B-A.
      */
-    public Vector3d(Tuple3d B, Tuple3d A) {
+    public Vector3d(Tuple3d A, Tuple3d B) {
         set(B.x-A.x, B.y-A.y, B.z-A.z);
     }
 

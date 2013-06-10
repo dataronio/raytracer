@@ -51,10 +51,10 @@ public class Triangle extends Object {
      */
     private void update(Ray ray) throws DontIntersectException {
         if(lastRay != ray) {
-            Vector3d P01 = new Vector3d(P1, P0);
-            Vector3d P02 = new Vector3d(P2, P0);
+            Vector3d P01 = new Vector3d(P0, P1);
+            Vector3d P02 = new Vector3d(P0, P2);
             Vector3d d = ray.getDirection().scale(-1.);
-            Vector3d b = new Vector3d(ray.getOrigin(), P0);
+            Vector3d b = new Vector3d(P0, ray.getOrigin());
 
             Matrix m = new Matrix(P01, P02, d);
 
@@ -98,8 +98,8 @@ public class Triangle extends Object {
             throw new DontIntersectException();
         }
         else {
-            Vector3d P01 = new Vector3d(P1, P0);
-            Vector3d P02 = new Vector3d(P2, P0);
+            Vector3d P01 = new Vector3d(P0, P1);
+            Vector3d P02 = new Vector3d(P0, P2);
             return P01.cross(P02).dot(ray.getDirection()) < 0;
         }
     }

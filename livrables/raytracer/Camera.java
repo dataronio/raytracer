@@ -60,7 +60,7 @@ public class Camera {
      * l'écran dont les coordonnées sont passées en paramètre.
      */
     public Ray getRay(int x, int y) {
-        Vector3d v = new Vector3d(screenPoint(x, y), eye);
+        Vector3d v = new Vector3d(eye, screenPoint(x, y));
 
         return new Ray(eye, v);
     }

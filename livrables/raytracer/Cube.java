@@ -42,7 +42,7 @@ public class Cube extends Mesh {
         Point3d p3 = new Point3d(p3_);
         Point3d p4 = new Point3d(p4_);
 
-        Vector3d p1p3 = new Vector3d(p3, p1);
+        Vector3d p1p3 = new Vector3d(p1, p3);
 
         Point3d p5 = new Point3d(p2);
         p5.add(p1p3);
@@ -50,7 +50,7 @@ public class Cube extends Mesh {
         Point3d p6 = new Point3d(p4);
         p6.add(p1p3);
 
-        Vector3d p1p4 = new Vector3d(p4, p1);
+        Vector3d p1p4 = new Vector3d(p1, p4);
 
         Point3d p7 = new Point3d(p5);
         p7.add(p1p4);
