@@ -7,7 +7,7 @@ package gui;
 public class AmbientLightTab extends Tab
 {
     /** Champ pour l'intensité */
-    Point3dTabField intensity;
+    private Point3dTabField intensity;
 
     /** Constructeur par défaut 
      */

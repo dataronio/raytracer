@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
  * Action qui génère un rendu d'une scène en parallèle.
  */
 public class GenerateImageAction extends AbstractAction {
-    Gui gui;
+    private Gui gui;
 
     public GenerateImageAction(Gui gui) {
         this.gui = gui;
@@ -41,7 +41,7 @@ public class GenerateImageAction extends AbstractAction {
  * Lance la génération de l'image en parallèle.
  */
 class InvokeRenderer implements Runnable {
-    Gui gui;
+    private Gui gui;
 
     public InvokeRenderer(Gui gui_) {
         gui = gui_;
