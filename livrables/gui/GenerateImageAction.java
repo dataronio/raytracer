@@ -1,10 +1,13 @@
 package gui;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import java.io.*;
 import java.awt.EventQueue;
+import raytracer.*;
+import java.awt.image.BufferedImage;
 
 /**
  * Action qui génère un rendu d'une scène en parallèle.
@@ -20,15 +23,17 @@ public class GenerateImageAction extends AbstractAction {
      * @param event Ignoré.
      */
     public void actionPerformed(ActionEvent event) {
-        JOptionPane.showMessageDialog(
-            null, "Génération en cours",
-            "La génération de l'image est lancée,"
-        +   "l'image sera affiché quand elle sera terminée.",
-            JOptionPane.INFORMATION_MESSAGE
-        );
         Thread thread = new Thread(new InvokeRenderer(gui));
         thread.setDaemon(true);
         thread.start();
+
+        JOptionPane.showMessageDialog(
+            null,
+            "La génération de l'image est lancée,\n"
+        +   "l'image sera affiché quand elle sera terminée.",
+            "Génération en cours",
+            JOptionPane.INFORMATION_MESSAGE
+        );
     }
 }
 
@@ -43,65 +48,23 @@ class InvokeRenderer implements Runnable {
     }
 
     public void run() {
-        Runtime runtime = Runtime.getRuntime();
-        File in;
-       
-        // Création de fichier temporaire
-        try {
-            in = File.createTempFile("raytracer_input", null);
-        }
-        catch(IOException e) {
-            error("Erreur lors de la création du fichier temporaire :\n"
-                    + e.getMessage());
-            return;
-        }
+        try
+        {
+            Scanner scanner = new Scanner(this.gui.getText());
+            Scene scene = raytracer.FileReader.read(scanner);
+            java.util.List<BufferedImage> images = scene.generateImages();
 
-        // Écriture de la scène dans le fichier in
-        try {
-            FileWriter writer = new FileWriter(in);
-            writer.write(this.gui.getText());
-            writer.close();
-        }
-        catch(IOException e) {
-            error("Erreur lors de l'écriture dans un fichier temporaire :\n"
-                    + e.getMessage());
-            return;
-        }
-        // Géneration du rendu
-        Process process;
-       
-        try {
-            process = runtime.exec(
-                "java raytracer.RayTracer " + in.getPath() + " " + in.getPath()
-            );
-            int code = process.waitFor();
-            
-            if(code != 0) { // Erreur de parsage
-                String content
-                    = new Scanner(process.getInputStream()).useDelimiter("\\Z")
-                                                           .next();  
-                error("Erreur lors de la génération du rendu :\n" + content);
-                return;
+            for(BufferedImage image : images)
+            {
+                JFrame frame = new JFrame("Visionnage du rendu");
+                frame.getContentPane().setLayout(new FlowLayout());
+                frame.getContentPane().add(new JLabel(new ImageIcon(image)));
+                frame.pack();
+                frame.setVisible(true);
             }
-
         }
-        catch(IOException e) {
-            error("Erreur lors de la génération du rendu :\n" + e.getMessage());
-            return;
-        }
-        catch(InterruptedException e) { // Interruption du thread
-            return;
-        }
-
-        // Affichage
-        try {
-            // todo: s'il y a plusieurs caméras le nom de fichier est numéroté
-            // et il faut afficher toutes les images
-            runtime.exec("eog " + in.getPath() + ".png");
-        }
-        catch(IOException e) { // A priori, c'est quand eog n'est pas installé
-            error("Erreur lors de l'affichage du rendu :\n" + e.getMessage());
-            return;
+        catch (InvalidFormatException e) {
+            error("Fichier incorrect :\n" + e.toString());
         }
     }
 

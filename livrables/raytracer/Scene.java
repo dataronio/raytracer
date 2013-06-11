@@ -3,7 +3,6 @@ package raytracer;
 import java.util.*;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 import java.lang.RuntimeException;
 
 /**
@@ -122,8 +121,8 @@ public class Scene
      * Génère le rendu de la scène pour chaque caméra.
      * @return La liste des images générée.
      */
-    public List<RenderedImage> generateImages() {
-        List<RenderedImage> list = new ArrayList<RenderedImage>();
+    public List<BufferedImage> generateImages() {
+        List<BufferedImage> list = new ArrayList<BufferedImage>();
         for(Camera camera : cameras) {
             list.add(generateImage(camera));
         }
@@ -134,7 +133,7 @@ public class Scene
      * Génère le rendu de la scène pour la caméra donnée.
      * @return Une image représentant la scène
      */
-    private RenderedImage generateImage(Camera camera)
+    private BufferedImage generateImage(Camera camera)
     {
         int width  = camera.getWidthPixels();
         int height = camera.getHeightPixels();

@@ -6,7 +6,7 @@ Plane(p1=(0,0,0), p2=(1, 0, 0), p3=(0, 1, 0), k_diffuse=(0.6,0.6,0.6))
 
 // Tête
 Plane(p1=(0,110,0),p2=(20,110,0),p3=(0,110,20))
-ImageRect(p1=(0,100,0),p2=(20,100,0),p3=(0,100,20),image="/home/palkeo/test.jpg")
+ImageRect(p1=(0,100,0),p2=(20,100,0),p3=(0,100,20),image="./tests/raytracer/fichier_simple.png")
 
 //AmbientLights(0.06, 0.06, 0.06)
 Light(pos=(0, -6, 20), intensity=(0.4, 0.5, 0.5))

@@ -1,7 +1,7 @@
 package raytracer;
 
 import imageio.PPMImageWriterSpi;
-import java.awt.image.RenderedImage;
+import java.awt.image.BufferedImage;
 import javax.imageio.spi.IIORegistry;
 import javax.imageio.ImageIO;
 import java.io.*;
@@ -22,7 +22,7 @@ public class RayTracer {
                 scanner = new Scanner(source);
                 Scene scene = FileReader.read(scanner);
 
-                List<RenderedImage> images = scene.generateImages();
+                List<BufferedImage> images = scene.generateImages();
 
                 String format = args.length >= 3 ? args[2] : "png";
 
@@ -69,7 +69,7 @@ public class RayTracer {
     }
 
     static private
-    void saveImage(String name, String format, RenderedImage image) {
+    void saveImage(String name, String format, BufferedImage image) {
         try {
             File output = new File(name + "." + format);
 
