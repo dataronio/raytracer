@@ -64,15 +64,18 @@
     \ref{fig:rendusimple}]
 //exemple de scene :
 Camera(eye=(0, 0, 0), origin=(-0.5, 0, 1.5), abscissa=(1, 0, 0),  \
-ordinate=(0, 1, 0), widthPixel=700, heightPixel=700)
+ordinate=(0, 1, 0), widthPixel=200, heightPixel=200)
 AmbientLights(0.2, 0.2, 0.2)
 Light(pos=(5, 0, 0), intensity=(0.5, 0.5, 0.5))
 Sphere(center=(0, 5, 20), radius=3.14, k_diffuse=(0.6,0.3,0.6))
 Plane(p1=(-1,0,30), p2=(1, 0, 30), p3=(0, 1, 30))
     \end{lstlisting}
 
-    \begin{figure}[p]
-      \includegraphics[width=\textwidth]{livrables/tests/raytracer/fichier_simple.png}
+    \begin{figure}[h]
+      \centering{
+        \includegraphics[width=200px]
+        {livrables/tests/raytracer/fichier_simple.png}
+      }
       \caption{Exemple de rendu simple\label{fig:rendusimple}}
     \end{figure}
 
@@ -165,18 +168,47 @@ p4------+
       \caption{Diagramme UML\label{fig:uml}}
     \end{figure}
 
-    Ainsi, l'objet \verb+Scene+ dispose d'une méthode pour calculer la couleur
-    d'un rayon passé en paramètre.
-    Pour le faire, il va regarder quel objet va intersecter avec le rayon en
-    premier, et appeler la méthode \verb+computeColor+ de l'objet en question.
+    \subsubsection{Changements de conception}
+      Par rapport à ce que nous avions prévu lors de notre rapport d'analyse,
+      nous avons fait quelques modifications: nous avons rajouté une classe
+      pour représenter une lumière, que nous avions oubliée, nous n'utilisons
+      pas la classe \verb+java.awt.color+ car il s'est avéré plus pratique de
+      manipuler des \verb+double[]+ et nous n'utilisons pas
+      \verb+javax.vectmath+, qui n'est pas installé à l'ENSEEIHT, mais nos
+      propres classes.
 
-    Cette méthode, définie dans la classe \verb+Object+, va faire tous les
-    calculs nécessaires pour calculer les différentes composantes. Pour cela,
-    elle peut même appeler à nouveau la méthode \verb+rayColor+ de la classe
-    scène, sur les rayons réfléchis ou réfractés.
-    Dans ces calculs, elle va appeler la méthode \verb+normal+, qui va donner
-    la normale au point d'intersection du rayon avec l'objet, méthode qui sera
-    définie dans des sous-classes, en fonction de l'objet.
+      Ensuite, une scène peut posséder plusieurs caméras, ce qui permet d'avoir
+      plusieurs images de la même scène de plusieurs points de vues différents.
+      Nous avons ajouté les méthodes dont nous avons eu besoin à la classe
+      \verb+Object+. Les classes \verb+Triangle+ et \verb+Plane+ héritent de
+      \verb+TriPointed+ car ces objets ont beaucoup de points en commun: ils
+      sont représentables par trois points et les formules qu'il y a derrière
+      ces classes sont les mêmes; nous en avons profité pour ajouter une classe
+      \verb+Parallelogram+ pour les mêmes raisons.
+      
+      La classe \verb+Mesh+ qui
+      devait représenter un objet composé d'un ensemble de facettes
+      triangulaires a été changée pour représenter un ensemble d'objets
+      basiques, puisque nous n'utilisions rien de spécifique aux triangles la
+      restriction n'était pas nécessaire, bien sûr un objet à facettes
+      triangulaires peut être représenté par cette classe.
+      
+      Enfin nous avons ajouté une classe \verb+Texture+ pour alléger notre
+      conception.
+
+    \subsubsection{Fonctionnement}
+      L'objet \verb+Scene+ dispose d'une méthode pour calculer la couleur
+      d'un rayon passé en paramètre.
+      Pour le faire, il va regarder quel objet va intersecter avec le rayon en
+      premier, et appeler la méthode \verb+computeColor+ de l'objet en question.
+
+      Cette méthode, définie dans la classe \verb+Object+, va faire tous les
+      calculs nécessaires pour calculer les différentes composantes. Pour cela,
+      elle peut même appeler à nouveau la méthode \verb+rayColor+ de la classe
+      scène, sur les rayons réfléchis ou réfractés.
+      Dans ces calculs, elle va appeler la méthode \verb+normal+, qui va donner
+      la normale au point d'intersection du rayon avec l'objet, méthode qui sera
+      définie dans des sous-classes, en fonction de l'objet.
 
     \begin{figure}[p]
       \includegraphics[width=\textwidth]{livrables/tests/raytracer/complet.png}

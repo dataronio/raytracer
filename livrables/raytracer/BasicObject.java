@@ -26,18 +26,5 @@ abstract public class BasicObject {
      * Ensuite, on calcule la couleur du pixel, en appelant récursivement computeColor
      * si nécessaire.
      */
-
-    /**
-     * Indique si le rayon passé en paramètre intersecte l'objet.
-     * @param ray Le rayon
-     */
-    public boolean intersects(Ray ray) {
-        try {
-            return distance(ray) > 0.00001;
-        }
-        catch(DontIntersectException ex) {
-            return false;
-        }
-    }
 }
 
