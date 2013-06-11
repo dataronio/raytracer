@@ -64,8 +64,9 @@ public class ImageRect extends Parallelogram {
 
         // composante ambiante
 
-        for(int i = 0; i < 3; i++)
-            E[i] = scene.getAmbientLight(i) * texture.k_diffuse[i];
+        E[0] = scene.getAmbientLight(0) * red;
+        E[1] = scene.getAmbientLight(1) * green;
+        E[2] = scene.getAmbientLight(2) * blue;
 
         // éclairement
 
