@@ -29,7 +29,7 @@ public class Cube extends Mesh {
          *    /|      /|
          *   / |     / |
          *  p1------p3 |
-         *  |  p8---|--p7
+         *  |  p8---|---
          *  | /     | /
          *  |/      |/
          *  p4-----p6
@@ -55,7 +55,7 @@ public class Cube extends Mesh {
         Point3d p8 = new Point3d(p2);
         p8.add(p1p4);
 
-        Set<BasicObject> triangles = new HashSet<BasicObject>(12);
+        Set<BasicObject> triangles = new HashSet<BasicObject>(6);
 
         // up
         triangles.add(new Parallelogram(texture, p1, p3, p2));
