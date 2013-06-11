@@ -77,6 +77,7 @@ public class Scene
      */
     public double[] rayColor(Ray ray, int depth, BasicObject ignore_object) {
         if(depth > MAX_DEPTH) {
+            System.out.println("Warning: maximum recursion depth exceeded.");
             return new double[]{0, 0, 0};
         }
 
