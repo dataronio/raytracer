@@ -1,34 +1,24 @@
-all: raytracer
+all: raytracer_ gui_
+	jar cfm sources.jar MANIFEST.MF raytracer/*.class gui/*.class imageio/*.class
 
-raytracer: raytracer/RayTracer.class imageio
-	javac raytracer/RayTracer.java
+raytracer_: $(shell find raytracer -type f -name "*.java") imageio_
+	javac raytracer/*.java
 
-raytracer/RayTracer.class: $(shell find raytracer -type f -name "*.java")
-	javac raytracer/RayTracer.java
+raytracer/%.class: raytracer/%.java
+	javac $<
 
-raytracer/Matrix.class: raytracer/Matrix.java
-	javac raytracer/Matrix.java
+imageio_: imageio/PPMWriter.class imageio/PPMImageWriterSpi.class
 
-raytracer/Tuple3d.class: raytracer/Tuple3d.java
-	javac raytracer/Matrix.java
-
-raytracer/Vector3d.class: raytracer/Vector3d.java
-	javac raytracer/Matrix.java
-
-raytracer/Point3d.class: raytracer/Point3d.java
-	javac raytracer/Matrix.java
-
-imageio: imageio/PPMWriter.class imageio/PPMImageWriterSpi.class
-
-imageio/PPMWriter.class imageio/PPMImageWriterSpi.class: imageio/PPMWriter.java imageio/PPMImageWriterSpi.java
+imageio/%.class: imageio/%.java
 	javac $^
 
-gui: gui/Gui.class
-
-gui/Gui.class: $(shell find gui -type f -name "*.java")
+gui_: $(shell find gui -type f -name "*.java") raytracer_
 	javac gui/*.java
 
-tests: imageio_tests maths_tests vecteurs_tests
+gui/%.class: gui/%.java
+	javac $<
+
+tests_: imageio_tests maths_tests vecteurs_tests
 
 imageio_tests: imageio tests/imageio/TestImageIO.class
 
