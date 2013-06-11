@@ -158,6 +158,17 @@ p4------+
     Le bouton «~Voir l'image~» fait appel à la classe \verb+GenerateImageAction+, qui importe le moteur de raytracing, et crée les images dans un autre thread, pour que l'interface ne soit pas bloquée.
     Elles sont alors affichées avec des JFrames, dans un JLabel.
     
+    Une classe principale, \verb+Gui+, gére la fenêtre ainsi que l'emplacement des éléments.
+    Elle est composée d'une partie supérieur contenant des onglets, une petite ligne contenant les boutons et enfin la zone de texte qui permet d'éditer la scène.
+    Un onglet est représenté par une classe, qui hérite de \verb+Tab+, et permet d'ajouter un objet à la scène.
+    Chaque onglet a une liste de champs, qui servent à paramètrer l'objet placé dans la scène (comme sa position ou sa brillance).
+    Ces champs sont contenus dans une liste de type \verb+List<TabField>+,  qui est geré par la classe Tab.
+    Ainsi, pour ajouter un onglets, il suffit de créer une classe qui hérite de \verb+Tab+, et qui ajoute des instances de \verb+IntegerTabField+, \verb+DoubleTabField+ ou \verb+Point3dTabField+.
+    Les boutons au centre permettent d'enregistrer, de voir l'image actuelle ou d'ajouter un objet.
+    
+    Le bouton «~Voir l'image~» fait appel à la classe \verb+GenerateImageAction+, qui importe le moteur de raytracing, et crée les images dans un autre thread, pour que l'interface ne soit pas bloquée.
+    Elles sont alors affichées avec des JFrames, dans un JLabel.
+    
     \begin{figure}[p]
       \centerline{\includegraphics[width=1.2\textwidth]{screen2.png}}
     \caption{Interface graphique\label{fig:gui}}
@@ -213,11 +224,17 @@ p4------+
       définie dans des sous-classes, en fonction de l'objet.
     \begin{figure}[p]
       \centerline{
-        \includegraphics[width=1.2\textwidth]
-        {0699.png}
+        \includegraphics[width=1.2\textwidth]{0377.png}
       }
       \caption{Exemple de rendu complexe}
     \end{figure}
+    \begin{figure}[p]
+      \centerline{
+        \includegraphics[width=1.2\textwidth]{0699.png}
+      }
+      \caption{Exemple de rendu complexe, autre point de vue}
+    \end{figure}
+
     \subsubsection{Problèmes}
     Un problème qui se pose est que, en lançant le rayon avec la méthode \verb+rayColor+ d'une scène,
     à partir d'un point d'intersection avec un objet, l'objet le plus proche qui va intersecter de nouveau
@@ -271,5 +288,6 @@ Ayant fini le sujet à temps et désirant continuer à expérimenter avec notre 
               La vidéo est composée de 1000 images, avec 10 minutes de rendu par images. Pour éviter d'y passer une semaine, le rendu a été parallélisé sur les 200 ordinateurs de l'N7, et s'est fait en moins de deux heures.
     \item Nous avons aussi créé un objet «~ImageRect~», qui est capable d'appliquer une image existante sur un rectangle à l'intérieur de la scène.
 \end{itemize}
+
 \end{document}
 
