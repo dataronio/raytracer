@@ -52,11 +52,34 @@ public class ImageRect extends Parallelogram {
         // la couleur finale du rayon
         double[] E = {0, 0, 0};
 
+
         // composante ambiante
 
         for(int i = 0; i < 3; i++)
             E[i] = scene.getAmbientLight(i) * texture.k_diffuse[i];
 
+
+        Color color = new Color(image.getRGB((int) lastSol.x / image.getWidth(), (int)lastSol.y / image.getHeight()));
+
+        // réfraction
+        
+        if(color.getAlpha() > 0)
+        {
+            double coef = normal_ray_direction.dot(ray_direction);
+
+            double refindex = texture.refractive_index;
+            if(! isEntering(ray))
+                refindex = 1 / refindex;
+
+            coef += Math.sqrt(refindex*refindex + coef*coef - 1.d);
+           
+            Ray refracted_ray = new Ray(normal_ray_origin, normal_ray_direction.scale(-coef).add(ray_direction));
+
+            double[] E2 = scene.rayColor(refracted_ray, depth + 1, this);
+
+            for(int i = 0; i < 3; i++)
+                E[i] = logAdd(E[i], E2[i] * color.getAlpha() / 255.d);
+        }
 
         // éclairement
 
@@ -105,11 +128,9 @@ public class ImageRect extends Parallelogram {
 
             if(angle_normal_light > 0)
             {
-                Color color = new Color(image.getRGB((int) lastSol.x / image.getWidth(), (int)lastSol.y / image.getHeight()));
-
-                E[0] = logAdd(E[0], light.getIntensity(0) * angle_normal_light * (color.getRed()));
-                E[1] = logAdd(E[1], light.getIntensity(1) * angle_normal_light * (color.getGreen()));
-                E[2] = logAdd(E[2], light.getIntensity(2) * angle_normal_light * (color.getBlue()));
+                E[0] = logAdd(E[0], light.getIntensity(0) * angle_normal_light * (1.d - color.getAlpha() / 255.d) * (color.getRed()));
+                E[1] = logAdd(E[1], light.getIntensity(1) * angle_normal_light * (1.d - color.getAlpha() / 255.d) * (color.getGreen()));
+                E[2] = logAdd(E[2], light.getIntensity(2) * angle_normal_light * (1.d - color.getAlpha() / 255.d) * (color.getBlue()));
             }
 
             // composante spéculaire
@@ -123,7 +144,7 @@ public class ImageRect extends Parallelogram {
 
                 for(int i = 0; i < 3; i++)
                 {
-                    E[i] = logAdd(E[i], light.getIntensity(i) * angle_reflected_light * texture.k_specular);
+                    E[i] = logAdd(E[i], light.getIntensity(i) * angle_reflected_light * (1.d - color.getAlpha() / 255.d) * texture.k_specular);
                 }
             }
             
