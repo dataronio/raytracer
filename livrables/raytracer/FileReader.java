@@ -178,6 +178,7 @@ public class FileReader {
         new PlaneBuilder(),
         new ParallelogramBuilder(),
         new CubeBuilder(),
+        new ImageRectBuilder(),
         new TriangleBuilder()
     };
 
@@ -276,22 +277,32 @@ class ParallelogramBuilder implements ObjectBuilder {
             );
         }
 
-        BufferedImage image = null;
+        return new Parallelogram(
+            texture,
+            new Point3d(Utils.parse3ArrayPar(params.get("p1"))),
+            new Point3d(Utils.parse3ArrayPar(params.get("p2"))),
+            new Point3d(Utils.parse3ArrayPar(params.get("p3")))
+        );
+    }
+}
 
-        if(params.containsKey("image")) {
-            try {
-                File file = new File(Utils.parseString(params.get("image")));
-                image = ImageIO.read(file);
-            }
-            catch (IOException e) {
-                System.err.println(
-                    "Impossible de lire le fichier " + params.get("image")
-                );
-            }
+class ImageRectBuilder implements ObjectBuilder {
+    public String objectName() { return "imagerect"; }
+
+    public BasicObject build(HashMap<String, String> params, Texture texture)
+    throws InvalidFormatException {
+        if(!params.containsKey("p1")
+        || !params.containsKey("p2")
+        || !params.containsKey("p3")
+        || !params.containsKey("image")) {
+            throw new InvalidFormatException(
+                "Format invalide : point ou image manquant pour imagerect"
+            );
         }
 
-        return new Parallelogram(
-            texture, image,
+        return new ImageRect(
+            texture,
+            Utils.parseString(params.get("image")),
             new Point3d(Utils.parse3ArrayPar(params.get("p1"))),
             new Point3d(Utils.parse3ArrayPar(params.get("p2"))),
             new Point3d(Utils.parse3ArrayPar(params.get("p3")))
