@@ -116,6 +116,8 @@ Plane(p1=(-1,0,30), p2=(1, 0, 30), p3=(0, 1, 30))
         \textit{P2} et \textit{P3}.
       \item[Triangle] décrit un triangle, doit avoir trois points nommés
         \textit{P1}, \textit{P2} et \textit{P3}.
+      \item[Parallelogram] décrit un parallélogramme, doit avoir trois points
+        nommés \textit{P1}, \textit{P2} et \textit{P3}.
       \item[Cube] décrit un cube\footnote{En fait les points ne sont pas testés
         pour former un cube, cet objet peut représenter n'importe quel
         parallélépipède.}, doit avoir quatre points nommés
@@ -133,8 +135,9 @@ p4------+
     \end{description}
 
     \bigskip
-    Les objets \textit{Sphere}, \textit{Plane}, \textit{Triangle} et
-    \textit{Cube} peuvent en plus avoir les propriétés suivantes:
+    Les objets \textit{Sphere}, \textit{Plane}, \textit{Triangle},
+    \textit{Parallelogram} et \textit{Cube} peuvent en plus avoir les
+    propriétés optionnelles suivantes:
     \begin{description}
       \item[brightness] flottant, par défaut à 30. Plus ce nombre est grand, plus la tâche provoquée par la composante spéculaire sera localisée.
       \item[k\_specular] flottant, par défaut à 1. Coefficient par lequel on multiplie la composante spéculaire.
@@ -160,7 +163,7 @@ p4------+
     Maxime ?
 
     \begin{figure}[p]
-      \centerline{\includegraphics[width=1.2\textwidth]{gui.png}}
+      \centerline{\includegraphics[width=1.2\textwidth]{screen2.png}}
     \caption{Interface graphique\label{fig:gui}}
     \end{figure}
 
@@ -245,7 +248,8 @@ p4------+
     dévier légèrement la lumière, sera capable de masquer les sources lumineuses.
     Cela veut dire qu'il laissera une ombre, alors qu'il est pourtant transparent.
 
-    On peut évaluer la complexité de notre algorithme à du $O(x*y*n*m)$, où:
+    On peut évaluer la complexité de notre algorithme à du
+    $O(x\times y\times n\times m)$, où:
     \begin{itemize}
         \item $x$ est la largeur de l'image,
         \item $y$ est la hauteur de l'image,

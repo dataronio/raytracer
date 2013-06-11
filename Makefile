@@ -17,7 +17,7 @@ livrables/analyse.pdf: analyse.tex
 	pdflatex -interaction nonstopmode -output-directory livrables analyse.tex
 	pdflatex -interaction nonstopmode -output-directory livrables analyse.tex
 
-livrables/rapport.pdf: rapport.tex gui.png uml.pdf guiuml.pdf
+livrables/rapport.pdf: rapport.tex screen2.png uml.pdf guiuml.pdf
 	$(warning Les images de test du rapport ne sont pas générées pour des raisons de perf, faites make images_rapport pour les générer)
 	pdflatex -interaction nonstopmode -output-directory livrables rapport.tex
 	pdflatex -interaction nonstopmode -output-directory livrables rapport.tex
