@@ -2,6 +2,10 @@ package raytracer;
 
 import java.util.*;
 import java.util.regex.*;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Class FileReader
@@ -272,8 +276,22 @@ class ParallelogramBuilder implements ObjectBuilder {
             );
         }
 
+        BufferedImage image = null;
+
+        if(params.containsKey("image")) {
+            try {
+                File file = new File(Utils.parseString(params.get("image")));
+                image = ImageIO.read(file);
+            }
+            catch (IOException e) {
+                System.err.println(
+                    "Impossible de lire le fichier " + params.get("image")
+                );
+            }
+        }
+
         return new Parallelogram(
-            texture,
+            texture, image,
             new Point3d(Utils.parse3ArrayPar(params.get("p1"))),
             new Point3d(Utils.parse3ArrayPar(params.get("p2"))),
             new Point3d(Utils.parse3ArrayPar(params.get("p3")))
@@ -423,23 +441,23 @@ class Utils {
     /**
      * Crée un tableau de 3 doubles à partir d'une chaine de la forme "(x,y,z)"
      */
-    public static double[] parse3ArrayPar(String params)
+    public static double[] parse3ArrayPar(String param)
     throws InvalidFormatException {
-        if(!params.startsWith("(") || !params.endsWith(")")) {
+        if(!param.startsWith("(") || !param.endsWith(")")) {
             throw new InvalidFormatException(
                 "Format invalide : point ou vecteur mal parenthèsé"
             );
         }
 
-        return parse3Array(params.substring(1, params.length()-1));
+        return parse3Array(param.substring(1, param.length()-1));
     }
 
     /**
      * Crée un tableau de 3 double à partir d'une chaine de la forme "x, y, z".
      */
-    public static double[] parse3Array(String params)
+    public static double[] parse3Array(String param)
     throws InvalidFormatException {
-        String[] xyz = params.split(",");
+        String[] xyz = param.split(",");
 
         if(xyz.length != 3) {
             throw new InvalidFormatException(
@@ -459,6 +477,21 @@ class Utils {
                 "Format invalide : coordonnée invalide", e
             );
         }
+    }
+
+    /**
+     * Parse une chaine de caractère, pour l'instant se contente de retirer
+     * les guillemets, ne gère aucun caractère spécial.
+     */
+    public static String parseString(String param)
+    throws InvalidFormatException {
+        if(!param.startsWith("\"") || !param.endsWith("\"")) {
+            throw new InvalidFormatException(
+                "Format invalide : chaine de caractère invalide"
+            );
+        }
+
+        return param.substring(1, param.length()-1);
     }
 }
 

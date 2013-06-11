@@ -1,6 +1,6 @@
 all: raytracer
 
-raytracer: raytracer/RayTracer.class imageio gui
+raytracer: raytracer/RayTracer.class imageio
 	javac raytracer/RayTracer.java
 
 raytracer/RayTracer.class: $(shell find raytracer -type f -name "*.java")
