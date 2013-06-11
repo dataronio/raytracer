@@ -172,6 +172,7 @@ public class FileReader {
     private static ObjectBuilder[] objectBuilders = new ObjectBuilder[]{
         new SphereBuilder(),
         new PlaneBuilder(),
+        new ParallelogramBuilder(),
         new CubeBuilder(),
         new TriangleBuilder()
     };
@@ -232,6 +233,10 @@ class SphereBuilder implements ObjectBuilder {
     }
 }
 
+// todo: j'aurais voulu faire un TriPointedBuilder<T extends TriPointed> pour
+// éviter les 3 classes ci-dessous, mais java ne supporte pas le new T(...)
+// dans ce cas
+
 class PlaneBuilder implements ObjectBuilder {
     public String objectName() { return "plane"; }
 
@@ -241,11 +246,33 @@ class PlaneBuilder implements ObjectBuilder {
         || !params.containsKey("p2")
         || !params.containsKey("p3")) {
             throw new InvalidFormatException(
-                "Format invalide : point manquant pour Plan"
+                "Format invalide : point manquant pour Plane"
             );
         }
 
         return new Plane(
+            texture,
+            new Point3d(Utils.parse3ArrayPar(params.get("p1"))),
+            new Point3d(Utils.parse3ArrayPar(params.get("p2"))),
+            new Point3d(Utils.parse3ArrayPar(params.get("p3")))
+        );
+    }
+}
+
+class ParallelogramBuilder implements ObjectBuilder {
+    public String objectName() { return "parallelogram"; }
+
+    public BasicObject build(HashMap<String, String> params, Texture texture)
+    throws InvalidFormatException {
+        if(!params.containsKey("p1")
+        || !params.containsKey("p2")
+        || !params.containsKey("p3")) {
+            throw new InvalidFormatException(
+                "Format invalide : point manquant pour Parallelogram"
+            );
+        }
+
+        return new Parallelogram(
             texture,
             new Point3d(Utils.parse3ArrayPar(params.get("p1"))),
             new Point3d(Utils.parse3ArrayPar(params.get("p2"))),

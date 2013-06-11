@@ -1,11 +1,9 @@
 package raytracer;
 
 /**
- * Représente un plan par trois points. Un plan est vu comme un triangle
- * infini.
+ * Représente un plan par trois points.
  */
-public class Plane extends Triangle {
-
+public class Plane extends TriPointed {
     /**
      * Construit un plan à partir de 3 points.
      * @param texture La texture du plan (non copiée).

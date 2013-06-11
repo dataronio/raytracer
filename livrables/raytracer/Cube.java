@@ -58,7 +58,7 @@ public class Cube extends Mesh {
         Point3d p8 = new Point3d(p2);
         p8.add(p1p4);
 
-        Set<Triangle> triangles = new HashSet<Triangle>(12);
+        Set<BasicObject> triangles = new HashSet<BasicObject>(12);
 
         // up
         triangles.add(new Triangle(texture, p1, p3, p2));
@@ -84,6 +84,6 @@ public class Cube extends Mesh {
         triangles.add(new Triangle(texture, p3, p5, p7));
         triangles.add(new Triangle(texture, p3, p7, p6));
 
-        setTriangles(triangles);
+        setObjects(triangles);
     }
 }
