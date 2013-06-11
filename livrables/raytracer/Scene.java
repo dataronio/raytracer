@@ -164,7 +164,7 @@ public class Scene
                     rgb[2] = 1;
                 }
 
-                image.setRGB(x, y, new Color((float)rgb[0], (float)rgb[1], (float)rgb[2]).getRGB());
+                image.setRGB(x, height - y - 1, new Color((float)rgb[0], (float)rgb[1], (float)rgb[2]).getRGB());
             }
         }
         return image;
