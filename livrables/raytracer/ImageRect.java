@@ -7,6 +7,10 @@ import java.awt.Color;
 
 /**
  * Représente un rectangle qui contient une image.
+ * 
+ * DISCLAIMER !
+ * Cette classe est juste un jouet marrant, et sa propreté n'est pas garantie.
+ * Dans l'idéal il aurait fallu découper computeColor, pour avoir une architecture plus modulaire et ne pas avoir à dupliquer du code comme ceci...
  */
 public class ImageRect extends Parallelogram {
     protected BufferedImage image;
@@ -39,7 +43,8 @@ public class ImageRect extends Parallelogram {
     public double[] computeColor(Ray ray, Scene scene, int depth) throws DontIntersectException
     {
         if(image == null)
-            super.computeColor(ray, scene, depth);
+            return super.computeColor(ray, scene, depth);
+
 
         Ray normal_ray = normal(ray);
         Vector3d normal_ray_direction = normal_ray.getDirection();
@@ -52,34 +57,15 @@ public class ImageRect extends Parallelogram {
         // la couleur finale du rayon
         double[] E = {0, 0, 0};
 
+        int color = image.getRGB((int)(lastSol.x * image.getWidth()),(int)((1.d - lastSol.y) * image.getHeight()));
+        double red = ((color >> 16) & 0xFF) / 255.d;
+        double green = ((color >> 8) & 0xFF) / 255.d;
+        double blue = (color & 0xFF) / 255.d;
 
         // composante ambiante
 
         for(int i = 0; i < 3; i++)
             E[i] = scene.getAmbientLight(i) * texture.k_diffuse[i];
-
-
-        Color color = new Color(image.getRGB((int) lastSol.x / image.getWidth(), (int)lastSol.y / image.getHeight()));
-
-        // réfraction
-        
-        if(color.getAlpha() > 0)
-        {
-            double coef = normal_ray_direction.dot(ray_direction);
-
-            double refindex = texture.refractive_index;
-            if(! isEntering(ray))
-                refindex = 1 / refindex;
-
-            coef += Math.sqrt(refindex*refindex + coef*coef - 1.d);
-           
-            Ray refracted_ray = new Ray(normal_ray_origin, normal_ray_direction.scale(-coef).add(ray_direction));
-
-            double[] E2 = scene.rayColor(refracted_ray, depth + 1, this);
-
-            for(int i = 0; i < 3; i++)
-                E[i] = logAdd(E[i], E2[i] * color.getAlpha() / 255.d);
-        }
 
         // éclairement
 
@@ -128,9 +114,9 @@ public class ImageRect extends Parallelogram {
 
             if(angle_normal_light > 0)
             {
-                E[0] = logAdd(E[0], light.getIntensity(0) * angle_normal_light * (1.d - color.getAlpha() / 255.d) * (color.getRed()));
-                E[1] = logAdd(E[1], light.getIntensity(1) * angle_normal_light * (1.d - color.getAlpha() / 255.d) * (color.getGreen()));
-                E[2] = logAdd(E[2], light.getIntensity(2) * angle_normal_light * (1.d - color.getAlpha() / 255.d) * (color.getBlue()));
+                E[0] = logAdd(E[0], light.getIntensity(0) * angle_normal_light * red);
+                E[1] = logAdd(E[1], light.getIntensity(1) * angle_normal_light * green);
+                E[2] = logAdd(E[2], light.getIntensity(2) * angle_normal_light * blue);
             }
 
             // composante spéculaire
@@ -144,7 +130,7 @@ public class ImageRect extends Parallelogram {
 
                 for(int i = 0; i < 3; i++)
                 {
-                    E[i] = logAdd(E[i], light.getIntensity(i) * angle_reflected_light * (1.d - color.getAlpha() / 255.d) * texture.k_specular);
+                    E[i] = logAdd(E[i], light.getIntensity(i) * angle_reflected_light * texture.k_specular);
                 }
             }
             

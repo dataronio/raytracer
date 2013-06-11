@@ -1,7 +1,14 @@
-Camera(eye=(0, 0, 0), origin=(-0.5, 0.5, 1), abscissa=(1, 0, 0), ordinate=(0, -1, 0), widthPixel=1000, heightPixel=1000)
-Light(pos=(5, 0, 0), intensity=(0.5, 0.5, 0.5))
-Sphere(center=(0, 5, 20), radius=3.14, k_diffuse=(0.6,0.3,0.6))
-Sphere(center=(3, 4, 13), radius=0.5, k_diffuse=(0.3,0.5,0.8))
-Sphere(center=(6, 5, 15), radius=2, k_diffuse=(0.3,0.5,0.8))
-Plane(p1=(0,0,30), p2=(1, 0, 30), p3=(0, 1, 30))
-AmbientLights(0.2, 0.2, 0.2)
+Camera(eye=(0, -2, 5), origin=(-0.5, 0, 4.5), abscissa=(1, 0, 0), ordinate=(0, 0, 1), widthPixel=500, heightPixel=500)
+//Camera(eye=(51.5, -2, 5), origin=(50, 0, 4.5), abscissa=(1, 0, 0), ordinate=(0, 0, 1), widthPixel=600, heightPixel=600)
+
+// plan de base
+Plane(p1=(0,0,0), p2=(1, 0, 0), p3=(0, 1, 0), k_diffuse=(0.6,0.6,0.6))
+
+// Tête
+Plane(p1=(0,110,0),p2=(20,110,0),p3=(0,110,20))
+ImageRect(p1=(0,100,0),p2=(20,100,0),p3=(0,100,20),image="/home/palkeo/test.jpg")
+
+//AmbientLights(0.06, 0.06, 0.06)
+Light(pos=(0, -6, 20), intensity=(0.4, 0.5, 0.5))
+Light(pos=(0,70,400), intensity=(0.5,0.45,0.3))
+
