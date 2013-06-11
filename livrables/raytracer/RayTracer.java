@@ -26,12 +26,12 @@ public class RayTracer {
 
                 String format = args.length >= 3 ? args[2] : "png";
 
-                if(images.size() > 0) {
+                if(images.size() == 1) {
                     saveImage(args[1], format, images.get(0));
                 }
                 else {
                     for(int i = 0; i < images.size(); ++i) {
-                        saveImage(args[1], format, images.get(i));
+                        saveImage(args[1] + (i + 1), format, images.get(i));
                     }
                 }
             }
