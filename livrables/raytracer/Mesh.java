@@ -3,89 +3,87 @@ package raytracer;
 import java.util.*;
 
 /**
- * Objet constitué d'un ensemble de triangles.
+ * Object constitué d'un ensemble d'objets.
  * Capable de représenter des choses complexes.
  */
 public class Mesh extends BasicObject {
-    /** Liste des triangles */
-    private Set<Triangle> triangles;
+    /** Liste des objects */
+    private Set<BasicObject> objects;
 
     /** Conservé afin d'éviter de refaire les calculs à chaque fois. */
     private Ray lastRay;
     /** Conservé afin d'éviter de refaire les calculs à chaque fois. */
-    private Triangle lastTriangle;
+    private BasicObject lastObject;
 
     /**
-     * Construit un Mesh qui n'est composé d'un ensemble vide mais non-null de
-     * triangles.
+     * Construit un Mesh qui n'est composé d'un ensemble vide mais non-null
+     * d'objects.
      */
     public Mesh() {
-        this(new HashSet<Triangle>());
+        this(new HashSet<BasicObject>());
     };
 
     /**
-     * Construit un Mesh à partir de l'ensemble de triangles donné.
+     * Construit un Mesh à partir de l'ensemble de objects donné.
      */
-    public Mesh(Set<Triangle> t) {
-        setTriangles(t);
+    public Mesh(Set<BasicObject> t) {
+        setObjects(t);
     }
   
     /**
-     * @return L'ensemble de triangle (non copié).
+     * @return L'ensemble d'objets (non copié).
      */
-    public Set<Triangle> getTriangles() {
-        return triangles;
+    public Set<BasicObject> getObjects() {
+        return objects;
     }
 
-    /** Modifie la liste des triangles
-     * @param t L'ensemble de triangles (non copié)
+    /** Modifie la liste des objects.
+     * @param t Le nouvel ensemble de objects (non copié).
      */
-    public void setTriangles(Set<Triangle> t) {
+    public void setObjects(Set<BasicObject> t) {
         lastRay = null;
-        lastTriangle = null;
-        triangles = t;
+        lastObject = null;
+        objects = t;
     }
 
     @Override
     public double[] computeColor(Ray ray, Scene scene, int depth)
     throws DontIntersectException {
-        return firstTriangle(ray).computeColor(ray, scene, depth);
+        return firstBasicObject(ray).computeColor(ray, scene, depth);
     }
 
     @Override
     public double distance(Ray ray)
     throws DontIntersectException {
-        return firstTriangle(ray).distance(ray);
+        return firstBasicObject(ray).distance(ray);
     }
 
     /**
-     * Renvoie le premier triangle qui intersecte le rayon.
-     * @param ray Le rayon
-     * @return Le premier triangle qui intersecte le rayon
+     * Renvoie le premier objet qui intersecte le rayon.
      */
-    private Triangle firstTriangle(Ray ray)
+    private BasicObject firstBasicObject(Ray ray)
     throws DontIntersectException {
         if(ray == lastRay) {
-            if(lastTriangle == null) {
+            if(lastObject == null) {
                 throw new DontIntersectException();
             }
 
-            return lastTriangle;
+            return lastObject;
         }
         else {
-            // Trouver le triangle qui a triangle.distance(ray) le plus petit.
+            // Trouver l'objet qui a triangle.distance(ray) le plus petit.
 
             lastRay = ray;
-            lastTriangle = null;
+            lastObject = null;
 
             double minDistance = Double.MAX_VALUE;
-            for(Triangle t : triangles) {
+            for(BasicObject t : objects) {
                 try {
                     double c = t.distance(ray);
 
                     if(minDistance > c && c > 0.0001) {
                         minDistance = c;
-                        lastTriangle = t;
+                        lastObject = t;
                     }
                 }
                 catch (DontIntersectException e) {
@@ -93,11 +91,11 @@ public class Mesh extends BasicObject {
                 }
             }
 
-            if(lastTriangle == null) {
+            if(lastObject == null) {
                 throw new DontIntersectException();
             }
 
-            return lastTriangle;
+            return lastObject;
         }
     }
 }
