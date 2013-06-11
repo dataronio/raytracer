@@ -95,7 +95,7 @@ Plane(p1=(-1,0,30), p2=(1, 0, 30), p3=(0, 1, 30))
           \item[origin] un point décrivant l'origine du rectangle de l'écran;
           \item[abscissa et ordinate] les vecteurs qui avec \textit{origin}
             définissent l'écran;
-          \item[widthPixel et heightPixem] deux entiers donnant la taille de
+          \item[widthPixel et heightPixel] deux entiers donnant la taille de
             l'image à générer. 
         \end{description}
       \item[AmbientLights] donne les trois composantes primaire de la lumière
@@ -300,8 +300,8 @@ p4------+
 \section{Améliorations supplémentaires}
 Ayant fini le sujet à temps et désirant continuer à expérimenter avec notre raytracer, nous avons fait deux améliorations principales:
 \begin{itemize}
-    \item Un petit script nous a permis de générer de modifier un fichier représentant une scène, en déplaçant très légèrement la caméra.
-              On peut donc obtenir une suite d'images, qui, passées à la suite dans une vidéo, permettent de «~filmer~» la scène en se déplaçant dedans.
+    \item Un petit script en python nous a permis de modifier un fichier représentant une scène, en déplaçant très légèrement la caméra.
+              On peut donc obtenir une suite de scènes, et donc d'images, qui, passées à la suite dans une vidéo, permettent de «~filmer~» la scène en se déplaçant dedans.
               Vous pouvez voir une vidéo ici: \url{http://repo.palkeo.com/tmp/rendu1.mp4}.
               La vidéo est composée de 1000 images, avec 10 minutes de rendu par image. Pour éviter d'y passer une semaine, le rendu a été parallélisé sur les 200 ordinateurs de l'n7, et s'est fait en moins de deux heures.
     \item Nous avons aussi créé un objet «~ImageRect~», qui est capable d'appliquer une image existante sur un rectangle à l'intérieur de la scène.
