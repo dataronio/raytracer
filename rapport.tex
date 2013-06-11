@@ -151,37 +151,20 @@ p4------+
     \caption{Interface graphique\label{fig:gui}}
     \end{figure}
 
-    \afterpage{
-      \clearpage
-      \newgeometry{width=1.3\linewidth}
-      \begin{landscape}
-        \thispagestyle{empty}
-        \begin{figure}[p]
-          \makebox[\paperwidth][c]{\includegraphics[width=25cm]{guiuml.pdf}}
-          \caption{Diagramme UML de la GUI\label{fig:guiuml}}
-        \end{figure}
-      \end{landscape}
-      \restoregeometry
-      \clearpage
-    }
+    \begin{figure}[p]
+      \includegraphics[width=25cm]{guiuml.pdf}
+      \caption{Diagramme UML de la GUI\label{fig:guiuml}}
+    \end{figure}
 
   \subsection{Raytracer}
     Pour créer le raytracer, nous avons convenu d'architecturer notre programme
     selon le diagramme de classes suivant présenté en figure \ref{fig:uml}.
 
-    \afterpage{
-      \clearpage
-      \newgeometry{width=1.3\linewidth}
-      \begin{landscape}
-        \thispagestyle{empty}
-        \begin{figure}[p]
-          \makebox[\paperwidth][c]{\includegraphics[width=25cm]{uml.pdf}}
-          \caption{Diagramme UML\label{fig:uml}}
-        \end{figure}
-      \end{landscape}
-      \restoregeometry
-      \clearpage
-    }
+    \begin{figure}[p]
+      \includegraphics[width=\textwidth]{uml.pdf}
+      \caption{Diagramme UML\label{fig:uml}}
+    \end{figure}
+
     Ainsi, l'objet \verb+Scene+ dispose d'une méthode pour calculer la couleur
     d'un rayon passé en paramètre.
     Pour le faire, il va regarder quel objet va intersecter avec le rayon en

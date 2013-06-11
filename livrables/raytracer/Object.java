@@ -35,8 +35,6 @@ abstract public class Object extends BasicObject {
 
     /**
      * Indique si le rayon rentre dans l'objet ou en sort.
-     * Si cette opération n'a pas de sens pour cet objet (il est plats), la
-     * méthode retourne <tt>true</tt> si le rayon intersecte l'objet.
      */
     public abstract boolean isEntering(Ray ray) throws DontIntersectException;
 
