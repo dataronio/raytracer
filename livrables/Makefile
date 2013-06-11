@@ -45,6 +45,7 @@ clean: force
 	rm -f tests/imageio/*.class
 	rm -f tests/maths/*.class
 	rm -f tests/vecteurs/*.class
+	rm -r sources.jar
 
 cleanall: clean force
 	rm -rf doc/

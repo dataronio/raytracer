@@ -8,6 +8,7 @@
 \usepackage{graphicx}
 \usepackage{afterpage}
 \usepackage{listings}
+\usepackage{lmodern}
 
 \title{Rapport du projet de Technologies Objets}
 \author{Maxime Arthaud \and Korantin Auguste \and Martin Carton}
@@ -79,6 +80,7 @@ Plane(p1=(-1,0,30), p2=(1, 0, 30), p3=(0, 1, 30))
       \caption{Exemple de rendu simple\label{fig:rendusimple}}
     \end{figure}
 
+    %todo: Korantin veut un fichier casse-sensible
     Il y a un élément par ligne et seule la ligne décrivant au moins une caméra
     est obligatoire. La casse et l'espacement sont ignorés. La plupart des
     propriétés ont une valeur par défaut afin d'éviter de surcharger le
@@ -136,10 +138,18 @@ p4------+
     \begin{description}
       \item[brightness] flottant, par défaut à 30. Plus ce nombre est grand, plus la tâche provoquée par la composante spéculaire sera localisée.
       \item[k\_specular] flottant, par défaut à 1. Coefficient par lequel on multiplie la composante spéculaire.
-      \item[k\_diffuse] vecteur, par défaut à \textit{(1, 1, 1)}. Coefficients par lesquels on multiplie les composantes diffuse pour chaque couleur. Donne donc la couleur de l'objet.
-      \item[k\_reflection] flottant, par défaut à 0. Coefficient par lequel on multiplie la composante réfléchie.
-      \item[k\_refraction] vecteur, par défaut à \textit{(0, 0, 0)}. Coefficients par lesquels on multiplie les composantes réfractées pour chaque couleur.
-      \item[refractive\_index] flottant, par défaut à 1 (la lumière réfractée ne sera alors pas déviée). Indice du milieu intérieur à l'objet.
+      \item[k\_diffuse] triplet, par défaut à \textit{(1, 1, 1)}. Coefficients
+        par lesquels on multiplie les composantes diffuse pour chaque couleur.
+        Donne donc la couleur de l'objet.
+      \item[k\_reflection] flottant, par défaut à 0. Coefficient par lequel on
+        multiplie la composante réfléchie.
+      \item[k\_refraction] triplet, par défaut à \textit{(0, 0, 0)}.
+        Coefficients par lesquels on multiplie les composantes réfractées pour
+        chaque couleur.
+      \item[refractive\_index] flottant, par défaut à 1 (la lumière réfractée ne
+        sera alors pas déviée). Indice du milieu intérieur à l'objet.
+        % todo cela nécessite que l'on parle de l'orientation, notamment pour
+        % les TriPoints
     \end{description}
 
     \bigskip
@@ -155,7 +165,7 @@ p4------+
     \end{figure}
 
     \begin{figure}[p]
-      \includegraphics[width=25cm]{guiuml.pdf}
+      \centerline{\includegraphics[width=1.2\textwidth]{guiuml.pdf}}
       \caption{Diagramme UML de la GUI\label{fig:guiuml}}
     \end{figure}
 
@@ -164,7 +174,7 @@ p4------+
     selon le diagramme de classes suivant présenté en figure \ref{fig:uml}.
 
     \begin{figure}[p]
-      \includegraphics[width=\textwidth]{uml.pdf}
+      \centerline{\includegraphics[width=1.2\textwidth]{uml.pdf}}
       \caption{Diagramme UML\label{fig:uml}}
     \end{figure}
 
@@ -211,7 +221,10 @@ p4------+
       définie dans des sous-classes, en fonction de l'objet.
 
     \begin{figure}[p]
-      \includegraphics[width=\textwidth]{livrables/tests/raytracer/complet.png}
+      \centerline{
+        \includegraphics[width=1.2\textwidth]
+        {livrables/tests/raytracer/complet.png}
+      }
       \caption{Exemple de rendu complexe}
     \end{figure}
 
@@ -232,18 +245,23 @@ p4------+
     dévier légèrement la lumière, sera capable de masquer les sources lumineuses.
     Cela veut dire qu'il laissera une ombre, alors qu'il est pourtant transparent.
 
-    On peut évaluer la complexité de notre algorithme à du $O(x*y*n*m)$, où :
+    On peut évaluer la complexité de notre algorithme à du $O(x*y*n*m)$, où:
     \begin{itemize}
-        \item $x$ est la largeur de l'image
-        \item $y$ est la hauteur de l'image
-        \item $n$ est le nombre d'objets dans l'image
-        \item $m$ est le nombre de sources lumineuses
+        \item $x$ est la largeur de l'image,
+        \item $y$ est la hauteur de l'image,
+        \item $n$ est le nombre d'objets dans l'image,
+        \item $m$ est le nombre de sources lumineuses.
     \end{itemize}
-    On voit donc que même sa l'algorithme est rapide sur des scènes simples, plus la scène contiendra d'objets et de lumières, plus le temps de rendu sera élevé.
+
+    On voit donc que même si l'algorithme est rapide sur des scènes simples,
+    plus la scène contiendra d'objets et de lumières, plus le temps de rendu
+    sera élevé, même pour une scène simple, il n'est ainsi pas possible
+    d'afficher le rendu en direct dans l'interface graphique.
 
     \subsubsection{Améliorations}
 
-    % Peut-être à virer
+    % todo Peut-être à virer
+    % je vote pour, c'est un peu HS, Martin.
     En changeant la façon dont le raytracer fonctionne, il serait possible d'éviter ce genre de problème: une solution simple est d'utiliser
     des simulations de Monte-Carlo:
     pour obtenir l'éclairement d'un point, on lancera des rayons à partir de ce point, dans des directions choisies au hasard (mais réparties de manière non
@@ -251,12 +269,18 @@ p4------+
     Ainsi, le problème d'ombre précédemment développé pourra être éliminé.
     Toutefois, cette méthode est très coûteuse en calculs.
 
-    Concernant le temps de rendu sur de grosse scènes, plusieurs choses sont possibles :
+    Concernant le temps de rendu sur de grosses scènes, plusieurs choses sont possibles :
     \begin{itemize}
-        \item On pourrait paralléliser la génération des images sur tous les cœurs disponibles sur l'ordinateur. C'est typiquement quelque chose de trivial à paralléliser.
+        \item On pourrait paralléliser la génération des images sur tous les
+          cœurs disponibles sur l'ordinateur. C'est typiquement quelque chose de
+          trivial à paralléliser puisque chaque pixel est généré indépendamment
+          des autres (il faudrait cependant modifier nos objets qui conservent
+          des données calculés entre les différents appels de méthodes).
         \item Pour chaque source de lumière, plutôt que de parcourir tous les objets pour voir si ils interceptent, on pourrait parcourir seulement qui sont sur le parcours du rayon.
+          % todo il manque des mots dans la phrase précédente.
               Pour cela, il nous faudrait diviser notre espace 3D, par exemples à l'aide d'une partition binaire de l'espace (BSP), ou d'un \textit{octree}.
-        \item On peut aussi profiler le code, et essayer de voir si certaines méthodes ne gagneraient pas à être optimisées.
+        \item On pourrait aussi profiler le code, et essayer de voir si
+          certaines méthodes ne gagneraient pas à être optimisées.
     \end{itemize}
 
 \end{document}
