@@ -1,42 +1,34 @@
 package raytracer;
-
-import java.util.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import java.awt.Color;
 
 /**
- * Objet simple, en un seul « bloc », qui contient donc des propriétés optiques
- * uniques et une géométrie simple.
+ * Représente un rectangle qui contient une image.
  */
-abstract public class Object extends BasicObject {
-
-    /** Texture de l'objet. */
-    protected Texture texture;
+public class ImageRect extends Parallelogram {
+    protected BufferedImage image;
 
     /**
-     * Crée un Object avec la texture donnée, qui n'est pas copiée.
+     * Construit un rectangle avec image à partir de 3 points.
+     * @param texture La texture du parallélogramme (non copiée).
+     * @param image_path Chemin vers l'image.
      */
-    public Object(Texture texture) {
-        this.texture = texture;
-    };
+    public ImageRect(Texture texture, String image_path, Point3d P0, Point3d P1, Point3d P2) {
+        super(texture, P0, P1, P2);
 
-    /**
-     * @return la texture de l'objet (non copiée).
-     */
-    public Texture getTexture() {
-        return texture;
+        try
+        {
+            image = ImageIO.read(new File(image_path));
+        }
+        catch (IOException e)
+        {
+            System.out.println("Warning : Unable to load image " + image_path + ", fallback to textured rendering.");
+            image = null;
+        }
     }
-
-    /**
-     * Calcule la normale à la surface de l'objet au point d'intersection du
-     * rayon avec l'objet.
-     * @return Le vecteur normal unitaire.
-     */
-    public abstract Ray normal(Ray ray) throws DontIntersectException;
-
-    /**
-     * Indique si le rayon rentre dans l'objet ou en sort.
-     */
-    public abstract boolean isEntering(Ray ray) throws DontIntersectException;
 
     /**
      * @return Un tableau avec les 3 composantes de couleur.
@@ -46,6 +38,9 @@ abstract public class Object extends BasicObject {
      */
     public double[] computeColor(Ray ray, Scene scene, int depth) throws DontIntersectException
     {
+        if(image == null)
+            super.computeColor(ray, scene, depth);
+
         Ray normal_ray = normal(ray);
         Vector3d normal_ray_direction = normal_ray.getDirection();
         assert(normal_ray_direction.dot(ray.getDirection()) <= 0); // la normale doit être correctement orientée
@@ -57,43 +52,10 @@ abstract public class Object extends BasicObject {
         // la couleur finale du rayon
         double[] E = {0, 0, 0};
 
-
         // composante ambiante
 
         for(int i = 0; i < 3; i++)
             E[i] = scene.getAmbientLight(i) * texture.k_diffuse[i];
-
-
-        // réflection
-
-        if(texture.k_reflection > 0)
-        {
-            double[] E2 = scene.rayColor(reflected_ray, depth + 1, this);
-
-            for(int i = 0; i < 3; i++)
-                E[i] = logAdd(E[i], E2[i] * texture.k_reflection);
-        }
-
-
-        // réfraction
-        
-        if(texture.k_refraction[0] > 0 || texture.k_refraction[1] > 0 || texture.k_refraction[2] > 0)
-        {
-            double coef = normal_ray_direction.dot(ray_direction);
-
-            double refindex = texture.refractive_index;
-            if(! isEntering(ray))
-                refindex = 1 / refindex;
-
-            coef += Math.sqrt(refindex*refindex + coef*coef - 1.d);
-           
-            Ray refracted_ray = new Ray(normal_ray_origin, normal_ray_direction.scale(-coef).add(ray_direction));
-
-            double[] E2 = scene.rayColor(refracted_ray, depth + 1, this);
-
-            for(int i = 0; i < 3; i++)
-                E[i] = logAdd(E[i], E2[i] * texture.k_refraction[i]);
-        }
 
 
         // éclairement
@@ -143,12 +105,12 @@ abstract public class Object extends BasicObject {
 
             if(angle_normal_light > 0)
             {
-                for(int i = 0; i < 3; i++)
-                {
-                    E[i] = logAdd(E[i], light.getIntensity(i) * angle_normal_light * texture.k_diffuse[i]);
-                }
-            }
+                Color color = new Color(image.getRGB((int) lastSol.x / image.getWidth(), (int)lastSol.y / image.getHeight()));
 
+                E[0] = logAdd(E[0], light.getIntensity(0) * angle_normal_light * (color.getRed()));
+                E[1] = logAdd(E[1], light.getIntensity(1) * angle_normal_light * (color.getGreen()));
+                E[2] = logAdd(E[2], light.getIntensity(2) * angle_normal_light * (color.getBlue()));
+            }
 
             // composante spéculaire
 
@@ -170,11 +132,4 @@ abstract public class Object extends BasicObject {
         return E;
     }
 
-    /**
-     * Addition de couleur
-     */
-    protected double logAdd(double a, double b)
-    {
-        return 1 - (1 - b)*(1 - a);
-    }
 }
