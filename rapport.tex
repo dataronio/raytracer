@@ -10,14 +10,17 @@
 \usepackage{afterpage}
 \usepackage{listings}
 \usepackage{lmodern}
+
 \title{Rapport du projet de Technologies Objets}
 \author{Maxime Arthaud \and Korantin Auguste \and Martin Carton}
+
 \date{11 juin 2013}
 \begin{document}
 \maketitle 
 \tableofcontents
 \listoffigures
 \newpage
+
 \section{Introduction}
   Ce projet consiste en la création d'une interface utilisateur permettant de
   gérer une scène 3D et à la réalisation d'un moteur de rendu par lancé de
@@ -26,14 +29,16 @@
   le travail, de façon à ce qu'une personne fasse l'interface graphique,
   une autre le parseur de fichier et l'écriture d'images au format PPM, et une
   autre travaille particulièrement sur le cœur du raytracer.
+
 \section{Architecture}
-  Le projet est donc constitué de deux programmes distincts:
+  Le projet est constitué de deux programmes distincts:
   \begin{description}
-      \item[L'interface graphique] Qui devra permettre de créer simplement des
-        fichiers représentant des scènes, à passer à notre raytracer.
-      \item[Le raytracer] Qui, à partir d'un fichier représentant une scène,
+      \item[L'interface graphique] qui devra permettre de créer simplement des
+        fichiers représentant des scènes, à passer à notre raytracer;
+      \item[Le raytracer] qui, à partir d'un fichier représentant une scène,
         devra générer un rendu, dans le format d'image de notre choix.
   \end{description}
+
   \subsection{Écriture d'images PPM}
     Pour écrire les images PPM, nous avons écrit un plugin Java qui permet
     d'enregistrer ce format auprès de \verb+javax.image.ImageIO+ qui propose une
@@ -47,11 +52,13 @@
     \verb+imageio.PPMImageWriterSpi+. La première permet d'indiquer à Java les
     capacité de notre plugin. La deuxième permet d'écrire une image sur un flux
     de sortie quelconque.
+
   \subsection{Format de fichier}
     Nous avons décidé de mettre à disposition un format de fichier dans lequel
     on peut décrire une scène afin de pouvoir enregistrer celles-ci, ou de la
     générer automatiquement (ce qui nous a même permis de faire quelques
     vidéos).
+
     Le format de fichier ressemble à ceci:
     \begin{lstlisting}[caption=Exemple de fichier associé à la figure
     \ref{fig:rendusimple}]
@@ -63,6 +70,7 @@ Light(pos=(5, 0, 0), intensity=(0.5, 0.5, 0.5))
 Sphere(center=(0, 5, 20), radius=3.14, k_diffuse=(0.6,0.3,0.6))
 Plane(p1=(-1,0,30), p2=(1, 0, 30), p3=(0, 1, 30))
     \end{lstlisting}
+
     \begin{figure}[h]
       \centering{
         \includegraphics[width=200px]
@@ -70,15 +78,17 @@ Plane(p1=(-1,0,30), p2=(1, 0, 30), p3=(0, 1, 30))
       }
       \caption{Exemple de rendu simple\label{fig:rendusimple}}
     \end{figure}
+
     %todo: Korantin veut un fichier casse-sensible
     Il y a un élément par ligne et seule la ligne décrivant au moins une caméra
     est obligatoire. La casse et l'espacement sont ignorés. La plupart des
     propriétés ont une valeur par défaut afin d'éviter de surcharger le
     fichier et de permettre de l'écrire à la main. Des commentaires de fin de
     ligne commençant par «~\verb+//+~» peuvent être insérés.
+
     Les éléments suivants peuvent être ajoutés:
     \begin{description}
-      \item[Camera] décrit une caméra de la scène: elle doit posséder les
+      \item[Camera] décrit une caméra de la scène, elle doit posséder les
         propriétés suivantes:
         \begin{description}
           \item[eye] un point décrivant la position de l'œil;
@@ -122,6 +132,7 @@ p1------p3 |
 p4------+
         \end{lstlisting}
     \end{description}
+
     \bigskip
     Les objets \textit{Sphere}, \textit{Plane}, \textit{Triangle},
     \textit{Parallelogram} et \textit{Cube} peuvent en plus avoir les
@@ -142,9 +153,11 @@ p4------+
         % todo cela nécessite que l'on parle de l'orientation, notamment pour
         % les TriPoints
     \end{description}
+
     \bigskip
     Un objet de type \verb+Scene+ est construit à partir d'un tel fichier à
     l'aide la méthode statique \verb+raytracer.FileReader.read+.
+
   \subsection{Interface graphique}
     Notre interface graphique permet de manipuler simplement un fichier de scène, et peut aussi appeller simplement le moteur de raytracing pour faire un rendu.
     Une classe principale, \verb+Gui+, gére la fenêtre ainsi que l'emplacement des éléments.
@@ -177,6 +190,7 @@ p4------+
       \centerline{\includegraphics[width=1.2\textwidth]{guiuml.pdf}}
       \caption{Diagramme UML de la GUI\label{fig:guiuml}}
     \end{figure}
+
   \subsection{Raytracer}
     Pour créer le raytracer, nous avons convenu d'architecturer notre programme
     selon le diagramme de classes suivant présenté en figure \ref{fig:uml}.
@@ -184,13 +198,14 @@ p4------+
       \centerline{\includegraphics[width=1.2\textwidth]{uml.pdf}}
       \caption{Diagramme UML\label{fig:uml}}
     \end{figure}
+
     \subsubsection{Changements de conception}
       Par rapport à ce que nous avions prévu lors de notre rapport d'analyse,
       nous avons fait quelques modifications: nous avons rajouté une classe
       pour représenter une lumière, que nous avions oubliée, nous n'utilisons
       pas la classe \verb+java.awt.color+ car il s'est avéré plus pratique de
       manipuler des \verb+double[]+ et nous n'utilisons pas
-      \verb+javax.vectmath+, qui n'est pas installé à l'ENSEEIHT, mais nos
+      \verb+javax.vectmath+, qui n'est pas installé à l'n7, mais nos
       propres classes.
       Ensuite, une scène peut posséder plusieurs caméras, ce qui permet d'avoir
       plusieurs images de la même scène de plusieurs points de vues différents.
@@ -210,6 +225,7 @@ p4------+
       
       Enfin nous avons ajouté une classe \verb+Texture+ pour alléger notre
       conception.
+
     \subsubsection{Fonctionnement}
       L'objet \verb+Scene+ dispose d'une méthode pour calculer la couleur
       d'un rayon passé en paramètre.
@@ -222,18 +238,19 @@ p4------+
       Dans ces calculs, elle va appeler la méthode \verb+normal+, qui va donner
       la normale au point d'intersection du rayon avec l'objet, méthode qui sera
       définie dans des sous-classes, en fonction de l'objet.
-    \begin{figure}[p]
-      \centerline{
-        \includegraphics[width=1.2\textwidth]{0377.png}
-      }
-      \caption{Exemple de rendu complexe}
-    \end{figure}
-    \begin{figure}[p]
-      \centerline{
-        \includegraphics[width=1.2\textwidth]{0699.png}
-      }
-      \caption{Exemple de rendu complexe, autre point de vue}
-    \end{figure}
+
+      \begin{figure}[p]
+        \centerline{
+          \includegraphics[width=1.2\textwidth]{0377.png}
+        }
+        \caption{Exemple de rendu complexe}
+      \end{figure}
+      \begin{figure}[p]
+        \centerline{
+          \includegraphics[width=1.2\textwidth]{0699.png}
+        }
+        \caption{Exemple de rendu complexe, autre point de vue}
+      \end{figure}
 
     \subsubsection{Problèmes}
     Un problème qui se pose est que, en lançant le rayon avec la méthode \verb+rayColor+ d'une scène,
@@ -262,21 +279,22 @@ p4------+
     plus la scène contiendra d'objets et de lumières, plus le temps de rendu
     sera élevé, même pour une scène simple, il n'est ainsi pas possible
     d'afficher le rendu en direct dans l'interface graphique.
+
     \subsubsection{Améliorations}
-    Concernant le temps de rendu sur de grosses scènes, plusieurs choses sont possibles :
+    Concernant le temps de rendu sur de grosses scènes, plusieurs choses sont possibles:
     \begin{itemize}
-        \item On pourrait paralléliser la génération des images sur tous les
-          cœurs disponibles sur l'ordinateur. C'est typiquement quelque chose de
-          trivial à paralléliser puisque chaque pixel est généré indépendamment
-          des autres (il faudrait cependant modifier nos objets qui conservent
-          des données calculés entre les différents appels de méthodes).
-        \item Pour éviter de parcourir à chaque fois notre liste d'objets, on peut utiliser des techniques
-             comme les partitions binaire de l'espace (BSP), ou les \textit{octree}.
-             Ces techniques permettent de découper l'espace en plusieurs parties, 
-             et donc de ne parcourir qu'un morceau de la liste des objets.
-             
-        \item On pourrait aussi profiler le code, et essayer de voir si
-          certaines méthodes ne gagneraient pas à être optimisées.
+      \item on pourrait paralléliser la génération des images sur tous les
+        cœurs disponibles sur l'ordinateur. C'est typiquement quelque chose de
+        trivial à paralléliser puisque chaque pixel est généré indépendamment
+        des autres (il faudrait cependant modifier nos objets qui conservent
+        des données calculées entre les différents appels de méthodes);
+      \item pour éviter de parcourir à chaque fois notre liste d'objets, on
+        peut utiliser des techniques comme les partitions binaire de l'espace
+        (BSP), ou les \textit{octree}. Ces techniques permettent de découper
+        l'espace en plusieurs parties, et donc de ne parcourir qu'un morceau
+        de la liste des objets.
+      \item On pourrait aussi profiler le code, et essayer de voir si
+        certaines méthodes ne gagneraient pas à être optimisées.
     \end{itemize}
     
 \section{Améliorations supplémentaires}
@@ -285,7 +303,7 @@ Ayant fini le sujet à temps et désirant continuer à expérimenter avec notre 
     \item Un petit script nous a permis de générer de modifier un fichier représentant une scène, en déplaçant très légèrement la caméra.
               On peut donc obtenir une suite d'images, qui, passées à la suite dans une vidéo, permettent de «~filmer~» la scène en se déplaçant dedans.
               Vous pouvez voir une vidéo ici: \url{http://repo.palkeo.com/tmp/rendu1.mp4}.
-              La vidéo est composée de 1000 images, avec 10 minutes de rendu par images. Pour éviter d'y passer une semaine, le rendu a été parallélisé sur les 200 ordinateurs de l'N7, et s'est fait en moins de deux heures.
+              La vidéo est composée de 1000 images, avec 10 minutes de rendu par image. Pour éviter d'y passer une semaine, le rendu a été parallélisé sur les 200 ordinateurs de l'n7, et s'est fait en moins de deux heures.
     \item Nous avons aussi créé un objet «~ImageRect~», qui est capable d'appliquer une image existante sur un rectangle à l'intérieur de la scène.
 \end{itemize}
 
