@@ -49,9 +49,6 @@ class PalkeoScene(Scene):
         self.objects['caméra'].rotate(Y, math.pi/30)
         self.objects['caméra'].translate(80*Z-250*X)
 
-        #self.objects['lumière'] = Light(Point(00,00,800), {'pos': NULLP}, {'intensity': (0.5,0.5,0.5)})
-
-
         self.objects['plateau_scène'] = Parallelogram(Point(900,-200,30), {'p1': NULLP, 'p2': 100*X, 'p3': 400*Y}, {'k_diffuse': couleur_scène})
         self.objects['plan_derrière_scène'] = Plane(Point(1000,0,0), {'p1': NULLP, 'p2': Z, 'p3': Y}, {'k_diffuse': couleur_scène})
         self.objects['avant_bas_scène'] = Parallelogram(Point(900,-200,0), {'p1': NULLP, 'p2': 30*Z, 'p3': 400*Y}, {'k_diffuse': couleur_scène})
@@ -60,10 +57,22 @@ class PalkeoScene(Scene):
 
         self.objects['mickey'] = Mickey(Point(930,0,30))
 
-        self.objects['spot_vertical_public'] = SpotVertical(Point(898.99,0,195))
 
-        self.objects['spot_vertical_public'].setIntensity((0.3,0.8,0.3))
-        self.objects['spot_vertical_public'].rotate(Z,0.5)
+        self.objects['faisceau_public_0'] = SpotVertical(Point(898.99,-100,195))
+        self.objects['faisceau_public_1'] = SpotVertical(Point(898.99,100,195))
+
+        self.objects['spot_public_0'] = Light(Point(898.99,-150,195), {'pos': NULLP}, {'intensity': (0,0.8,0)})
+        self.objects['spot_public_1'] = Light(Point(898.99,-0,195), {'pos': NULLP}, {'intensity': (0.8,0,0)})
+        self.objects['spot_public_2'] = Light(Point(898.99,150,195), {'pos': NULLP}, {'intensity': (0,0,0.8)})
+
+        self.objects['spot_scène_0'] = Light(Point(899.01,-180,195), {'pos': NULLP}, {'intensity': (0,0.5,0)})
+        self.objects['spot_scène_1'] = Light(Point(899.01,-60,195), {'pos': NULLP}, {'intensity': (0,1,0.2)})
+        self.objects['spot_scène_2'] = Light(Point(899.01,60,195), {'pos': NULLP}, {'intensity': (0.3,0,0.3)})
+        self.objects['spot_scène_3'] = Light(Point(899.01,180,195), {'pos': NULLP}, {'intensity': (0.6,0.5,0.2)})
+
+        self.objects['spot_haut_1'] = Light(Point(0,0,900), {'pos': NULLP}, {'intensity': (0.1,0.1,0.1)})
+        self.objects['spot_haut_2'] = Light(Point(0,900,1500), {'pos': NULLP}, {'intensity': (0.1,0.1,0.1)})
+
 
 
 if __name__ == '__main__':
