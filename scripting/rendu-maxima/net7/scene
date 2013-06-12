@@ -1,0 +1,30 @@
+//Camera(eye=(0, -6, 0), origin=(-1, -5, -1), abscissa=(2, 0, 0), ordinate=(0, 0, 2), widthPixel=1000, heightPixel=1000)
+Camera(eye=(4.854101966249684, -3.5267115137548393, 1), origin=(4.338977598020973, -2.5344177642748926, 0.5), abscissa=(-0.5877852522924732, -0.8090169943749473, 0), ordinate=(0, 0, 1), widthPixel=1000, heightPixel=1000)
+
+AmbientLights(0.3, 0.3, 0.3)
+Light(pos=(2, 0, 2), intensity=(1, 1, 1))
+Light(pos=(-2, 0, 2), intensity=(1, 1, 1))
+
+// Le sol vert
+//Plane(p3=(0, 0, -3), p1=(1, 0, -3), p2=(0, 1, -3), brightness=30.0, k_diffuse=(0.305, 0.6, 0.082))
+Plane(p3=(0, 0, -3), p1=(1, 0, -3), p2=(0, 1, -3), brightness=30.0, k_diffuse=(0.8, 0.8, 0.8))
+
+// Logo net7
+
+// front
+ImageRect(p1=(-0.5, -0.5, -0.5), p2=(0.5, -0.5, -0.5), p3=(-0.5, -0.5, 0.5), image="../../raytracer_net7/net7_front.png")
+
+// bottom
+ImageRect(p1=(-0.5, 0.5, -0.5), p2=(0.5, 0.5, -0.5), p3=(-0.5, 0.5, 0.5), image="../../raytracer_net7/net7_bottom.png")
+
+// right
+ImageRect(p1=(0.5, -0.5, -0.5), p2=(0.5, 0.5, -0.5), p3=(0.5, -0.5, 0.5), image="../../raytracer_net7/net7_right.png")
+
+// left
+ImageRect(p1=(-0.5, -0.5, -0.5), p3=(-0.5, 0.5, -0.5), p2=(-0.5, -0.5, 0.5), image="../../raytracer_net7/net7_left.png")
+
+// top
+ImageRect(p1=(-0.5, -0.5, 0.5), p2=(0.5, -0.5, 0.5), p3=(-0.5, 0.5, 0.5), image="../../raytracer_net7/net7_top.png")
+
+// bottom
+ImageRect(p1=(-0.5, -0.5, -0.5), p2=(0.5, -0.5, -0.5), p3=(-0.5, 0.5, -0.5), image="../../raytracer_net7/net7_bottom.png")
