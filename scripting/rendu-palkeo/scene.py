@@ -59,7 +59,7 @@ class Confetti(ComplexObject):
         self.vd = (random.uniform(-0.5,0.5)*v, random.uniform(-0.5,0.5)*v, random.uniform(-1,-0.8)*v)
 
     def todelete(self):
-        return self.center.z < 0
+        return self.center.z < -1 or self.center.x > 1001 or (self.center.z < 29 and self.center.x > 901)
 
     def fall(self, interval):
         self.rotate(X, self.vr[0] * interval)
@@ -154,7 +154,7 @@ class PalkeoScene(Scene):
 
         self.objects['sol'] = Plane(Point(0,0,0), {'p1': NULLP, 'p2': X, 'p3': Y}, {'k_diffuse': couleur_sol, 'brightness': 1, 'k_specular': 0})
 
-        self.objects['caméra'] = Camera(Point(300,0,120), {'eye': NULLP, 'abscissa': Vector(0,4/3,0), 'ordinate': Vector(0,0,1), 'origin': Point(self.CAMERA_ZOOM,-2/3,-1/2)}, {'widthPixel': 4*self.HEIGHT//3, 'heightPixel': self.HEIGHT})
+        self.objects['caméra'] = Camera(Point(350,0,120), {'eye': NULLP, 'abscissa': Vector(0,4/3,0), 'ordinate': Vector(0,0,1), 'origin': Point(self.CAMERA_ZOOM,-2/3,-1/2)}, {'widthPixel': 4*self.HEIGHT//3, 'heightPixel': self.HEIGHT})
         #self.objects['caméra'] = Camera(Point(800,200,120), {'eye': NULLP, 'abscissa': Vector(0,4/3,0), 'ordinate': Vector(0,0,1), 'origin': Point(self.CAMERA_ZOOM,-2/3,-1/2)}, {'widthPixel': 800, 'heightPixel': 600})
 
         self.objects['caméra'].rotate(Y, math.pi/30)
@@ -166,7 +166,7 @@ class PalkeoScene(Scene):
         self.objects['plafond_scène'] = Parallelogram(Point(899,-200,200), {'p1': NULLP, 'p2': 101*X, 'p3': 400*Y}, {'k_diffuse': couleur_scène})
         self.objects['bord_plafond_scène'] = Parallelogram(Point(899,-200,200), {'p1': NULLP, 'p2': -20*Z, 'p3': 400*Y}, {'k_diffuse': couleur_scène})
 
-        self.objects['image'] = ImageRect(Point(999.999,-88,60), {'p1': NULLP, 'p2': 176*Y, 'p3': 110*Z}, {'image': '"/home/palkeo/deadmau5.jpg"'})
+        self.objects['image'] = ImageRect(Point(999.999,-88,60), {'p1': NULLP, 'p2': 176*Y, 'p3': 110*Z}, {'image': '"/home/kauguste/deadmau5.jpg"'})
 
         self.objects['mickey'] = Mickey(Point(940,0,30))
 
@@ -192,7 +192,7 @@ class PalkeoScene(Scene):
         self.objects['spot_haut_1'] = Light(Point(0,0,900), {'pos': NULLP}, {'intensity': (0.1,0.1,0.1)})
         self.objects['spot_haut_2'] = Light(Point(900,0,1500), {'pos': NULLP}, {'intensity': (0.1,0.1,0.1)})
 
-        self.objects['confettis'] = Confettis(Point(950,0,200), 1.5)
+        self.objects['confettis'] = Confettis(Point(950,0,200), 1.6)
 
         for i in range(self.NB_SPECTATEURS):
             self.objects['spectateur_%s' % i] = Spectateur(self)
@@ -252,7 +252,7 @@ class PalkeoScene(Scene):
         while t <= t_to:
             f = self.frame(t)
             if t >= t_from:
-                f.write('/tmp/%s%s.scn' % ('0'*(5-len(str(i))),i))
+                f.write('/home/kauguste/rendu/%s%s.scn' % ('0'*(5-len(str(i))),i))
             t += 1/self.FPS
             i += 1
 
