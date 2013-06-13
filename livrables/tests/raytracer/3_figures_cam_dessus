@@ -1,0 +1,11 @@
+// Exemple simple avec les 3 objets de base pour l'oral.
+
+Camera(eye=(10.6, 0, 17.6), origin=(-2, -4, 3), abscissa=(0, 8, 0), ordinate=(-2.82, 0, 2.82), widthPixel=1000, heightPixel=500)
+Light(pos=(7, 0, 0), intensity=(0.5, 0.5, 0.5))
+AmbientLights(0.2, 0.2, 0.2)
+
+Plane(p1=(-10, 0, 0), p2=(-10, 1, 0), p3=(-10, 1, 1), k_diffuse=(0.5,0.5,0.5))
+
+Sphere(center=(-7, 0, 0), radius=1.5)
+Cube(p1=(-7, -4, 0 ), p2=(-7, -4, -1), p3=(-7.32, -4.72, 1.1), p4=(-8, -3.28, 0.72))
+Triangle(p1=(-7, 3, 0), p2=(-7, 5, 1), p3=(-8, 4, -1))
