@@ -54,7 +54,7 @@
 Camera(eye=(0, 0, 0), origin=(-0.5, 0, 1.5),
        abscissa=(1, 0, 0), ordinate=(0, 1, 0),
        widthpixel=200, heightpixel=200)
-Ambientlights(0.2, 0.2, 0.2)
+AmbientLights(0.2, 0.2, 0.2)
 Light(pos=(5, 0, 0), intensity=(0.5, 0.5, 0.5))
 Sphere(center=(0, 5, 20), radius=3.14,
        k_diffuse=(0.6,0.3,0.6))
@@ -94,7 +94,7 @@ Plane(p1=(-1,0,30), p2=(1, 0, 30), p3=(0, 1, 30))
   \begin{frame}{Problèmes rencontrés}
     \begin{itemize}
       \item Un objet peut s'intersecter avec lui-même.
-      \item La réfraction, notamment dans un sphère n'est pas représentative.
+      \item La réfraction, notamment dans une sphère, n'est pas représentative.
       \item Complexité en $O(x\times y\times n^2 \times m)$ avec $n$ le nombre
         d'objets et $m$ le nombre de sources lumineuses.
     \end{itemize}
