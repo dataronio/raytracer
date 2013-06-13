@@ -24,7 +24,7 @@ livrables/rapport.pdf: rapport.tex screen2.png uml.pdf guiuml.pdf
 	pdflatex -interaction nonstopmode -output-directory livrables rapport.tex
 	pdflatex -interaction nonstopmode -output-directory livrables rapport.tex
 
-livrables/presentation.pdf: presentation.tex
+livrables/presentation.pdf: presentation.tex uml_hor.pdf
 	pdflatex -interaction nonstopmode -output-directory livrables presentation.tex
 	pdflatex -interaction nonstopmode -output-directory livrables presentation.tex
 
@@ -42,6 +42,11 @@ uml.pdf: livrables/Uml.xmi
 	umbrello --export svg livrables/Uml.xmi
 	inkscape -A uml.pdf livrables/class\ diagram.svg
 	rm livrables/class\ diagram.svg
+
+uml_hor.pdf: Uml_hor.xmi
+	umbrello --export svg Uml_hor.xmi
+	inkscape -A uml_hor.pdf class\ diagram.svg
+	rm class\ diagram.svg
 
 guiuml.pdf: livrables/GuiUml.xmi
 	umbrello --export svg livrables/GuiUml.xmi
@@ -62,6 +67,7 @@ clean: force
 	rm -f livrables/*.toc
 	rm -f livrables/*.lof
 	rm -f livrables/*.nav
+	rm -f livrables/*.vrb
 	rm -f livrables/*.snm
 	cd livrables; make clean
 
