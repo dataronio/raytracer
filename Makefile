@@ -13,6 +13,8 @@ analyse: gui.png uml.pdf livrables/analyse.pdf
 
 rapport: livrables/rapport.pdf
 
+presentation: livrables/presentation.pdf
+
 livrables/analyse.pdf: analyse.tex
 	pdflatex -interaction nonstopmode -output-directory livrables analyse.tex
 	pdflatex -interaction nonstopmode -output-directory livrables analyse.tex
@@ -21,6 +23,10 @@ livrables/rapport.pdf: rapport.tex screen2.png uml.pdf guiuml.pdf
 	$(warning Les images de test du rapport ne sont pas générées pour des raisons de perf, faites make images_rapport pour les générer)
 	pdflatex -interaction nonstopmode -output-directory livrables rapport.tex
 	pdflatex -interaction nonstopmode -output-directory livrables rapport.tex
+
+livrables/presentation.pdf: presentation.tex
+	pdflatex -interaction nonstopmode -output-directory livrables presentation.tex
+	pdflatex -interaction nonstopmode -output-directory livrables presentation.tex
 
 images_rapport: rapport.tex livrables/tests/raytracer/fichier_simple.png livrables/tests/raytracer/complet.png
 livrables/tests/raytracer/%.png: livrables/tests/raytracer/%
@@ -49,19 +55,20 @@ doc: force
 	cd livrables; make doc
 
 clean: force
-	rm -f livrables/analyse.aux
-	rm -f livrables/analyse.log
-	rm -f livrables/analyse.out
-	rm -f livrables/rapport.aux
-	rm -f livrables/rapport.log
-	rm -f livrables/rapport.out
-	rm -f livrables/rapport.toc
-	rm -f livrables/rapport.lof
+	rm -f livrables/*.aux
+	rm -f livrables/*.log
+	rm -f livrables/*.out
+	rm -f livrables/*.out
+	rm -f livrables/*.toc
+	rm -f livrables/*.lof
+	rm -f livrables/*.nav
+	rm -f livrables/*.snm
 	cd livrables; make clean
 
 cleanall: clean
 	rm -f livrables/analyse.pdf
 	rm -f livrables/rapport.pdf
+	rm -f livrables/presentation.pdf
 	rm -f uml.pdf
 	rm -f guiuml.pdf
 	rm -rf livrables/doc
