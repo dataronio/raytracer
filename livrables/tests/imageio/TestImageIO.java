@@ -4,6 +4,7 @@ import imageio.PPMImageWriterSpi;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.File;
 import javax.imageio.ImageIO;
 import javax.imageio.spi.IIORegistry;
 import org.junit.*;
@@ -53,6 +54,19 @@ public class TestImageIO {
             "255 255 0 0 255 0 0 0 0 \n" +
             "255 255 255 0 255 255 0 0 255 \n"
         );
+    }
+
+    @org.junit.Test
+    public void enseeihtTest() {
+        try {
+            BufferedImage image
+                = ImageIO.read(new File("tests/imageio/enseeiht.png"));
+
+            ImageIO.write(image, "ppm", new File("tests/imageio/enseeiht.ppm"));
+        }
+        catch (IOException e) {
+            org.junit.Assert.fail(e.toString());
+        }
     }
 }
 

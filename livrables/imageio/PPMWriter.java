@@ -104,11 +104,13 @@ public class PPMWriter extends ImageWriter {
             stream.writeBytes(Integer.toString(width));
             stream.writeByte(' ');
             stream.writeBytes(Integer.toString(height));
-            stream.writeBytes("\n255\n"); // todo
+            stream.writeBytes("\n255\n");
 
-            int[] rgb = new int[3];
-            for (int i = 0; i < width; ++i) {
-                for (int j = 0; j < height; ++j) {
+            // le canal alpha est ignoré par ce format, mais si l'image en a un
+            // il faut que ce tableau ait au moins 4 cases.
+            int[] rgb = new int[4];
+            for (int i = 0; i < height; ++i) {
+                for (int j = 0; j < width; ++j) {
                     raster.getPixel(j, i, rgb);
 
                     stream.writeBytes(Integer.toString(rgb[0]));

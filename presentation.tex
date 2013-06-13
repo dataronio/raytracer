@@ -4,7 +4,7 @@
 \usepackage{lmodern}
 \usepackage{amssymb}
 \usepackage[T1]{fontenc}
-\usepackage[lined,boxed,french,onelanguage]{algorithm2e}
+\usepackage{listings}
 
 \title{Oral du projet de Programmation Objet}
 \author{Maxime Arthaud \and Martin Carton \and Korantin Auguste}
@@ -17,6 +17,7 @@
   \end{frame}
 
   \begin{frame}{Introduction}
+    Nous fournissons 3 choses:
     \begin{itemize}
       \item Un format de fichier pour pour pouvoir écrire des scènes à la main,
         dans une interface graphique ou automatiquement.
@@ -31,6 +32,24 @@
         \end{itemize}
     \end{itemize}
   \end{frame}
+
+% ne pas indenter cette frame là, beamer et lstlisting interagissent mal
+% ensemble
+\begin{frame}[fragile]
+\frametitle{Exemple de fichier}
+
+\begin{lstlisting}
+//exemple de scene :
+Camera(eye=(0, 0, 0), origin=(-0.5, 0, 1.5),
+       abscissa=(1, 0, 0), ordinate=(0, 1, 0),
+       widthpixel=200, heightpixel=200)
+Ambientlights(0.2, 0.2, 0.2)
+Light(pos=(5, 0, 0), intensity=(0.5, 0.5, 0.5))
+Sphere(center=(0, 5, 20), radius=3.14,
+       k_diffuse=(0.6,0.3,0.6))
+Plane(p1=(-1,0,30), p2=(1, 0, 30), p3=(0, 1, 30))
+\end{lstlisting}
+\end{frame}
 
   \begin{frame}{Interface utilisateur}
     \centerline{
@@ -53,3 +72,4 @@
     }
   \end{frame}
 \end{document}
+
