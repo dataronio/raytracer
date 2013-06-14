@@ -131,9 +131,9 @@ class PalkeoScene(Scene):
     TOTAL_TIME = 180
     FPS = 24
     PERIODE = 180/385
-    HEIGHT = 600
+    HEIGHT = 768
     TIME_START = 0
-    TIME_STOP = 80 # 182
+    TIME_STOP = 182
 
     def iter(self, basename):
         i = 0
@@ -154,7 +154,7 @@ class PalkeoScene(Scene):
 
         self.objects['sol'] = Plane(Point(0,0,0), {'p1': NULLP, 'p2': X, 'p3': Y}, {'k_diffuse': couleur_sol, 'brightness': 1, 'k_specular': 0})
 
-        self.objects['caméra'] = Camera(Point(350,0,120), {'eye': NULLP, 'abscissa': Vector(0,4/3,0), 'ordinate': Vector(0,0,1), 'origin': Point(self.CAMERA_ZOOM,-2/3,-1/2)}, {'widthPixel': 4*self.HEIGHT//3, 'heightPixel': self.HEIGHT})
+        self.objects['caméra'] = Camera(Point(380,0,120), {'eye': NULLP, 'abscissa': Vector(0,4/3,0), 'ordinate': Vector(0,0,1), 'origin': Point(self.CAMERA_ZOOM,-2/3,-1/2)}, {'widthPixel': 4*self.HEIGHT//3, 'heightPixel': self.HEIGHT})
         #self.objects['caméra'] = Camera(Point(800,200,120), {'eye': NULLP, 'abscissa': Vector(0,4/3,0), 'ordinate': Vector(0,0,1), 'origin': Point(self.CAMERA_ZOOM,-2/3,-1/2)}, {'widthPixel': 800, 'heightPixel': 600})
 
         self.objects['caméra'].rotate(Y, math.pi/30)
@@ -189,8 +189,8 @@ class PalkeoScene(Scene):
         self.objects['spot_scène_2'] = Light(Point(899.01,60,195), {'pos': NULLP}, {'intensity': (0,0,0)})
         self.objects['spot_scène_3'] = Light(Point(899.01,180,195), {'pos': NULLP}, {'intensity': (0,0,0)})
 
-        self.objects['spot_haut_1'] = Light(Point(0,0,900), {'pos': NULLP}, {'intensity': (0.1,0.1,0.1)})
-        self.objects['spot_haut_2'] = Light(Point(900,0,1500), {'pos': NULLP}, {'intensity': (0.1,0.1,0.1)})
+        self.objects['spot_haut_1'] = Light(Point(0,0,900), {'pos': NULLP}, {'intensity': (0.05,0.05,0.05)})
+        self.objects['spot_haut_2'] = Light(Point(900,0,1500), {'pos': NULLP}, {'intensity': (0.05,0.05,0.05)})
 
         self.objects['confettis'] = Confettis(Point(950,0,200), 1.6)
 
@@ -199,26 +199,27 @@ class PalkeoScene(Scene):
 
 
     def frame(self, t):
-        coef_spots_scène = min(t/4, 1)
+        coef_spots_scène = max(min((t-4)/8, 1), 0)
         coef_spots_public = max(min((t-12)/40, 1), 0)
 
         for s in self.iter('spot_public_'):
-            c_avant = abs(math.sin((t-1/self.FPS)*math.pi/self.PERIODE))
-            c_apres = abs(math.sin((t+1/self.FPS)*math.pi/self.PERIODE))
-            c = abs(math.sin(t*math.pi/self.PERIODE))
+            c_avant = abs(math.sin((t-1/self.FPS)*0.5*math.pi/self.PERIODE))
+            c_apres = abs(math.sin((t+1/self.FPS)*0.5*math.pi/self.PERIODE))
+            c = abs(math.sin(t*0.5*math.pi/self.PERIODE))
             if not hasattr(s, 'color') or c_avant > c < c_apres:
                 s.color = (random.random(), random.random(), random.random())
             s.setIntensity(tuple(i*c*coef_spots_public for i in s.color))
 
-        for s in self.iter('spot_scène_'):
-            c_avant = abs(math.cos((t-1/self.FPS)*math.pi/self.PERIODE))
-            c_apres = abs(math.cos((t+1/self.FPS)*math.pi/self.PERIODE))
-            c = abs(math.cos(t*0.5*math.pi/self.PERIODE))
+        for i, s in enumerate(self.iter('spot_scène_')):
+            phi = math.pi*i/4
+            c_avant = abs(math.cos(phi + (t-1/self.FPS)*0.5*math.pi/self.PERIODE))
+            c_apres = abs(math.cos(phi + (t+1/self.FPS)*0.5*math.pi/self.PERIODE))
+            c = abs(math.cos(phi + t*0.5*math.pi/self.PERIODE))
             if not hasattr(s, 'color') or c_avant > c < c_apres:
                 s.color = (random.random(), random.random(), random.random())
             s.setIntensity(tuple(i*c*coef_spots_scène for i in s.color))
 
-        if 42 < t < 71 or 103 < t < 133 or t > 163:
+        if 39 < t < 69 or 100 < t < 132 or t > 163:
             self.objects['confettis'].create()
         self.objects['confettis'].fall(1/self.FPS)
         self.objects['confettis'].delete()
@@ -239,9 +240,12 @@ class PalkeoScene(Scene):
         s.objects['cube_disco_1'].rotate(Z,-t*math.pi/5)
 
         if t > 26:
-            s.objects['mickey'].rotate(Z, math.pi*math.cos(t*2*math.pi/self.PERIODE)/4)
+            s.objects['mickey'].rotate(Z, math.pi*math.cos(t*math.pi/self.PERIODE)/4)
         if t > 88:
             s.objects['mickey'].jump(t, self.PERIODE)
+
+        if t > 161:
+            s.objects['caméra'].translate(X*((t-161)*370/11))
 
         return s
 
@@ -252,7 +256,7 @@ class PalkeoScene(Scene):
         while t <= t_to:
             f = self.frame(t)
             if t >= t_from:
-                f.write('/home/kauguste/rendu/%s%s.scn' % ('0'*(5-len(str(i))),i))
+                f.write('/tmp/rendu/%s%s.scn' % ('0'*(5-len(str(i))),i))
             t += 1/self.FPS
             i += 1
 
