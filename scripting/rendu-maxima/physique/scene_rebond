@@ -1,0 +1,16 @@
+//Camera(eye=(0, -15, 12), origin=(-1, -14, 11), abscissa=(2, 0, 0), ordinate=(0, 0, 2), widthPixel=1000, heightPixel=1000)
+
+AmbientLights(0.1, 0.1, 0.1)
+Light(pos=(12, 0, 20), intensity=(0.5, 0.5, 0.5))
+Light(pos=(0, 12, 20), intensity=(0.5, 0.5, 0.5))
+Light(pos=(-12, 0, 20), intensity=(0.5, 0.5, 0.5))
+Light(pos=(0, -12, 20), intensity=(0.5, 0.5, 0.5))
+
+// Le trou
+Triangle(p1=(0, 0, 0), p2=(10, 10, 10), p3=(-10, 10, 10), brightness=20.0, k_diffuse=(0.8, 0.8, 0.8))
+Triangle(p1=(0, 0, 0), p2=(10, 10, 10), p3=(10, -10, 10), brightness=20.0, k_diffuse=(0.8, 0.8, 0.8))
+Triangle(p1=(0, 0, 0), p2=(-10, -10, 10), p3=(10, -10, 10), brightness=20.0, k_diffuse=(0.8, 0.8, 0.8))
+Triangle(p1=(0, 0, 0), p2=(-10, -10, 10), p3=(-10, 10, 10), brightness=20.0, k_diffuse=(0.8, 0.8, 0.8))
+
+// Le sol
+Plane(p1=(0, 0, -10), p2=(1, 0, -10), p3=(0, 1, -10), brightness=30.0, k_diffuse=(0.8, 0, 0))
